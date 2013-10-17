@@ -10,4 +10,11 @@
 
 @implementation WeatherModel
 
++ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius
+{
+    float c = [celsius floatValue];
+    float f = c * 9 / 5 + 32;
+    return [NSNumber numberWithFloat:f];
+}
+
 @end

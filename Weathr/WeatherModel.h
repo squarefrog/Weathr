@@ -18,4 +18,6 @@
 @property (nonatomic, strong)   NSNumber *lat;
 @property (nonatomic, strong)   NSNumber *lon;
 
++ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
+
 @end

@@ -63,4 +63,13 @@
     XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(lon)], @"lon property does not exist on weather model class");
 }
 
+#pragma mark - Methods
+
+- (void)testTemperatureConversion
+{
+    NSNumber *celsius = [NSNumber numberWithFloat:20.0];
+    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
+    XCTAssertEqual([fahrenheit floatValue], 68.0f, @"Temperature conversion should equal 68, got %f", [fahrenheit floatValue]);
+}
+
 @end
