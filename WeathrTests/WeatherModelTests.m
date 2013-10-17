@@ -67,9 +67,9 @@
 
 - (void)testTemperatureConversion
 {
-    NSNumber *celsius = [NSNumber numberWithFloat:20.0];
+    NSNumber *celsius = [NSNumber numberWithFloat:19.0];
     NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
-    XCTAssertEqual([fahrenheit floatValue], 68.0f, @"Temperature conversion should equal 68, got %f", [fahrenheit floatValue]);
+    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Temperature conversion should equal 68, got %f", [fahrenheit floatValue]);
 }
 
 @end
