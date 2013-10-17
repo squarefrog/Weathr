@@ -26,6 +26,7 @@
 		0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA35181011750034A739 /* WeatherModelTests.m */; };
+		0EEBAA38181031BC0034A739 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEBAA37181031BC0034A739 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		0EEBAA311810115F0034A739 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		0EEBAA321810115F0034A739 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		0EEBAA35181011750034A739 /* WeatherModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelTests.m; sourceTree = "<group>"; };
+		0EEBAA37181031BC0034A739 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EEBAA38181031BC0034A739 /* CoreLocation.framework in Frameworks */,
 				0EC170D5180F534C007F501B /* CoreGraphics.framework in Frameworks */,
 				0EC170D7180F534C007F501B /* UIKit.framework in Frameworks */,
 				0EC170D3180F534C007F501B /* Foundation.framework in Frameworks */,
@@ -112,6 +115,7 @@
 		0EC170D1180F534C007F501B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EEBAA37181031BC0034A739 /* CoreLocation.framework */,
 				0EC170D2180F534C007F501B /* Foundation.framework */,
 				0EC170D4180F534C007F501B /* CoreGraphics.framework */,
 				0EC170D6180F534C007F501B /* UIKit.framework */,
