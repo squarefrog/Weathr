@@ -22,6 +22,7 @@
 		0EC170F7180F534D007F501B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D6180F534C007F501B /* UIKit.framework */; };
 		0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EC170FD180F534D007F501B /* InfoPlist.strings */; };
 		0EC17101180F534D007F501B /* WeathrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17100180F534D007F501B /* WeathrTests.m */; };
+		0EEBAA2C180FFE5E0034A739 /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		0EC170FC180F534D007F501B /* WeathrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WeathrTests-Info.plist"; sourceTree = "<group>"; };
 		0EC170FE180F534D007F501B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0EC17100180F534D007F501B /* WeathrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeathrTests.m; sourceTree = "<group>"; };
+		0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
+		0EEBAA2D181007D60034A739 /* ViewController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Protected.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +143,8 @@
 		0EC170FA180F534D007F501B /* WeathrTests */ = {
 			isa = PBXGroup;
 			children = (
+				0EEBAA30181008270034A739 /* Categories */,
+				0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */,
 				0EC17100180F534D007F501B /* WeathrTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
 			);
@@ -153,6 +158,14 @@
 				0EC170FD180F534D007F501B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0EEBAA30181008270034A739 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0EEBAA2D181007D60034A739 /* ViewController+Protected.h */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EEBAA2C180FFE5E0034A739 /* ViewControllerTests.m in Sources */,
 				0EC17101180F534D007F501B /* WeathrTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +488,7 @@
 				0EC17106180F534D007F501B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0EC17107180F534D007F501B /* Build configuration list for PBXNativeTarget "WeathrTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +497,7 @@
 				0EC17109180F534D007F501B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

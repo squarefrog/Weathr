@@ -10,6 +10,10 @@
 
 @interface ViewController ()
 
+@property (nonatomic, weak) IBOutlet UIImageView *weatherIcon;
+@property (nonatomic, weak) IBOutlet UILabel *weatherDescription;
+@property (nonatomic, weak) IBOutlet UILabel *lastUpdatedLabel;
+
 @end
 
 @implementation ViewController

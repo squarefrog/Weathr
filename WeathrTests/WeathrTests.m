@@ -7,8 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "ViewController.h"
+#import "ViewController+Protected.h"
 
 @interface WeathrTests : XCTestCase
+
+@property (nonatomic, weak) ViewController *vc;
+@property (nonatomic, copy) NSString *storyboardName;
 
 @end
 
@@ -17,18 +22,38 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        _storyboardName = @"Main_iPhone";
+    else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        _storyboardName = @"Main_iPad";
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:_storyboardName bundle:nil];
+    _vc = (ViewController *)[mainStoryboard instantiateInitialViewController];
+    [self.vc performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
+    
+    XCTAssertNotNil(_vc, @"ViewController should not be nil for storyboard %@", _storyboardName);
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testExample
+#pragma mark - Test UI is complete
+- (void)testViewHasWeatherIcon
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    XCTAssertTrue([_vc.weatherIcon isDescendantOfView:_vc.view], @"weatherIcon outlet should be present for %@", _storyboardName);
+}
+
+- (void)testViewHasWeatherDescriptionLabel
+{
+    XCTAssertTrue([_vc.weatherDescription isDescendantOfView:_vc.view], @"weatherDescription outlet should be present for %@", _storyboardName);
+}
+
+- (void)testViewHasLastUpdatedLabel
+{
+    XCTAssertTrue([_vc.lastUpdatedLabel isDescendantOfView:_vc.view], @"lastUpdated outlet should be present for %@", _storyboardName);
 }
 
 @end
