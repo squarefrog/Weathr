@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class CLLocation;
 
 @interface WeatherModel : NSObject
 
@@ -15,8 +16,7 @@
 @property (nonatomic, copy)     NSString *icon;
 @property (nonatomic, copy)     NSString *locationName;
 @property (nonatomic, strong)   NSDate   *lastUpdated;
-@property (nonatomic, strong)   NSNumber *lat;
-@property (nonatomic, strong)   NSNumber *lon;
+@property (nonatomic, strong)   CLLocation *location;
 
 + (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin;
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;

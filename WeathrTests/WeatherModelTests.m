@@ -53,15 +53,11 @@
     XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(lastUpdated)], @"lastUpdated property does not exist on weather model class");
 }
 
-- (void)testModelHasLatitudeProperty
+- (void)testModelHasLocationProperty
 {
-    XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(lat)], @"lat property does not exist on weather model class");
+    XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(location)], @"Location property does not exist on weather model class");
 }
 
-- (void)testModelHasLongitudeProperty
-{
-    XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(lon)], @"lon property does not exist on weather model class");
-}
 
 #pragma mark - Methods
 
