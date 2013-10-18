@@ -12,48 +12,54 @@
 
 @interface ViewControllerTests : XCTestCase
 
-@property (nonatomic, weak) ViewController *vc;
-@property (nonatomic, copy) NSString *storyboardName;
+@property (nonatomic, weak) ViewController *sut;
 
 @end
 
 @implementation ViewControllerTests
 
+- (NSString *)returnStoryboardName
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        return @"Main_iPhone";
+    else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        return @"Main_iPad";
+    else
+        return nil;
+}
+
 - (void)setUp
 {
     [super setUp];
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        _storyboardName = @"Main_iPhone";
-    else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-        _storyboardName = @"Main_iPad";
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:_storyboardName bundle:nil];
-    _vc = (ViewController *)[mainStoryboard instantiateInitialViewController];
-    [self.vc performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    
-    XCTAssertNotNil(_vc, @"ViewController should not be nil for storyboard %@", _storyboardName);
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:[self returnStoryboardName]
+                                                             bundle:nil];
+    _sut = (ViewController *)[mainStoryboard instantiateInitialViewController];
+    XCTAssertNotNil(_sut, @"ViewController should not be nil for storyboard %@", [self returnStoryboardName]);
 }
 
 - (void)tearDown
 {
+    _sut = nil;
     [super tearDown];
 }
 
 #pragma mark - Test UI is complete
-- (void)testViewHasWeatherIcon
+- (void)testWeatherIconImageViewShouldBeConnected
 {
-    XCTAssertTrue([_vc.weatherIcon isDescendantOfView:_vc.view], @"weatherIcon outlet should be present for %@", _storyboardName);
+    [_sut view];
+    XCTAssertNotNil(_sut.weatherIcon, @"Weather icon image view should not be nil");
 }
 
-- (void)testViewHasWeatherDescriptionLabel
+- (void)testWeatherDescriptionLabelShouldBeConnected
 {
-    XCTAssertTrue([_vc.weatherDescription isDescendantOfView:_vc.view], @"weatherDescription outlet should be present for %@", _storyboardName);
+    [_sut view];
+    XCTAssertNotNil(_sut.weatherDescription, @"Weather description label should not be nil");
 }
 
-- (void)testViewHasLastUpdatedLabel
+- (void)testLastUpdatedLabelShouldBeConnected
 {
-    XCTAssertTrue([_vc.lastUpdatedLabel isDescendantOfView:_vc.view], @"lastUpdated outlet should be present for %@", _storyboardName);
+    [_sut view];
+    XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should not be nil");
 }
 
 @end
