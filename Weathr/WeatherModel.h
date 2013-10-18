@@ -18,6 +18,7 @@
 @property (nonatomic, strong)   NSNumber *lat;
 @property (nonatomic, strong)   NSNumber *lon;
 
++ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin;
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
 
 @end

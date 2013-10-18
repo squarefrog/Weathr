@@ -10,6 +10,13 @@
 
 @implementation WeatherModel
 
++ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
+{
+    float k = [kelvin floatValue];
+    float c = k - 273.15;
+    return [NSNumber numberWithFloat:c];
+}
+
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius
 {
     float c = [celsius floatValue];

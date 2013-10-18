@@ -65,11 +65,20 @@
 
 #pragma mark - Methods
 
-- (void)testTemperatureConversion
+- (void)testTemperatureConversionKelvin
+{
+    NSNumber *kelvin = [NSNumber numberWithFloat:284.94];
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
+    NSNumber *expected = [NSNumber numberWithFloat:11.79];
+    XCTAssertEqualWithAccuracy([celsius floatValue], [expected floatValue], 0.00001, @"Kelvin conversion should equal %f, got %f", [expected floatValue], [celsius floatValue]);
+}
+
+
+- (void)testTemperatureConversionFahrenheit
 {
     NSNumber *celsius = [NSNumber numberWithFloat:19.0];
     NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
-    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Temperature conversion should equal 68, got %f", [fahrenheit floatValue]);
+    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Fahrenheit conversion should equal 68, got %f", [fahrenheit floatValue]);
 }
 
 @end
