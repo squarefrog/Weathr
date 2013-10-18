@@ -64,6 +64,11 @@
     return COLOUR_COLD;
 }
 
+- (void)updateViewBackgroundColour: (UIColor *)color
+{
+    self.view.backgroundColor = color;
+}
+
 #pragma mark - Core Location
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -115,4 +115,11 @@
     XCTAssertEqualObjects(testCase, COLOUR_HOT, @"Colour should be hot colour");
 }
 
+- (void)testViewBackgroundColourCanBeChanged
+{
+    _sut.view.backgroundColor = COLOUR_COLD;
+    [_sut updateViewBackgroundColour: COLOUR_HOT];
+    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
+}
+
 @end
