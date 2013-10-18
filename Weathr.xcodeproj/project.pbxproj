@@ -153,9 +153,9 @@
 		0EC170FA180F534D007F501B /* WeathrTests */ = {
 			isa = PBXGroup;
 			children = (
-				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0EEBAA30181008270034A739 /* Categories */,
 				0EC17100180F534D007F501B /* ViewControllerTests.m */,
+				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
 			);
 			path = WeathrTests;

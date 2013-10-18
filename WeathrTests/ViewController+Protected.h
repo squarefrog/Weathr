@@ -14,4 +14,8 @@
 @property (nonatomic, weak) UILabel *weatherDescription;
 @property (nonatomic, weak) UILabel *lastUpdatedLabel;
 
+- (void)loadImageNamed: (NSString *)imageName;
+- (void)updateWeatherDescription: (NSString *)description;
+- (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
+
 @end

@@ -36,6 +36,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Methods
+- (void)loadImageNamed: (NSString *)imageName
+{
+    _weatherIcon.image = [UIImage imageNamed:imageName];
+}
+
+- (void)updateWeatherDescription: (NSString *)description
+{
+    _weatherDescription.text = description;
+}
+
+- (void)updateLastUpdatedLabel: (NSString *)lastUpdated
+{
+    _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last updated: %@", lastUpdated];
+}
+
 #pragma mark - Core Location
 
 - (void)locationManager:(CLLocationManager *)manager

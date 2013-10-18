@@ -62,4 +62,31 @@
     XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should not be nil");
 }
 
+#pragma mark - Methods
+
+- (void)testWeatherIconCanBeUpdated {
+    [_sut view];
+    
+    [_sut loadImageNamed:@"01d"];
+    
+    XCTAssertEqual(_sut.weatherIcon.image, [UIImage imageNamed:@"01d"], @"Weather icon should be updated");
+}
+
+- (void)testWeatherDescriptionLabelCanBeUpdated {
+    [_sut view];
+    NSString *testCase = @"Mostly cloudy";
+    [_sut updateWeatherDescription: testCase];
+    
+    XCTAssertEqualObjects(_sut.weatherDescription.text, testCase, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+}
+
+- (void)testLastUpdatedCanBeUpdated {
+    [_sut view];
+    NSString *testCase = @"24/10/2013 14:30:23";
+    [_sut updateLastUpdatedLabel: testCase];
+    
+    NSString *testAssertion = [NSString stringWithFormat:@"Last updated: %@", testCase];
+    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, testAssertion, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+}
+
 @end
