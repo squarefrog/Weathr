@@ -81,4 +81,15 @@
     XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Fahrenheit conversion should equal 68, got %f", [fahrenheit floatValue]);
 }
 
+- (void)testDateCanBeConvertedToNaturalLanguage
+{
+    NSDate *testDate = [NSDate date];
+    NSDateFormatter *f = [[NSDateFormatter alloc] init];
+    [f setDateStyle:NSDateFormatterShortStyle];
+    [f setTimeStyle:NSDateFormatterShortStyle];
+    
+    NSString *testString = [WeatherModel parseDate:testDate];
+    XCTAssertEqualObjects(testString, [f stringFromDate:testDate], @"NSDate parsed incorrectly");
+}
+
 @end

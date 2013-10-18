@@ -20,5 +20,5 @@
 
 + (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin;
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
-
++ (NSString *)parseDate: (NSDate *)date;
 @end

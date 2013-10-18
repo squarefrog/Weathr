@@ -24,4 +24,12 @@
     return [NSNumber numberWithFloat:f];
 }
 
++ (NSString *)parseDate: (NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterShortStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    return [formatter stringFromDate: date];
+}
+
 @end
