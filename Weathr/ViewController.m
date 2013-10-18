@@ -52,6 +52,18 @@
     _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last updated: %@", lastUpdated];
 }
 
+#pragma mark - Colour Methods
+- (UIColor *)pickColourUsingTemperature: (NSNumber *)temp
+{
+    if ([temp floatValue] >= 10.0f && [temp floatValue] < 18.0f)
+        return COLOUR_COOL;
+    else if ([temp floatValue] >= 18.0f && [temp floatValue] < 27.0f)
+        return COLOUR_WARM;
+    else if ([temp floatValue] >= 27.0f)
+        return COLOUR_HOT;
+    return COLOUR_COLD;
+}
+
 #pragma mark - Core Location
 
 - (void)locationManager:(CLLocationManager *)manager

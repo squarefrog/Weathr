@@ -17,5 +17,6 @@
 - (void)loadImageNamed: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSString *)description;
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
+- (UIColor *)pickColourUsingTemperature: (NSNumber *)temp;
 
 @end

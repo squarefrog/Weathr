@@ -62,7 +62,7 @@
     XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should not be nil");
 }
 
-#pragma mark - Methods
+#pragma mark - Outlet updates
 
 - (void)testWeatherIconCanBeUpdated {
     [_sut view];
@@ -87,6 +87,32 @@
     
     NSString *testAssertion = [NSString stringWithFormat:@"Last updated: %@", testCase];
     XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, testAssertion, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+}
+
+#pragma mark - UI updates
+
+- (void)testControllerShouldChooseColdColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:8.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_COLD, @"Colour should be cold colour");
+}
+
+- (void)testControllerShouldChooseCoolColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:10.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_COOL, @"Colour should be cool colour");
+}
+
+- (void)testControllerShouldChooseWarmColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:20.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_WARM, @"Colour should be warm colour");
+}
+
+- (void)testControllerShouldChooseHotColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:30.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_HOT, @"Colour should be hot colour");
 }
 
 @end
