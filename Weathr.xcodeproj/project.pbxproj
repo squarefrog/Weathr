@@ -21,8 +21,7 @@
 		0EC170F6180F534D007F501B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D2180F534C007F501B /* Foundation.framework */; };
 		0EC170F7180F534D007F501B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D6180F534C007F501B /* UIKit.framework */; };
 		0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EC170FD180F534D007F501B /* InfoPlist.strings */; };
-		0EC17101180F534D007F501B /* WeathrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17100180F534D007F501B /* WeathrTests.m */; };
-		0EEBAA2C180FFE5E0034A739 /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */; };
+		0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17100180F534D007F501B /* ViewControllerTests.m */; };
 		0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA35181011750034A739 /* WeatherModelTests.m */; };
@@ -59,8 +58,7 @@
 		0EC170F4180F534D007F501B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0EC170FC180F534D007F501B /* WeathrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WeathrTests-Info.plist"; sourceTree = "<group>"; };
 		0EC170FE180F534D007F501B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0EC17100180F534D007F501B /* WeathrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeathrTests.m; sourceTree = "<group>"; };
-		0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
+		0EC17100180F534D007F501B /* ViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
 		0EEBAA2D181007D60034A739 /* ViewController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Protected.h"; sourceTree = "<group>"; };
 		0EEBAA311810115F0034A739 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		0EEBAA321810115F0034A739 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
@@ -157,8 +155,7 @@
 			children = (
 				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0EEBAA30181008270034A739 /* Categories */,
-				0EEBAA2B180FFE5E0034A739 /* ViewControllerTests.m */,
-				0EC17100180F534D007F501B /* WeathrTests.m */,
+				0EC17100180F534D007F501B /* ViewControllerTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
 			);
 			path = WeathrTests;
@@ -291,9 +288,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */,
-				0EEBAA2C180FFE5E0034A739 /* ViewControllerTests.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
-				0EC17101180F534D007F501B /* WeathrTests.m in Sources */,
+				0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
