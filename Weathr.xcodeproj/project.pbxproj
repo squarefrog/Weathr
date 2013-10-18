@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManager.m */; };
+		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
 		0EC170D3180F534C007F501B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D2180F534C007F501B /* Foundation.framework */; };
 		0EC170D5180F534C007F501B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D4180F534C007F501B /* CoreGraphics.framework */; };
 		0EC170D7180F534C007F501B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D6180F534C007F501B /* UIKit.framework */; };
@@ -39,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E18C1481811410A00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
+		0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherAPIManager.h; sourceTree = "<group>"; };
+		0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0EC170CF180F534C007F501B /* Weathr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weathr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC170D2180F534C007F501B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0EC170D4180F534C007F501B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,6 +138,8 @@
 				0EC170EB180F534D007F501B /* ViewController.m */,
 				0EEBAA311810115F0034A739 /* WeatherModel.h */,
 				0EEBAA321810115F0034A739 /* WeatherModel.m */,
+				0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */,
+				0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */,
 				0EC170ED180F534D007F501B /* Images.xcassets */,
 				0EC170D9180F534C007F501B /* Supporting Files */,
 			);
@@ -157,6 +164,7 @@
 				0EC17100180F534D007F501B /* ViewControllerTests.m */,
 				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
+				0E18C1481811410A00E0DC5E /* OpenWeatherAPIManager.m */,
 			);
 			path = WeathrTests;
 			sourceTree = "<group>";
@@ -280,6 +288,7 @@
 				0EC170E3180F534C007F501B /* AppDelegate.m in Sources */,
 				0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */,
 				0EC170DF180F534C007F501B /* main.m in Sources */,
+				0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */,
+				0E18C1491811410A00E0DC5E /* OpenWeatherAPIManager.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
 				0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */,
 			);
