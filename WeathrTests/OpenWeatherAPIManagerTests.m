@@ -13,7 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface OpenWeatherAPIManagerTests : XCTestCase
-@property (nonatomic,copy) NSString *url;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, strong) OpenWeatherAPIManager *manager;
 @end
 
 @implementation OpenWeatherAPIManagerTests
@@ -22,11 +23,14 @@
 {
     [super setUp];
     _url = @"http://api.openweathermap.org/data/2.5/weather?";
+    _manager = [[OpenWeatherAPIManager alloc] init];
+    XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
 - (void)tearDown
 {
     _url = nil;
+    _manager = nil;
     [super tearDown];
 }
 
@@ -38,7 +42,9 @@
 - (void)testAPIURLCanHaveLocationInjected {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
     NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, location.coordinate.latitude, location.coordinate.longitude];
-    NSURL *returnedURL = [OpenWeatherAPIManager createAPIURLWithLocation:location];
+    [_manager updateURLWithLocation:location];
+    NSURL *returnedURL = _manager.fetchingURL;
     XCTAssertEqualObjects([returnedURL absoluteString], urlString, @"Open weather map API url not modified correctly");
 }
+
 @end

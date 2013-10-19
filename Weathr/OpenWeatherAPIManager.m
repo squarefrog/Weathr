@@ -10,12 +10,16 @@
 
 NSString * const OpenWeatherMapAPIUrl = @"http://api.openweathermap.org/data/2.5/weather?";
 
+@interface OpenWeatherAPIManager ()
+@property (nonatomic, strong) NSURL *fetchingURL;
+@end
+
 @implementation OpenWeatherAPIManager
 
-+ (NSURL *)createAPIURLWithLocation:(CLLocation *)location;
+- (void)updateURLWithLocation:(CLLocation *)location;
 {
     NSString *newUrl = [NSString stringWithFormat:@"%@lat=%f&lon=%f", OpenWeatherMapAPIUrl, location.coordinate.latitude, location.coordinate.longitude];
-    return [NSURL URLWithString:newUrl];
+    _fetchingURL = [NSURL URLWithString:newUrl];
 }
 
 @end

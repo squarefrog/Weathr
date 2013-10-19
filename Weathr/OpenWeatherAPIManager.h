@@ -11,6 +11,8 @@
 
 extern NSString * const OpenWeatherMapAPIUrl;
 
-@interface OpenWeatherAPIManager : NSObject
+@interface OpenWeatherAPIManager : NSObject 
+
+- (void)updateURLWithLocation:(CLLocation *)location;
 
 @end

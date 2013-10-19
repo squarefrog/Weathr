@@ -9,7 +9,5 @@
 #import "OpenWeatherAPIManager.h"
 
 @interface OpenWeatherAPIManager (Protected)
-
-+ (NSURL *)createAPIURLWithLocation:(CLLocation *)location;
-
+@property (nonatomic, strong) NSURL *fetchingURL;
 @end
