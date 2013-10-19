@@ -11,6 +11,5 @@
 @interface InspectableOpenWeatherAPIManager : OpenWeatherAPIManager
 
 - (NSURL *)URLToFetch;
-- (NSURLSession *)currentURLSession;
 
 @end
