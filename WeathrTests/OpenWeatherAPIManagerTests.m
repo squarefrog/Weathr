@@ -9,12 +9,12 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 #import "OpenWeatherAPIManager.h"
-#import "OpenWeatherAPIManager+Protected.h"
+#import "InspectableOpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface OpenWeatherAPIManagerTests : XCTestCase
 @property (nonatomic, copy) NSString *url;
-@property (nonatomic, strong) OpenWeatherAPIManager *manager;
+@property (nonatomic, strong) InspectableOpenWeatherAPIManager *manager;
 @end
 
 @implementation OpenWeatherAPIManagerTests
@@ -23,7 +23,7 @@
 {
     [super setUp];
     _url = @"http://api.openweathermap.org/data/2.5/weather?";
-    _manager = [[OpenWeatherAPIManager alloc] init];
+    _manager = [[InspectableOpenWeatherAPIManager alloc] init];
     XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
@@ -43,8 +43,13 @@
     CLLocation *location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
     NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, location.coordinate.latitude, location.coordinate.longitude];
     [_manager updateURLWithLocation:location];
-    NSURL *returnedURL = _manager.fetchingURL;
+    NSURL *returnedURL = [_manager URLToFetch];
     XCTAssertEqualObjects([returnedURL absoluteString], urlString, @"Open weather map API url not modified correctly");
 }
+
+//- (void)test<#Foo_ShouldBar#>
+//{
+//    
+//}
 
 @end

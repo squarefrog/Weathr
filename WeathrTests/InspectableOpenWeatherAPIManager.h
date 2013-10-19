@@ -1,5 +1,5 @@
 //
-//  OpenWeatherAPIManager+Protected.h
+//  InspectableOpenWeatherAPIManager.h
 //  Weathr
 //
 //  Created by Paul Williamson on 19/10/2013.
@@ -8,6 +8,8 @@
 
 #import "OpenWeatherAPIManager.h"
 
-@interface OpenWeatherAPIManager (Protected)
-@property (nonatomic, strong) NSURL *fetchingURL;
+@interface InspectableOpenWeatherAPIManager : OpenWeatherAPIManager
+
+- (NSURL *)URLToFetch;
+
 @end
