@@ -16,6 +16,7 @@ extern NSString * const OpenWeatherMapAPIUrl;
     NSURL *fetchingURL;
 }
 
+- (id)initWithLocation:(CLLocation *)location;
 - (void)updateURLWithLocation:(CLLocation *)location;
 
 @end

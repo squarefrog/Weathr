@@ -14,6 +14,7 @@
 
 @interface OpenWeatherAPIManagerTests : XCTestCase
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) InspectableOpenWeatherAPIManager *manager;
 @end
 
@@ -23,7 +24,8 @@
 {
     [super setUp];
     _url = @"http://api.openweathermap.org/data/2.5/weather?";
-    _manager = [[InspectableOpenWeatherAPIManager alloc] init];
+    _location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
+    _manager = [[InspectableOpenWeatherAPIManager alloc] initWithLocation:_location];
     XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
@@ -40,16 +42,15 @@
 }
 
 - (void)testAPIURLCanHaveLocationInjected {
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
-    NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, location.coordinate.latitude, location.coordinate.longitude];
-    [_manager updateURLWithLocation:location];
+    NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, _location.coordinate.latitude, _location.coordinate.longitude];
+    [_manager updateURLWithLocation:_location];
     NSURL *returnedURL = [_manager URLToFetch];
     XCTAssertEqualObjects([returnedURL absoluteString], urlString, @"Open weather map API url not modified correctly");
 }
 
-//- (void)test<#Foo_ShouldBar#>
-//{
-//    
-//}
+- (void)testLocationCanBePassedDuringInit
+{
+    XCTAssertNotNil([_manager URLToFetch], @"Instantiated OpenWeatherAPIManager should have a url");
+}
 
 @end
