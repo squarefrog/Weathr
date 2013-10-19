@@ -30,4 +30,10 @@ NSString * const OpenWeatherMapAPIUrl = @"http://api.openweathermap.org/data/2.5
     fetchingURL = [NSURL URLWithString:newUrl];
 }
 
+- (void)createSession
+{
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    session = [NSURLSession sessionWithConfiguration:config];
+}
+
 @end

@@ -15,4 +15,9 @@
     return fetchingURL;
 }
 
+- (NSURLSession *)currentURLSession
+{
+    return session;
+}
+
 @end

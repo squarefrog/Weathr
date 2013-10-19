@@ -53,4 +53,10 @@
     XCTAssertNotNil([_manager URLToFetch], @"Instantiated OpenWeatherAPIManager should have a url");
 }
 
+- (void)testURLSessionCanBeCreated
+{
+    [_manager createSession];
+    XCTAssertNotNil([_manager currentURLSession], @"An NSURLSession should be created");
+}
+
 @end
