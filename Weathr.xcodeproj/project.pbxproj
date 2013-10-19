@@ -44,6 +44,7 @@
 		0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManagerTests.m; sourceTree = "<group>"; };
 		0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
+		0E7D770B18129FAA0081474A /* OpenWeatherAPIManager+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OpenWeatherAPIManager+Protected.h"; sourceTree = "<group>"; };
 		0EC170CF180F534C007F501B /* Weathr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weathr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC170D2180F534C007F501B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0EC170D4180F534C007F501B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -182,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				0EEBAA2D181007D60034A739 /* ViewController+Protected.h */,
+				0E7D770B18129FAA0081474A /* OpenWeatherAPIManager+Protected.h */,
 			);
 			name = Categories;
 			sourceTree = "<group>";

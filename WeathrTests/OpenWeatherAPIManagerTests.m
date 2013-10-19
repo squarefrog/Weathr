@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 #import "OpenWeatherAPIManager.h"
+#import "OpenWeatherAPIManager+Protected.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface OpenWeatherAPIManagerTests : XCTestCase
