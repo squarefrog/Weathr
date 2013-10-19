@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) InspectableOpenWeatherAPIManager *manager;
+@property (nonatomic, strong) NSMutableArray *notifications;
 @end
 
 @implementation OpenWeatherAPIManagerTests
@@ -26,13 +27,16 @@
     _url = @"http://api.openweathermap.org/data/2.5/weather?";
     _location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
     _manager = [[InspectableOpenWeatherAPIManager alloc] initWithLocation:_location];
+    _notifications = [[NSMutableArray alloc] init];
     XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
 - (void)tearDown
 {
     _url = nil;
+    _location = nil;
     _manager = nil;
+    _notifications = nil;
     [super tearDown];
 }
 
@@ -53,10 +57,49 @@
     XCTAssertNotNil([_manager URLToFetch], @"Instantiated OpenWeatherAPIManager should have a url");
 }
 
-- (void)testURLSessionCanBeCreated
+#pragma mark - Notifications
+- (void)testAPIManagerCanPostNotification
 {
-    [_manager createSession];
-    XCTAssertNotNil([_manager currentURLSession], @"An NSURLSession should be created");
+    NSString *name = @"TestKey";
+    [[NSNotificationCenter defaultCenter] addObserver:_notifications
+                                             selector:@selector(addObject:)
+                                                 name:name
+                                               object:nil];
+    NSNotification *notification = [NSNotification notificationWithName:name object:nil];
+    
+    [_manager postNotification:notification];
+    
+    XCTAssertTrue(_notifications.count == 1, @"Notification should be sent");
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)testAPIManagerCanPostNotificationWithSuccess
+{
+    [[NSNotificationCenter defaultCenter] addObserver:_notifications
+                                             selector:@selector(addObject:)
+                                                 name:OpenWeatherAPIManagerTaskFinishedWithSuccess
+                                               object:nil];
+    
+    [_manager postSuccessNotificationWithResponse:nil];
+    
+    XCTAssertTrue(_notifications.count == 1, @"Success notification should be sent");
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)testAPIManagerCanPostNotificationWithFailure
+{
+    [[NSNotificationCenter defaultCenter] addObserver:_notifications
+                                             selector:@selector(addObject:)
+                                                 name:OpenWeatherAPIManagerTaskFinishedWithFailure
+                                               object:nil];
+    
+    [_manager postFailureNotificationWithResponse:nil];
+    
+    XCTAssertTrue(_notifications.count == 1, @"Failure notification should be sent");
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

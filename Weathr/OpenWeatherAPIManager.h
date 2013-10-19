@@ -10,20 +10,24 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern NSString * const OpenWeatherMapAPIUrl;
+extern NSString * const OpenWeatherAPIManagerTaskFinishedWithSuccess;
+extern NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure;
 
 @interface OpenWeatherAPIManager : NSObject {
     @protected
     NSURL *fetchingURL;
-    NSURLSession *session;
 }
 
 - (id)initWithLocation:(CLLocation *)location;
 - (void)updateURLWithLocation:(CLLocation *)location;
+- (void)fetchWeatherData;
 
 @end
 
 @interface OpenWeatherAPIManager (private) 
 
-- (void)createSession;
+- (void)postNotification:(NSNotification *)notification;
+- (void)postSuccessNotificationWithResponse:(NSURLResponse *)response;
+- (void)postFailureNotificationWithResponse:(NSURLResponse *)response;
 
 @end

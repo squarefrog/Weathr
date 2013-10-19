@@ -9,6 +9,8 @@
 #import "OpenWeatherAPIManager.h"
 
 NSString * const OpenWeatherMapAPIUrl = @"http://api.openweathermap.org/data/2.5/weather?";
+NSString * const OpenWeatherAPIManagerTaskFinishedWithSuccess = @"OpenWeatherAPIManagerTaskFinishedWithSuccess";
+NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure = @"OpenWeatherAPIManagerTaskFinishedWithFailure";
 
 @interface OpenWeatherAPIManager ()
 @end
@@ -30,10 +32,23 @@ NSString * const OpenWeatherMapAPIUrl = @"http://api.openweathermap.org/data/2.5
     fetchingURL = [NSURL URLWithString:newUrl];
 }
 
-- (void)createSession
+- (void)postNotification:(NSNotification *)notification
 {
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    session = [NSURLSession sessionWithConfiguration:config];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+- (void)postSuccessNotificationWithResponse:(NSURLResponse *)response
+{
+    NSNotification *notification = [NSNotification notificationWithName:OpenWeatherAPIManagerTaskFinishedWithSuccess
+                                                                 object:response];
+    [self postNotification:notification];
+}
+
+- (void)postFailureNotificationWithResponse:(NSURLResponse *)response
+{
+    NSNotification *notification = [NSNotification notificationWithName:OpenWeatherAPIManagerTaskFinishedWithFailure
+                                                                 object:response];
+    [self postNotification:notification];
 }
 
 @end
