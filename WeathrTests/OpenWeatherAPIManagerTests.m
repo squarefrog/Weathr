@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <Foundation/Foundation.h>
 #import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -35,7 +36,8 @@
 
 - (void)testAPIURLCanHaveLocationInjected {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
-    NSString *newUrl = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, location.coordinate.latitude, location.coordinate.longitude];
-    XCTAssertEqualObjects([OpenWeatherAPIManager createAPIURLWithLocation:location], newUrl, @"Open weather map API url not modified correctly");
+    NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, location.coordinate.latitude, location.coordinate.longitude];
+    NSURL *returnedURL = [OpenWeatherAPIManager createAPIURLWithLocation:location];
+    XCTAssertEqualObjects([returnedURL absoluteString], urlString, @"Open weather map API url not modified correctly");
 }
 @end
