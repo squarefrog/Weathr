@@ -27,7 +27,7 @@ extern NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure;
 @interface OpenWeatherAPIManager (private) 
 
 - (void)postNotification:(NSNotification *)notification;
-- (void)postSuccessNotificationWithResponse:(NSURLResponse *)response;
-- (void)postFailureNotificationWithResponse:(NSURLResponse *)response;
+- (void)postSuccessNotificationWithData:(NSData *)data;
+- (void)postFailureNotificationWithResponse:(NSHTTPURLResponse *)response;
 
 @end

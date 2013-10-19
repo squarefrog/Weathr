@@ -37,14 +37,14 @@ NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure = @"OpenWeatherAPI
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
-- (void)postSuccessNotificationWithResponse:(NSURLResponse *)response
+- (void)postSuccessNotificationWithData:(NSData *)data
 {
     NSNotification *notification = [NSNotification notificationWithName:OpenWeatherAPIManagerTaskFinishedWithSuccess
-                                                                 object:response];
+                                                                 object:data];
     [self postNotification:notification];
 }
 
-- (void)postFailureNotificationWithResponse:(NSURLResponse *)response
+- (void)postFailureNotificationWithResponse:(NSHTTPURLResponse *)response
 {
     NSNotification *notification = [NSNotification notificationWithName:OpenWeatherAPIManagerTaskFinishedWithFailure
                                                                  object:response];

@@ -58,6 +58,9 @@
 }
 
 #pragma mark - Notifications
+
+// The following should really be tested with a mock NSNotificationCenter object -
+// it would certainly make the tests more legible.
 - (void)testAPIManagerCanPostNotification
 {
     NSString *name = @"TestKey";
@@ -81,7 +84,7 @@
                                                  name:OpenWeatherAPIManagerTaskFinishedWithSuccess
                                                object:nil];
     
-    [_manager postSuccessNotificationWithResponse:nil];
+    [_manager postSuccessNotificationWithData:nil];
     
     XCTAssertTrue(_notifications.count == 1, @"Success notification should be sent");
     
