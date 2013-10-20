@@ -162,6 +162,7 @@
     model.delegate = self;
     [model.delegate weatherModelUpdated];
     XCTAssertTrue(callbackInvoked, @"Delegate callback should be called");
+    model.delegate = nil;
 }
 
 - (void)weatherModelUpdated

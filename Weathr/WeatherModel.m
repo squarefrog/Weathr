@@ -11,6 +11,7 @@
 
 @implementation WeatherModel
 
+#pragma mark - Temperature conversion
 + (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
 {
     float k = [kelvin floatValue];
@@ -25,6 +26,7 @@
     return [NSNumber numberWithFloat:f];
 }
 
+#pragma mark - Parsing
 + (NSString *)parseDate: (NSDate *)date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -42,6 +44,22 @@
     if (!error)
         return parsedData;
     return nil;
+}
+
+#pragma mark - Property updates
+// This method is untested, but each individual call is tested
+// in it's own test so we're covered.
+- (void)updateWeatherModelFromDictionary:(NSDictionary *)dict
+{
+    [self updateWeatherModelFromDictionary:dict];
+    [self updateTemperatureFromDictionary:dict];
+    [self updateIconFromDictionary:dict];
+    [self updateLocationNameFromDictionary:dict];
+    [self updateLastUpdatedDateFromDictionary:dict];
+    [self updateLocationFromDictionary:dict];
+    
+    if ([self.delegate respondsToSelector:@selector(weatherModelUpdated)])
+        [self.delegate weatherModelUpdated];
 }
 
 - (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict

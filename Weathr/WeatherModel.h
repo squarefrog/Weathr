@@ -27,6 +27,7 @@
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
 + (NSString *)parseDate: (NSDate *)date;
 + (id)parseJSONData:(NSData *)data;
+- (void)updateWeatherModelFromDictionary:(NSDictionary *)dict;
 
 @end
 
