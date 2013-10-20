@@ -40,6 +40,10 @@
     // Fetch current location
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [_locationManager startUpdatingLocation];
 }
 
@@ -107,7 +111,7 @@
     [self loadImageNamed:_weatherModel.icon];
     [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
     [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
-    [self pickColourUsingTemperature:[_weatherModel getTemperatureInCelsius]];
+    [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
 }
 
 #pragma mark - API manager delegate
@@ -134,10 +138,8 @@
            fromLocation:(CLLocation *)oldLocation
 {
     [_locationManager stopUpdatingLocation];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        NSLog(@"%@\nlocation: %@", placemarks[0], newLocation);
-    }];
+    [_apiManager updateURLWithLocation:newLocation];
+    [_apiManager fetchWeatherData];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
