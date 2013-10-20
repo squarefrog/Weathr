@@ -113,12 +113,18 @@
 #pragma mark - API manager delegate
 - (void)dataTaskSuccessWithData:(NSData *)data
 {
-    // TODO: Handle success
+    [_weatherModel updateWeatherModelFromNSData:data];
 }
-
+// UIAlertView should probably be mocked
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
-    // TODO: Handle failure
+    NSString *title = [NSString stringWithFormat:@"Error %d", [response statusCode]];
+    NSString *message = [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode];
+    [[[UIAlertView alloc] initWithTitle:title
+                               message:message
+                              delegate:nil
+                     cancelButtonTitle:@"Ok"
+                      otherButtonTitles:nil] show];
 }
 
 #pragma mark - Core Location
