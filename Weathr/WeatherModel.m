@@ -7,6 +7,7 @@
 //
 
 #import "WeatherModel.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation WeatherModel
 
@@ -30,6 +31,59 @@
     [formatter setDateStyle:NSDateFormatterShortStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     return [formatter stringFromDate: date];
+}
+
++ (id)parseJSONData:(NSData *)data
+{
+    NSError *error;
+    id parsedData = [NSJSONSerialization JSONObjectWithData:data
+                                                    options:NSJSONReadingMutableContainers
+                                                      error:&error];
+    if (!error)
+        return parsedData;
+    return nil;
+}
+
+- (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict
+{
+    self.weatherDescription = [dict objectForKey:@"name"];
+}
+
+
+- (void)updateTemperatureFromDictionary:(NSDictionary *)dict
+{
+    NSDictionary *main = [dict objectForKey:@"main"];
+    self.temperature = [main objectForKey:@"temp"];
+}
+
+- (void)updateIconFromDictionary:(NSDictionary *)dict
+{
+    // Weather key actually returns an array of weather reports.
+    // As we are only interested in the current weather, we just
+    // pull in the first object.
+    NSDictionary *weather = [dict objectForKey:@"weather"][0];
+    self.icon = [weather objectForKey:@"icon"];
+}
+
+- (void)updateLocationNameFromDictionary:(NSDictionary *)dict
+{
+    self.locationName = [dict objectForKey:@"name"];
+}
+
+- (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict
+{
+    NSNumber *unixTimestamp = [dict objectForKey:@"dt"];
+    self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:[unixTimestamp doubleValue]];
+}
+
+- (void)updateLocationFromDictionary:(NSDictionary *)dict
+{
+    NSDictionary *coord = [dict objectForKey:@"coord"];
+    double lat = [[coord objectForKey:@"lat"] doubleValue];
+    double lon = [[coord objectForKey:@"lon"] doubleValue];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat
+                                                      longitude:lon];
+    self.location = location;
 }
 
 @end

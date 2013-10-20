@@ -21,4 +21,17 @@
 + (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin;
 + (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
 + (NSString *)parseDate: (NSDate *)date;
++ (id)parseJSONData:(NSData *)data;
+
+@end
+
+@interface WeatherModel (private)
+
+- (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict;
+- (void)updateTemperatureFromDictionary:(NSDictionary *)dict;
+- (void)updateIconFromDictionary:(NSDictionary *)dict;
+- (void)updateLocationNameFromDictionary:(NSDictionary *)dict;
+- (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict;
+- (void)updateLocationFromDictionary:(NSDictionary *)dict;
+
 @end

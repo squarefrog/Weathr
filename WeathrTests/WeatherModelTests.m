@@ -8,8 +8,13 @@
 
 #import <XCTest/XCTest.h>
 #import "WeatherModel.h"
+#import "WeatherModelExtensions.h"
 
-@interface WeatherModelTests : XCTestCase
+@interface WeatherModelTests : XCTestCase {
+    NSData *data;
+    WeatherModel *model;
+    NSDictionary *parsedData;
+}
 
 @end
 
@@ -18,12 +23,16 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    data = [WeatherModelExtensions loadJSONFromFile];
+    model = [[WeatherModel alloc] init];
+    parsedData = (NSDictionary *)[WeatherModel parseJSONData:data];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    data = nil;
+    model = nil;
+    parsedData = nil;
     [super tearDown];
 }
 
@@ -59,7 +68,7 @@
 }
 
 
-#pragma mark - Methods
+#pragma mark - Temperature
 
 - (void)testTemperatureConversionKelvin
 {
@@ -77,6 +86,8 @@
     XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Fahrenheit conversion should equal 68, got %f", [fahrenheit floatValue]);
 }
 
+#pragma mark - Parsing
+
 - (void)testDateCanBeConvertedToNaturalLanguage
 {
     NSDate *testDate = [NSDate date];
@@ -86,6 +97,62 @@
     
     NSString *testString = [WeatherModel parseDate:testDate];
     XCTAssertEqualObjects(testString, [f stringFromDate:testDate], @"NSDate parsed incorrectly");
+}
+
+- (void)testJSONDatafileCanBeLoaded
+{
+    data = [WeatherModelExtensions loadJSONFromFile];
+    XCTAssertNotNil(data, @"Example response should be loaded from file");
+}
+
+- (void)testNSDataCanBeParsedToDictionary
+{
+    data = [WeatherModelExtensions loadJSONFromFile];
+    id testData = [WeatherModel parseJSONData:data];
+    XCTAssertTrue([[testData class] isSubclassOfClass: [NSMutableDictionary class]], @"Data should be NSMutableDictionary format");
+}
+
+#pragma mark - Update properties
+- (void)testWeatherDescriptionCanBeUpdatedFromParsedData
+{
+    [model updateWeatherDescriptionFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.weatherDescription, @"Weather description property should be set");
+}
+
+- (void)testTemperatureCanBeUpdatedFromParsedData
+{
+    [model updateTemperatureFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.temperature, @"Temperature property should be set");
+}
+
+- (void)testIconStringCanBeUpdatedFromParsedData
+{
+    [model updateIconFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.icon, @"Icon property should be set");
+}
+
+- (void)testLocationNameCanBeUpdatedFromParsedData
+{
+    [model updateLocationNameFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.locationName, @"Location name property should be set");
+}
+
+- (void)testLastUpdatedDateCanBeUpdatedFromParsedData
+{
+    [model updateLastUpdatedDateFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.lastUpdated, @"Last updated date property should be set");
+}
+
+- (void)testLocationCanBeUpdatedFromParsedData
+{
+    [model updateLocationFromDictionary:parsedData];
+    
+    XCTAssertNotNil(model.location, @"Location property should be set");
 }
 
 @end
