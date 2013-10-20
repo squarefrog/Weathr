@@ -10,10 +10,11 @@
 #import "WeatherModel.h"
 #import "WeatherModelExtensions.h"
 
-@interface WeatherModelTests : XCTestCase {
+@interface WeatherModelTests : XCTestCase <WeatherModelDelegate> {
     NSData *data;
     WeatherModel *model;
     NSDictionary *parsedData;
+    BOOL callbackInvoked;
 }
 
 @end
@@ -153,6 +154,19 @@
     [model updateLocationFromDictionary:parsedData];
     
     XCTAssertNotNil(model.location, @"Location property should be set");
+}
+
+#pragma mark - Delegate
+- (void)testDelegateCallback
+{
+    model.delegate = self;
+    [model.delegate weatherModelUpdated];
+    XCTAssertTrue(callbackInvoked, @"Delegate callback should be called");
+}
+
+- (void)weatherModelUpdated
+{
+    callbackInvoked = YES;
 }
 
 @end

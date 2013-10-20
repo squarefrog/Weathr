@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 @class CLLocation;
 
+@protocol WeatherModelDelegate <NSObject>
+- (void)weatherModelUpdated;
+@end
+
 @interface WeatherModel : NSObject
 
+@property (nonatomic, weak)     id <WeatherModelDelegate> delegate;
 @property (nonatomic, copy)     NSString *weatherDescription;
 @property (nonatomic, strong)   NSNumber *temperature;
 @property (nonatomic, copy)     NSString *icon;
