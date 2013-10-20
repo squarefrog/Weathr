@@ -156,6 +156,20 @@
     XCTAssertNotNil(model.location, @"Location property should be set");
 }
 
+#pragma mark - Get values
+- (void)testGetTemperatureInCelsius
+{
+    model.temperature = [NSNumber numberWithFloat:284.94];
+    NSNumber *expected = [NSNumber numberWithFloat:11.79];
+    XCTAssertEqualWithAccuracy([[model getTemperatureInCelsius] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in celsius");
+}
+- (void)testGetTemperatureInFahrenheit
+{
+    model.temperature = [NSNumber numberWithFloat:284.94];
+    NSNumber *expected = [NSNumber numberWithFloat:53.222];
+    XCTAssertEqualWithAccuracy([[model getTemperatureInFahrenheit] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in fahrenheit");
+}
+
 #pragma mark - Delegate
 - (void)testDelegateCallback
 {

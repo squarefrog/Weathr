@@ -11,6 +11,17 @@
 
 @implementation WeatherModel
 
+- (NSNumber *)getTemperatureInCelsius
+{
+    return [WeatherModel convertKelvinToCelsius:self.temperature];
+}
+
+- (NSNumber *)getTemperatureInFahrenheit
+{
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
+    return [WeatherModel convertCelsiusToFahrenheit:celsius];
+}
+
 #pragma mark - Temperature conversion
 + (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
 {
