@@ -60,6 +60,17 @@
 #pragma mark - Property updates
 // This method is untested, but each individual call is tested
 // in it's own test so we're covered.
+// TODO: UNTESTED METHOD
+- (void)updateWeatherModelFromNSData:(NSData *)data
+{
+    id json = [WeatherModel parseJSONData:data];
+    if ([[json class] isSubclassOfClass:[NSMutableDictionary class]])
+        [self updateWeatherModelFromDictionary:(NSDictionary *)json];
+}
+
+// This method is untested, but each individual call is tested
+// in it's own test so we're covered.
+// TODO: UNTESTED METHOD
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict
 {
     [self updateWeatherModelFromDictionary:dict];
