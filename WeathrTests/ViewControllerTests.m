@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "ViewController+Protected.h"
 #import "WeatherModel.h"
+#import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface ViewControllerTests : XCTestCase
@@ -125,7 +126,7 @@
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
 }
 
-#pragma mark - Object instantiation tests
+#pragma mark - Weather instantiation
 - (void)testControllerInstantiatesWeatherModel
 {
     XCTAssertNotNil(_sut.weatherModel, @"View controller should have a weather model");
@@ -141,6 +142,28 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(weatherModelUpdated)], @"View controller should implement weatherModelUpdated");
 }
 
+#pragma mark - API manager instantiation
+- (void)testControllerInstantiatesAPIManager
+{
+    XCTAssertNotNil(_sut.apiManager, @"View controller should have an api manager");
+}
+
+- (void)testControllerSetsAPIManagerDelegateToSelf
+{
+    XCTAssertNotNil(_sut.apiManager.delegate, @"View controller should be a delegate of api manager");
+}
+
+- (void)testControllerImplementsAPIManagerSuccessDelegateMethod
+{
+    XCTAssertTrue([_sut respondsToSelector:@selector(dataTaskSuccessWithData:)], @"View controller should implement dataTaskSuccessWithData:");
+}
+
+- (void)testControllerImplementsAPIManagerFailureDelegateMethod
+{
+    XCTAssertTrue([_sut respondsToSelector:@selector(dataTaskFailWithHTTPURLResponse:)], @"View controller should implement dataTaskFailWithHTTPURLResponse:");
+}
+
+#pragma mark - Location manager instantiation
 - (void)testControllerInstantiatesLocationManager
 {
     XCTAssertNotNil(_sut.locationManager, @"View controller should have a location manager");

@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 
-@class CLLocationManager;
 @class WeatherModel;
+@class OpenWeatherAPIManager;
+@class CLLocationManager;
 
 @interface ViewController (Protected)
 
@@ -17,6 +18,7 @@
 @property (nonatomic, weak) UILabel *weatherDescription;
 @property (nonatomic, weak) UILabel *lastUpdatedLabel;
 @property (nonatomic, strong) WeatherModel *weatherModel;
+@property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)loadImageNamed: (NSString *)imageName;

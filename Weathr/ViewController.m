@@ -8,17 +8,19 @@
 
 #import "ViewController.h"
 #import "WeatherModel.h"
+#import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
 #define ANIMATION_DURATION 1.0f
 
-@interface ViewController () <WeatherModelDelegate,CLLocationManagerDelegate>
+@interface ViewController () <WeatherModelDelegate,OpenWeatherAPIManagerDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *weatherIcon;
 @property (nonatomic, weak) IBOutlet UILabel *weatherDescription;
 @property (nonatomic, weak) IBOutlet UILabel *lastUpdatedLabel;
 @property (nonatomic, strong) WeatherModel *weatherModel;
+@property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
@@ -31,6 +33,9 @@
     
     _weatherModel = [[WeatherModel alloc] init];
     _weatherModel.delegate = self;
+    
+    _apiManager = [[OpenWeatherAPIManager alloc] init];
+    _apiManager.delegate = self;
     
     // Fetch current location
     _locationManager = [[CLLocationManager alloc] init];
@@ -103,6 +108,17 @@
     [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
     [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
     [self pickColourUsingTemperature:[_weatherModel getTemperatureInCelsius]];
+}
+
+#pragma mark - API manager delegate
+- (void)dataTaskSuccessWithData:(NSData *)data
+{
+    // TODO: Handle success
+}
+
+- (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
+{
+    // TODO: Handle failure
 }
 
 #pragma mark - Core Location
