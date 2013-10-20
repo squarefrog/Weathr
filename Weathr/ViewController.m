@@ -73,6 +73,12 @@
 }
 
 #pragma mark - Colour Methods
+- (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp
+{
+    UIColor *colour = [self pickColourUsingTemperature:temp];
+    [self updateViewBackgroundColour:colour];
+}
+
 - (UIColor *)pickColourUsingTemperature: (NSNumber *)temp
 {
     if ([temp floatValue] >= 10.0f && [temp floatValue] < 18.0f)
@@ -88,6 +94,15 @@
 {
     [self.view.layer addAnimation:[self animationStyle] forKey:nil];
     self.view.backgroundColor = color;
+}
+
+#pragma mark - Weather model delegate
+- (void)weatherModelUpdated
+{
+    [self loadImageNamed:_weatherModel.icon];
+    [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
+    [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
+    [self pickColourUsingTemperature:[_weatherModel getTemperatureInCelsius]];
 }
 
 #pragma mark - Core Location

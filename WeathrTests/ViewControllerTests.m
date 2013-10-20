@@ -136,6 +136,11 @@
     XCTAssertNotNil(_sut.weatherModel.delegate, @"View controller should be a delegate of weather model");
 }
 
+- (void)testControllerImplementsWeatherModelDelegateMethods
+{
+    XCTAssertTrue([_sut respondsToSelector:@selector(weatherModelUpdated)], @"View controller should implement weatherModelUpdated");
+}
+
 - (void)testControllerInstantiatesLocationManager
 {
     XCTAssertNotNil(_sut.locationManager, @"View controller should have a location manager");
