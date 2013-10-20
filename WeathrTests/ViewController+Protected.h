@@ -8,11 +8,16 @@
 
 #import "ViewController.h"
 
+@class CLLocationManager;
+@class WeatherModel;
+
 @interface ViewController (Protected)
 
 @property (nonatomic, weak) UIImageView *weatherIcon;
 @property (nonatomic, weak) UILabel *weatherDescription;
 @property (nonatomic, weak) UILabel *lastUpdatedLabel;
+@property (nonatomic, strong) WeatherModel *weatherModel;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)loadImageNamed: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSString *)description;

@@ -7,13 +7,15 @@
 //
 
 #import "ViewController.h"
+#import "WeatherModel.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface ViewController () <CLLocationManagerDelegate>
+@interface ViewController () <WeatherModelDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *weatherIcon;
 @property (nonatomic, weak) IBOutlet UILabel *weatherDescription;
 @property (nonatomic, weak) IBOutlet UILabel *lastUpdatedLabel;
+@property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
@@ -23,6 +25,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _weatherModel = [[WeatherModel alloc] init];
+    _weatherModel.delegate = self;
     
     // Fetch current location
     _locationManager = [[CLLocationManager alloc] init];

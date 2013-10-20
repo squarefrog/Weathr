@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "ViewController.h"
 #import "ViewController+Protected.h"
+#import "WeatherModel.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ViewControllerTests : XCTestCase
 
@@ -35,6 +37,7 @@
                                                              bundle:nil];
     _sut = (ViewController *)[mainStoryboard instantiateInitialViewController];
     XCTAssertNotNil(_sut, @"ViewController should not be nil for storyboard %@", [self returnStoryboardName]);
+    [_sut viewDidLoad];
 }
 
 - (void)tearDown
@@ -120,6 +123,27 @@
     _sut.view.backgroundColor = COLOUR_COLD;
     [_sut updateViewBackgroundColour: COLOUR_HOT];
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
+}
+
+#pragma mark - Object instantiation tests
+- (void)testControllerInstantiatesWeatherModel
+{
+    XCTAssertNotNil(_sut.weatherModel, @"View controller should have a weather model");
+}
+
+- (void)testControllerSetsWeatherModelDelegateToSelf
+{
+    XCTAssertNotNil(_sut.weatherModel.delegate, @"View controller should be a delegate of weather model");
+}
+
+- (void)testControllerInstantiatesLocationManager
+{
+    XCTAssertNotNil(_sut.locationManager, @"View controller should have a location manager");
+}
+
+- (void)testControllerSetsLocationManagerDelegateToSelf
+{
+    XCTAssertNotNil(_sut.locationManager.delegate, @"View controller should be location manager delegate");
 }
 
 @end
