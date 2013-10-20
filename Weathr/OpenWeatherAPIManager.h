@@ -10,13 +10,19 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern NSString * const OpenWeatherMapAPIUrl;
-extern NSString * const OpenWeatherAPIManagerTaskFinishedWithSuccess;
-extern NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure;
+
+@protocol OpenWeatherAPIManagerDelegate <NSObject>
+@required
+- (void)dataTaskSuccessWithData:(NSData *)data;
+- (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response;
+@end
 
 @interface OpenWeatherAPIManager : NSObject {
     @protected
     NSURL *fetchingURL;
 }
+
+@property (nonatomic, weak) id <OpenWeatherAPIManagerDelegate> delegate;
 
 - (id)initWithLocation:(CLLocation *)location;
 - (void)updateURLWithLocation:(CLLocation *)location;
@@ -24,10 +30,7 @@ extern NSString * const OpenWeatherAPIManagerTaskFinishedWithFailure;
 
 @end
 
-@interface OpenWeatherAPIManager (private) 
-
-- (void)postNotification:(NSNotification *)notification;
-- (void)postSuccessNotificationWithData:(NSData *)data;
-- (void)postFailureNotificationWithResponse:(NSHTTPURLResponse *)response;
-
+@interface OpenWeatherAPIManager (private)
+- (void)tellDelegateDataTaskSucceededWithData:(NSData *)data;
+- (void)tellDelegateDataTaskFailedWithHTTPURLResponse:(NSHTTPURLResponse *)response;
 @end

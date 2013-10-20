@@ -12,11 +12,13 @@
 #import "InspectableOpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface OpenWeatherAPIManagerTests : XCTestCase
+@interface OpenWeatherAPIManagerTests : XCTestCase <OpenWeatherAPIManagerDelegate> {
+    BOOL successCallbackInvoked;
+    BOOL failureCallbackInvoked;
+}
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) InspectableOpenWeatherAPIManager *manager;
-@property (nonatomic, strong) NSMutableArray *notifications;
 @end
 
 @implementation OpenWeatherAPIManagerTests
@@ -27,7 +29,6 @@
     _url = @"http://api.openweathermap.org/data/2.5/weather?";
     _location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
     _manager = [[InspectableOpenWeatherAPIManager alloc] initWithLocation:_location];
-    _notifications = [[NSMutableArray alloc] init];
     XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
@@ -36,10 +37,10 @@
     _url = nil;
     _location = nil;
     _manager = nil;
-    _notifications = nil;
     [super tearDown];
 }
 
+#pragma mark - URL handling
 - (void)testAPIURLIsCorrect
 {
     XCTAssertEqualObjects(OpenWeatherMapAPIUrl, _url, @"Open weather map API url not correct");
@@ -57,52 +58,31 @@
     XCTAssertNotNil([_manager URLToFetch], @"Instantiated OpenWeatherAPIManager should have a url");
 }
 
-#pragma mark - Notifications
-
-// The following should really be tested with a mock NSNotificationCenter object -
-// it would certainly make the tests more legible.
-- (void)testAPIManagerCanPostNotification
+#pragma mark - Delegates
+- (void)testDataTaskFinishedWithSuccessDelegateMethodCalled
 {
-    NSString *name = @"TestKey";
-    [[NSNotificationCenter defaultCenter] addObserver:_notifications
-                                             selector:@selector(addObject:)
-                                                 name:name
-                                               object:nil];
-    NSNotification *notification = [NSNotification notificationWithName:name object:nil];
-    
-    [_manager postNotification:notification];
-    
-    XCTAssertTrue(_notifications.count == 1, @"Notification should be sent");
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _manager.delegate = self;
+    [_manager tellDelegateDataTaskSucceededWithData:nil];
+    XCTAssertTrue(successCallbackInvoked, @"Success callback should be called");
+    _manager.delegate = nil;
 }
 
-- (void)testAPIManagerCanPostNotificationWithSuccess
+- (void)dataTaskSuccessWithData:(NSData *)data
 {
-    [[NSNotificationCenter defaultCenter] addObserver:_notifications
-                                             selector:@selector(addObject:)
-                                                 name:OpenWeatherAPIManagerTaskFinishedWithSuccess
-                                               object:nil];
-    
-    [_manager postSuccessNotificationWithData:nil];
-    
-    XCTAssertTrue(_notifications.count == 1, @"Success notification should be sent");
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    successCallbackInvoked = YES;
 }
 
-- (void)testAPIManagerCanPostNotificationWithFailure
+- (void)testDataTaskFinishedWithFailureDelegateMethodCalled
 {
-    [[NSNotificationCenter defaultCenter] addObserver:_notifications
-                                             selector:@selector(addObject:)
-                                                 name:OpenWeatherAPIManagerTaskFinishedWithFailure
-                                               object:nil];
-    
-    [_manager postFailureNotificationWithResponse:nil];
-    
-    XCTAssertTrue(_notifications.count == 1, @"Failure notification should be sent");
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _manager.delegate = self;
+    [_manager tellDelegateDataTaskFailedWithHTTPURLResponse:nil];
+    XCTAssertTrue(failureCallbackInvoked, @"Failure callback should be called");
+    _manager.delegate = nil;
+}
+
+- (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
+{
+    failureCallbackInvoked = YES;
 }
 
 @end
