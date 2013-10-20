@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import "WeatherModel.h"
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
+
+#define ANIMATION_DURATION 1.0f
 
 @interface ViewController () <WeatherModelDelegate,CLLocationManagerDelegate>
 
@@ -45,6 +48,13 @@
 - (void)loadImageNamed: (NSString *)imageName
 {
     _weatherIcon.image = [UIImage imageNamed:imageName];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = ANIMATION_DURATION;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    
+    [_weatherIcon.layer addAnimation:transition forKey:nil];
 }
 
 - (void)updateWeatherDescription: (NSString *)description
