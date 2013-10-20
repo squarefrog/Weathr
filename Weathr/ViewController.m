@@ -38,38 +38,38 @@
     [_locationManager startUpdatingLocation];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-//    [self updateViewBackgroundColour:[UIColor greenColor]];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Methods
+#pragma mark - UI Updates
 - (void)loadImageNamed: (NSString *)imageName
 {
+    [_weatherIcon.layer addAnimation:[self animationStyle] forKey:nil];
     _weatherIcon.image = [UIImage imageNamed:imageName];
-    
-    CATransition *transition = [CATransition animation];
-    transition.duration = ANIMATION_DURATION;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionFade;
-    
-    [_weatherIcon.layer addAnimation:transition forKey:nil];
 }
 
 - (void)updateWeatherDescription: (NSString *)description
 {
+    [_weatherDescription.layer addAnimation:[self animationStyle] forKey:nil];
     _weatherDescription.text = description;
 }
 
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated
 {
+    [_lastUpdatedLabel.layer addAnimation:[self animationStyle] forKey:nil];
     _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last updated: %@", lastUpdated];
+}
+
+- (CATransition *)animationStyle
+{
+    CATransition *transition = [CATransition animation];
+    transition.duration = ANIMATION_DURATION;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    return transition;
 }
 
 #pragma mark - Colour Methods
@@ -86,10 +86,8 @@
 
 - (void)updateViewBackgroundColour: (UIColor *)color
 {
-    [UIView animateWithDuration:ANIMATION_DURATION
-                     animations:^{
-                         self.view.backgroundColor = color;
-                     }];
+    [self.view.layer addAnimation:[self animationStyle] forKey:nil];
+    self.view.backgroundColor = color;
 }
 
 #pragma mark - Core Location
