@@ -170,6 +170,15 @@
     XCTAssertEqualWithAccuracy([[model getTemperatureInFahrenheit] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in fahrenheit");
 }
 
+- (void)testModelReturnsDetailedWeatherDescriptionString
+{
+    model.temperature = [NSNumber numberWithFloat:284.94];
+    model.weatherDescription = @"Cloudy";
+    model.locationName = @"London";
+    NSString *expectedAnswer = @"London 11.79º\nCloudy";
+    XCTAssertEqualObjects([model getDetailedWeatherDescriptionString], expectedAnswer, @"Model should return a detailed weather description string");
+}
+
 #pragma mark - Delegate
 - (void)testDelegateCallback
 {

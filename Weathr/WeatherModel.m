@@ -115,4 +115,11 @@
     self.location = location;
 }
 
+#pragma mark - Get methods
+- (NSString *)getDetailedWeatherDescriptionString
+{
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
+    return [NSString stringWithFormat:@"%@ %.02fº\n%@", self.locationName, [celsius floatValue], self.weatherDescription];
+}
+
 @end

@@ -28,8 +28,8 @@
 + (NSString *)parseDate: (NSDate *)date;
 + (id)parseJSONData:(NSData *)data;
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict;
+- (NSString *)getDetailedWeatherDescriptionString;
 - (NSNumber *)getTemperatureInCelsius;
-- (NSNumber *)getTemperatureInFahrenheit;
 
 @end
 
@@ -41,5 +41,7 @@
 - (void)updateLocationNameFromDictionary:(NSDictionary *)dict;
 - (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict;
 - (void)updateLocationFromDictionary:(NSDictionary *)dict;
+
+- (NSNumber *)getTemperatureInFahrenheit;
 
 @end
