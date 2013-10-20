@@ -38,6 +38,11 @@
     [_locationManager startUpdatingLocation];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [self updateViewBackgroundColour:[UIColor greenColor]];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -81,7 +86,10 @@
 
 - (void)updateViewBackgroundColour: (UIColor *)color
 {
-    self.view.backgroundColor = color;
+    [UIView animateWithDuration:ANIMATION_DURATION
+                     animations:^{
+                         self.view.backgroundColor = color;
+                     }];
 }
 
 #pragma mark - Core Location
