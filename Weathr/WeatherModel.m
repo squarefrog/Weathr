@@ -73,7 +73,7 @@
 // TODO: UNTESTED METHOD
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict
 {
-    [self updateWeatherModelFromDictionary:dict];
+    [self updateWeatherDescriptionFromDictionary:dict];
     [self updateTemperatureFromDictionary:dict];
     [self updateIconFromDictionary:dict];
     [self updateLocationNameFromDictionary:dict];
@@ -86,7 +86,11 @@
 
 - (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict
 {
-    self.weatherDescription = [dict objectForKey:@"name"];
+    // Weather key actually returns an array of weather reports.
+    // As we are only interested in the current weather, we just
+    // pull in the first object.
+    NSDictionary *weather = [dict objectForKey:@"weather"][0];
+    self.weatherDescription = [weather objectForKey:@"description"];
 }
 
 
