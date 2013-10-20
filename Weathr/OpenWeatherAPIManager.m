@@ -43,10 +43,12 @@ NSString * const OpenWeatherMapAPIUrl = @"http://api.openweathermap.org/data/2.5
     NSURLSessionTask *task = [session dataTaskWithRequest:request
                                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                             NSHTTPURLResponse *r = (NSHTTPURLResponse*)response;
-                                            if (r.statusCode == 200)
-                                                [weakself tellDelegateDataTaskSucceededWithData:data];
-                                            else
-                                                [weakself tellDelegateDataTaskFailedWithHTTPURLResponse:r];
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                if (r.statusCode == 200)
+                                                    [weakself tellDelegateDataTaskSucceededWithData:data];
+                                                else
+                                                    [weakself tellDelegateDataTaskFailedWithHTTPURLResponse:r];
+                                            });
                                         }];
     [task resume];
 }
