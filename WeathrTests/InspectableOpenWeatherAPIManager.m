@@ -15,4 +15,9 @@
     return fetchingURL;
 }
 
+- (void)setURLToFetch:(NSURL *)url
+{
+    fetchingURL = url;
+}
+
 @end

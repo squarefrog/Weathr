@@ -12,24 +12,28 @@
 #import "InspectableOpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface OpenWeatherAPIManagerTests : XCTestCase <OpenWeatherAPIManagerDelegate> {
+@interface OpenWeatherAPIManagerTests : XCTestCase <OpenWeatherAPIManagerDelegate>
+{
     BOOL successCallbackInvoked;
     BOOL failureCallbackInvoked;
 }
+
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) InspectableOpenWeatherAPIManager *manager;
+
 @end
+
 
 @implementation OpenWeatherAPIManagerTests
 
 - (void)setUp
 {
     [super setUp];
-    _url = @"http://api.openweathermap.org/data/2.5/weather?";
+    _url = @"http://api.openweathermap.org/data/2.5/weather?lat=51.5072&lon=0.1275";
     _location = [[CLLocation alloc] initWithLatitude:51.5072 longitude:0.1275];
-    _manager = [[InspectableOpenWeatherAPIManager alloc] initWithLocation:_location];
-    XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
+    _manager = [[InspectableOpenWeatherAPIManager alloc] init];
+    _manager.delegate = self;
 }
 
 - (void)tearDown
@@ -37,47 +41,65 @@
     _url = nil;
     _location = nil;
     _manager = nil;
+    _manager.delegate = nil;
     [super tearDown];
 }
 
-#pragma mark - URL handling
-- (void)testAPIURLIsCorrect
+#pragma mark - Instantiation
+- (void)testLocationCanInitialised
 {
-    XCTAssertEqualObjects(OpenWeatherMapAPIUrl, _url, @"Open weather map API url not correct");
+    XCTAssertNotNil(_manager, @"Instantiated OpenWeatherAPIManager should not be nil");
 }
 
-- (void)testAPIURLCanHaveLocationInjected {
-    NSString *urlString = [NSString stringWithFormat:@"%@lat=%f&lon=%f", _url, _location.coordinate.latitude, _location.coordinate.longitude];
+- (void)testAPIManagerShouldUseSharedSession
+{
+    XCTAssertEqualObjects(_manager.session, [NSURLSession sharedSession], @"Manager should be using the shared session");
+}
+
+#pragma mark - URL handling
+- (void)testAPIURLCanBeSetWithLocation
+{
     [_manager updateURLWithLocation:_location];
     NSURL *returnedURL = [_manager URLToFetch];
-    XCTAssertEqualObjects([returnedURL absoluteString], urlString, @"Open weather map API url not modified correctly");
+    XCTAssertEqualObjects([returnedURL absoluteString], _url, @"API url should be set");
 }
 
-- (void)testLocationCanBePassedDuringInit
+- (void)testURLShouldNotBeSetWithNilLocation
 {
-    XCTAssertNotNil([_manager URLToFetch], @"Instantiated OpenWeatherAPIManager should have a url");
+    [_manager updateURLWithLocation:nil];
+    XCTAssertNil([_manager URLToFetch], @"Manager url should not be set when passed a nil object");
+}
+
+#pragma mark - Data transfer
+- (void)testTaskCanBeCreated
+{
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:nil];
+    NSURLSessionTask *task = [_manager createTaskWithURLRequest:urlRequest];
+    XCTAssertNotNil(task, @"Task should be created");
+}
+
+- (void)testTaskShouldNotBeCreatedWithNoURLRequest
+{
+    XCTAssertNil([_manager createTaskWithURLRequest:nil], @"Task should not be created when url request is nil");
 }
 
 #pragma mark - Delegates
 - (void)testDataTaskFinishedWithSuccessDelegateMethodCalled
 {
-    _manager.delegate = self;
     [_manager tellDelegateDataTaskSucceededWithData:nil];
     XCTAssertTrue(successCallbackInvoked, @"Success callback should be called");
-    _manager.delegate = nil;
-}
-
-- (void)dataTaskSuccessWithData:(NSData *)data
-{
-    successCallbackInvoked = YES;
 }
 
 - (void)testDataTaskFinishedWithFailureDelegateMethodCalled
 {
-    _manager.delegate = self;
     [_manager tellDelegateDataTaskFailedWithHTTPURLResponse:nil];
     XCTAssertTrue(failureCallbackInvoked, @"Failure callback should be called");
-    _manager.delegate = nil;
+}
+
+#pragma mark - Test helpers
+- (void)dataTaskSuccessWithData:(NSData *)data
+{
+    successCallbackInvoked = YES;
 }
 
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response

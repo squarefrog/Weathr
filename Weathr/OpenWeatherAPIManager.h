@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-extern NSString * const OpenWeatherMapAPIUrl;
-
+// Callbacks
 @protocol OpenWeatherAPIManagerDelegate <NSObject>
 @required
 - (void)dataTaskSuccessWithData:(NSData *)data;
@@ -23,8 +22,8 @@ extern NSString * const OpenWeatherMapAPIUrl;
 }
 
 @property (nonatomic, weak) id <OpenWeatherAPIManagerDelegate> delegate;
+@property (nonatomic, strong) NSURLSession *session;
 
-- (id)initWithLocation:(CLLocation *)location;
 - (void)updateURLWithLocation:(CLLocation *)location;
 - (void)fetchWeatherData;
 
@@ -33,4 +32,5 @@ extern NSString * const OpenWeatherMapAPIUrl;
 @interface OpenWeatherAPIManager (private)
 - (void)tellDelegateDataTaskSucceededWithData:(NSData *)data;
 - (void)tellDelegateDataTaskFailedWithHTTPURLResponse:(NSHTTPURLResponse *)response;
+- (NSURLSessionTask *)createTaskWithURLRequest:(NSURLRequest *)request;
 @end
