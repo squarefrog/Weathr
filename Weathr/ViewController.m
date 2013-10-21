@@ -60,10 +60,10 @@
     _weatherIcon.image = [UIImage imageNamed:imageName];
 }
 
-- (void)updateWeatherDescription: (NSString *)description
+- (void)updateWeatherDescription: (NSAttributedString *)description
 {
     [_weatherDescription.layer addAnimation:[self animationStyle] forKey:nil];
-    _weatherDescription.text = description;
+    _weatherDescription.attributedText = description;
 }
 
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated

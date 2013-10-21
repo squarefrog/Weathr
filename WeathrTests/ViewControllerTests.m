@@ -78,10 +78,10 @@
 
 - (void)testWeatherDescriptionLabelCanBeUpdated {
     [_sut view];
-    NSString *testCase = @"Mostly cloudy";
+    NSAttributedString *testCase = [[NSAttributedString alloc] initWithString:@"Mostly cloudy"];
     [_sut updateWeatherDescription: testCase];
     
-    XCTAssertEqualObjects(_sut.weatherDescription.text, testCase, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+    XCTAssertEqualObjects(_sut.weatherDescription.text, testCase.string, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
 }
 
 - (void)testLastUpdatedCanBeUpdated {

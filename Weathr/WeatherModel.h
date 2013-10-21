@@ -28,7 +28,7 @@
 + (NSString *)parseDate: (NSDate *)date;
 
 - (void)updateWeatherModelFromNSData:(NSData *)data;
-- (NSString *)getDetailedWeatherDescriptionString;
+- (NSMutableAttributedString *)getDetailedWeatherDescriptionString;
 - (NSNumber *)getTemperatureInCelsius;
 
 @end

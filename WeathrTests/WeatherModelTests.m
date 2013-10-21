@@ -170,13 +170,25 @@
     XCTAssertEqualWithAccuracy([[model getTemperatureInFahrenheit] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in fahrenheit");
 }
 
-- (void)testModelReturnsDetailedWeatherDescriptionString
+- (void)testModelReturnsDetailedWeatherDescriptionStringText
 {
     model.temperature = [NSNumber numberWithFloat:284.94];
     model.weatherDescription = @"Cloudy";
     model.locationName = @"London";
-    NSString *expectedAnswer = @"London 11.79º\nCloudy";
-    XCTAssertEqualObjects([model getDetailedWeatherDescriptionString], expectedAnswer, @"Model should return a detailed weather description string");
+    NSString *expectedAnswer = @"London 12º\nCloudy";
+    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
+}
+
+// This is an oversimplistic test. It doesn't set that that any of the
+// attributes are being set
+// TODO: Make test more robust
+- (void)testModelReturnsDetailedWeatherDescriptionAsAttributedString
+{
+    model.temperature = [NSNumber numberWithFloat:284.94];
+    model.weatherDescription = @"Cloudy";
+    model.locationName = @"London";
+    id description = [model getDetailedWeatherDescriptionString];
+    XCTAssertTrue([[description class] isSubclassOfClass:[NSAttributedString class]], @"Description should be an attributed string");
 }
 
 #pragma mark - Delegate

@@ -22,7 +22,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)loadImageNamed: (NSString *)imageName;
-- (void)updateWeatherDescription: (NSString *)description;
+- (void)updateWeatherDescription: (NSAttributedString *)description;
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
 - (UIColor *)pickColourUsingTemperature: (NSNumber *)temp;
 - (void)updateViewBackgroundColour: (UIColor *)color;
