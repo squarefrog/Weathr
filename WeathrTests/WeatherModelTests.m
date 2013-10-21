@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "WeatherModel.h"
 #import "WeatherModelExtensions.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface WeatherModelTests : XCTestCase <WeatherModelDelegate> {
     NSData *data;
@@ -117,43 +118,42 @@
 - (void)testWeatherDescriptionCanBeUpdatedFromParsedData
 {
     [model updateWeatherDescriptionFromDictionary:parsedData];
-    
-    XCTAssertNotNil(model.weatherDescription, @"Weather description property should be set");
+    XCTAssertEqualObjects(model.weatherDescription, @"light rain", @"Weather description property should be set");
 }
 
 - (void)testTemperatureCanBeUpdatedFromParsedData
 {
     [model updateTemperatureFromDictionary:parsedData];
-    
-    XCTAssertNotNil(model.temperature, @"Temperature property should be set");
+    XCTAssertEqualObjects(model.temperature, @285.82999999999998, @"Temperature property should be set");
 }
 
 - (void)testIconStringCanBeUpdatedFromParsedData
 {
     [model updateIconFromDictionary:parsedData];
-    
-    XCTAssertNotNil(model.icon, @"Icon property should be set");
+    XCTAssertEqualObjects(model.icon, @"10n", @"Icon property should be set");
 }
 
 - (void)testLocationNameCanBeUpdatedFromParsedData
 {
     [model updateLocationNameFromDictionary:parsedData];
-    
-    XCTAssertNotNil(model.locationName, @"Location name property should be set");
+    XCTAssertEqualObjects(model.locationName, @"East Ham", @"Location name property should be set");
 }
 
 - (void)testLastUpdatedDateCanBeUpdatedFromParsedData
 {
     [model updateLastUpdatedDateFromDictionary:parsedData];
-    
-    XCTAssertNotNil(model.lastUpdated, @"Last updated date property should be set");
+    XCTAssertEqualObjects(model.lastUpdated, [NSDate dateWithTimeIntervalSince1970:1382224998], @"Last updated date property should be set");
 }
 
 - (void)testLocationCanBeUpdatedFromParsedData
 {
-    [model updateLocationFromDictionary:parsedData];
+    // We only care about the location coordinates here
+    double lat = 51.509999999999998;
+    double lon = 0.13;
+    CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(lat, lon);
     
-    XCTAssertNotNil(model.location, @"Location property should be set");
+    [model updateLocationFromDictionary:parsedData];
+    XCTAssertEqual(model.location.coordinate, coords, @"Location property should be set");
 }
 
 #pragma mark - Get values
