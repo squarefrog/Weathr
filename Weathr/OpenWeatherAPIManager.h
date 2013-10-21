@@ -28,9 +28,3 @@
 - (void)fetchWeatherData;
 
 @end
-
-@interface OpenWeatherAPIManager (private)
-- (void)tellDelegateDataTaskSucceededWithData:(NSData *)data;
-- (void)tellDelegateDataTaskFailedWithHTTPURLResponse:(NSHTTPURLResponse *)response;
-- (NSURLSessionTask *)createTaskWithURLRequest:(NSURLRequest *)request;
-@end
