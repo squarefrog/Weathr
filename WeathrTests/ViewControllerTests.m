@@ -130,22 +130,29 @@
 
 - (void)testActivityIndicatorCanBeHidden
 {
-    [_sut startActivityIndicator];
+    [_sut.activityIndicator startAnimating];
     [_sut stopActivityIndicator];
     XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be hidden");
 }
 
 - (void)testActivityIndicatorShouldNotBeAnimatedWhenHidden
 {
-    [_sut startActivityIndicator];
+    [_sut.activityIndicator startAnimating];
     [_sut stopActivityIndicator];
-    XCTAssertFalse(_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating");
+    XCTAssertTrue(!_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating");
 }
 
 - (void)testActivityIndicatorIsStartedAsViewAppears
 {
     [_sut viewDidAppear:NO];
     XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be spinning when view loads");
+}
+
+- (void)testActivityIndicatorStopsWhenViewRefreshed
+{
+    _sut.weatherModel = nil;
+    [_sut reloadView];
+    XCTAssertTrue(!_sut.activityIndicator.isAnimating, @"Activity indicator should be stopped when view is reloaded");
 }
 
 #pragma mark - Colour choosing

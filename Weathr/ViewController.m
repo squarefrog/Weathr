@@ -99,11 +99,14 @@
 
 - (void)reloadView
 {
-    [self loadImageNamed:_weatherModel.icon];
-    NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
-    [self updateWeatherDescription:description];
-    [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
-    [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
+    if (_weatherModel) {
+        [self loadImageNamed:_weatherModel.icon];
+        NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
+        [self updateWeatherDescription:description];
+        [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
+        [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
+    }
+    [self stopActivityIndicator];
 }
 
 #pragma mark - Colour Methods
