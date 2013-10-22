@@ -15,6 +15,10 @@
 
 #define ANIMATION_DURATION 1.0f
 
+#define COOL_THRESHOLD   10.0f
+#define WARM_THRESHOLD   18.0f
+#define HOT_THRESHOLD    27.0f
+
 @interface ViewController () <WeatherModelDelegate,OpenWeatherAPIManagerDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *weatherIcon;
@@ -118,12 +122,15 @@
 
 - (UIColor *)pickColourUsingTemperature: (NSNumber *)temp
 {
-    if ([temp floatValue] >= 10.0f && [temp floatValue] < 18.0f)
+    if ([temp floatValue] >= COOL_THRESHOLD && [temp floatValue] < WARM_THRESHOLD)
         return COLOUR_COOL;
-    else if ([temp floatValue] >= 18.0f && [temp floatValue] < 27.0f)
+    
+    else if ([temp floatValue] >= WARM_THRESHOLD && [temp floatValue] < HOT_THRESHOLD)
         return COLOUR_WARM;
-    else if ([temp floatValue] >= 27.0f)
+    
+    else if ([temp floatValue] >= HOT_THRESHOLD)
         return COLOUR_HOT;
+    
     return COLOUR_COLD;
 }
 
