@@ -11,56 +11,7 @@
 
 @implementation WeatherModel
 
-- (NSNumber *)getTemperatureInCelsius
-{
-    return [WeatherModel convertKelvinToCelsius:self.temperature];
-}
-
-- (NSNumber *)getTemperatureInFahrenheit
-{
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
-    return [WeatherModel convertCelsiusToFahrenheit:celsius];
-}
-
-#pragma mark - Temperature conversion
-+ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
-{
-    float k = [kelvin floatValue];
-    float c = k - 273.15;
-    return [NSNumber numberWithFloat:c];
-}
-
-+ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius
-{
-    float c = [celsius floatValue];
-    float f = c * 9 / 5 + 32;
-    return [NSNumber numberWithFloat:f];
-}
-
-#pragma mark - Parsing
-+ (NSString *)parseDate: (NSDate *)date
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterShortStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    return [formatter stringFromDate: date];
-}
-
-+ (id)parseJSONData:(NSData *)data
-{
-    NSError *error;
-    id parsedData = [NSJSONSerialization JSONObjectWithData:data
-                                                    options:NSJSONReadingMutableContainers
-                                                      error:&error];
-    if (!error)
-        return parsedData;
-    return nil;
-}
-
 #pragma mark - Property updates
-// This method is untested, but each individual call is tested
-// in it's own test so we're covered.
-// TODO: UNTESTED METHOD
 - (void)updateWeatherModelFromNSData:(NSData *)data
 {
     id json = [WeatherModel parseJSONData:data];
@@ -68,9 +19,8 @@
         [self updateWeatherModelFromDictionary:(NSDictionary *)json];
 }
 
-// This method is untested, but each individual call is tested
-// in it's own test so we're covered.
-// TODO: UNTESTED METHOD
+// This method is untested, but each call is tested individually
+// so we're covered.
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict
 {
     [self updateWeatherDescriptionFromDictionary:dict];
@@ -130,10 +80,59 @@
     self.location = location;
 }
 
-#pragma mark - Get methods
+#pragma mark - Parsing
++ (NSString *)parseDate: (NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterShortStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    return [formatter stringFromDate: date];
+}
+
++ (NSDictionary *)parseJSONData:(NSData *)data
+{
+    NSError *error = nil;
+    NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:0
+                                                                 error:&error];
+    if (parsedData)
+        return parsedData;
+    else
+        NSLog(@"JSON parse error %@", error);
+    return nil;
+}
+
+#pragma mark - Temperature conversion
++ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
+{
+    float k = [kelvin floatValue];
+    float c = k - 273.15;
+    return [NSNumber numberWithFloat:c];
+}
+
++ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius
+{
+    float c = [celsius floatValue];
+    float f = c * 9 / 5 + 32;
+    return [NSNumber numberWithFloat:f];
+}
+
+#pragma mark - Getters
+- (NSNumber *)getTemperatureInCelsius
+{
+    return [WeatherModel convertKelvinToCelsius:self.temperature];
+}
+
+- (NSNumber *)getTemperatureInFahrenheit
+{
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
+    return [WeatherModel convertCelsiusToFahrenheit:celsius];
+}
+
 // This method contains a lot of view customisation. Tests will need
 // writing for this method, but I'll need to find an appropriate solution
 // that doesn't result in fragile tests.
+// TODO: Move to seperate class
 - (NSMutableAttributedString *)getDetailedWeatherDescriptionString
 {
     NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
@@ -149,8 +148,6 @@
     [string addAttribute:NSFontAttributeName
                    value:[UIFont boldSystemFontOfSize:24]
                    range:locationNameRange];
-    
-    
     
     [string addAttribute:NSFontAttributeName
                    value:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]

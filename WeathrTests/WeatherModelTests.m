@@ -12,10 +12,11 @@
 #import "WeatherModelExtensions.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface WeatherModelTests : XCTestCase <WeatherModelDelegate> {
-    NSData *data;
+@interface WeatherModelTests : XCTestCase <WeatherModelDelegate>
+{
+    NSData *stubJSON;
     WeatherModel *model;
-    NSDictionary *parsedData;
+    NSDictionary *stubDictionary;
     BOOL callbackInvoked;
 }
 
@@ -26,20 +27,37 @@
 - (void)setUp
 {
     [super setUp];
-    data = [WeatherModelExtensions loadJSONFromFile];
+    
     model = [[WeatherModel alloc] init];
-    parsedData = (NSDictionary *)[WeatherModel parseJSONData:data];
+    stubJSON = [WeatherModelExtensions loadJSONFromFile];
+    stubDictionary = [WeatherModelExtensions loadPlistFromFile];
+    
+    model.weatherDescription = @"Cloudy";
+    model.locationName = @"London";
+    model.temperature = [NSNumber numberWithFloat:284.94];
 }
 
 - (void)tearDown
 {
-    data = nil;
     model = nil;
-    parsedData = nil;
+    stubJSON = nil;
+    stubDictionary = nil;
     [super tearDown];
 }
 
+#pragma mark - Internal tests
+- (void)testWeatherModelExtensionsLoadsJSON
+{
+    XCTAssertNotNil(stubJSON, @"JSON should have loaded from file");
+}
+
+- (void)testWeatherModelExtensionsLoadsPropertyList
+{
+    XCTAssertNotNil(stubDictionary, @"Dictionary stub should have loaded from file");
+}
+
 #pragma mark - Properties
+// TODO: There must be a better way to do these checks
 - (void)testModelHasWeatherDescriptionProperty
 {
     XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(weatherDescription)], @"weatherDescription property does not exist on weather model class");
@@ -70,79 +88,34 @@
     XCTAssertTrue([WeatherModel instancesRespondToSelector:@selector(location)], @"Location property does not exist on weather model class");
 }
 
-
-#pragma mark - Temperature
-
-- (void)testTemperatureConversionKelvin
-{
-    NSNumber *kelvin = [NSNumber numberWithFloat:284.94];
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
-    NSNumber *expected = [NSNumber numberWithFloat:11.79];
-    XCTAssertEqualWithAccuracy([celsius floatValue], [expected floatValue], 0.00001, @"Kelvin conversion should equal %f, got %f", [expected floatValue], [celsius floatValue]);
-}
-
-
-- (void)testTemperatureConversionFahrenheit
-{
-    NSNumber *celsius = [NSNumber numberWithFloat:19.0];
-    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
-    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Fahrenheit conversion should equal 68, got %f", [fahrenheit floatValue]);
-}
-
-#pragma mark - Parsing
-
-- (void)testDateCanBeConvertedToNaturalLanguage
-{
-    NSDate *testDate = [NSDate date];
-    NSDateFormatter *f = [[NSDateFormatter alloc] init];
-    [f setDateStyle:NSDateFormatterShortStyle];
-    [f setTimeStyle:NSDateFormatterShortStyle];
-    
-    NSString *testString = [WeatherModel parseDate:testDate];
-    XCTAssertEqualObjects(testString, [f stringFromDate:testDate], @"NSDate parsed incorrectly");
-}
-
-- (void)testJSONDatafileCanBeLoaded
-{
-    data = [WeatherModelExtensions loadJSONFromFile];
-    XCTAssertNotNil(data, @"Example response should be loaded from file");
-}
-
-- (void)testNSDataCanBeParsedToDictionary
-{
-    data = [WeatherModelExtensions loadJSONFromFile];
-    id testData = [WeatherModel parseJSONData:data];
-    XCTAssertTrue([[testData class] isSubclassOfClass: [NSMutableDictionary class]], @"Data should be NSMutableDictionary format");
-}
-
 #pragma mark - Update properties
 - (void)testWeatherDescriptionCanBeUpdatedFromParsedData
 {
-    [model updateWeatherDescriptionFromDictionary:parsedData];
+    [model updateWeatherDescriptionFromDictionary:stubDictionary];
     XCTAssertEqualObjects(model.weatherDescription, @"light rain", @"Weather description property should be set");
 }
 
 - (void)testTemperatureCanBeUpdatedFromParsedData
 {
-    [model updateTemperatureFromDictionary:parsedData];
+    [model updateTemperatureFromDictionary:stubDictionary];
     XCTAssertEqualObjects(model.temperature, @285.82999999999998, @"Temperature property should be set");
 }
 
 - (void)testIconStringCanBeUpdatedFromParsedData
 {
-    [model updateIconFromDictionary:parsedData];
+    [model updateIconFromDictionary:stubDictionary];
     XCTAssertEqualObjects(model.icon, @"10n", @"Icon property should be set");
 }
 
 - (void)testLocationNameCanBeUpdatedFromParsedData
 {
-    [model updateLocationNameFromDictionary:parsedData];
+    [model updateLocationNameFromDictionary:stubDictionary];
     XCTAssertEqualObjects(model.locationName, @"East Ham", @"Location name property should be set");
 }
 
 - (void)testLastUpdatedDateCanBeUpdatedFromParsedData
 {
-    [model updateLastUpdatedDateFromDictionary:parsedData];
+    [model updateLastUpdatedDateFromDictionary:stubDictionary];
     XCTAssertEqualObjects(model.lastUpdated, [NSDate dateWithTimeIntervalSince1970:1382224998], @"Last updated date property should be set");
 }
 
@@ -153,43 +126,83 @@
     double lon = 0.13;
     CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(lat, lon);
     
-    [model updateLocationFromDictionary:parsedData];
+    [model updateLocationFromDictionary:stubDictionary];
     XCTAssertEqual(model.location.coordinate, coords, @"Location property should be set");
 }
 
-#pragma mark - Get values
-- (void)testGetTemperatureInCelsius
+#pragma mark - Parsing
+// WARNING: Fragile test ahead!
+// This is currently tied to UK number formatting set in
+// Settings > General > International > Region Format
+// TODO: Find a more robust way to test data parsing
+- (void)testDateCanBeConvertedToNaturalLanguage
 {
-    model.temperature = [NSNumber numberWithFloat:284.94];
-    NSNumber *expected = [NSNumber numberWithFloat:11.79];
-    XCTAssertEqualWithAccuracy([[model getTemperatureInCelsius] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in celsius");
-}
-- (void)testGetTemperatureInFahrenheit
-{
-    model.temperature = [NSNumber numberWithFloat:284.94];
-    NSNumber *expected = [NSNumber numberWithFloat:53.222];
-    XCTAssertEqualWithAccuracy([[model getTemperatureInFahrenheit] floatValue], [expected floatValue], 0.00001, @"Model should return temperature in fahrenheit");
-}
-
-- (void)testModelReturnsDetailedWeatherDescriptionStringText
-{
-    model.temperature = [NSNumber numberWithFloat:284.94];
-    model.weatherDescription = @"Cloudy";
-    model.locationName = @"London";
-    NSString *expectedAnswer = @"London 12º\nCloudy";
-    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
+    // DATE (M/D/Y @ h:m:s): 09 / 01 / 2010 @ 16:37:42 GMT
+    NSDate *testDate = [NSDate dateWithTimeIntervalSince1970:1283355462];
+    NSString *testString = [WeatherModel parseDate:testDate];
+    
+    XCTAssertEqualObjects(testString, @"01/09/2010 16:37", @"NSDate parsed incorrectly");
 }
 
-// This is an oversimplistic test. It doesn't set that that any of the
+- (void)testNSDataCanBeParsedToDictionary
+{
+    stubJSON = [WeatherModelExtensions loadJSONFromFile];
+    id testData = [WeatherModel parseJSONData:stubJSON];
+    XCTAssertEqualObjects(testData, stubDictionary, @"JSON data should be parsed to NSDictionary");
+}
+
+#pragma mark - Temperature conversion
+- (void)testTemperatureConversionFromKelvin
+{
+    NSNumber *kelvin = [NSNumber numberWithFloat:284.94];
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
+    
+    XCTAssertEqualWithAccuracy([celsius floatValue], 11.79f, 0.00001, @"Temperature should be converted from kelvin to celsius");
+}
+
+- (void)testTemperatureConversionFromKelvinWithMinusResultExpected
+{
+    NSNumber *kelvin = [NSNumber numberWithFloat:268.15];
+    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
+    
+    XCTAssertEqualWithAccuracy([celsius floatValue], -5.0f, 0.00001, @"Temperature should be converted from kelvin to -celsius");
+}
+
+- (void)testTemperatureConversionFromFahrenheit
+{
+    NSNumber *celsius = [NSNumber numberWithFloat:19.0];
+    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
+    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Temperature should be converted from celsius to fahrenheit");
+}
+
+- (void)testTemperatureConversionFromFahrenheitWithMinusResultExpected
+{
+    NSNumber *celsius = [NSNumber numberWithFloat:-40];
+    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
+    XCTAssertEqual([fahrenheit floatValue], -40.0f, @"Temperature should be converted from celsius to -fahrenheit");
+}
+
+#pragma mark - Getters
+// This is an oversimplistic test. It doesn't check that any of the
 // attributes are being set
 // TODO: Make test more robust
 - (void)testModelReturnsDetailedWeatherDescriptionAsAttributedString
 {
-    model.temperature = [NSNumber numberWithFloat:284.94];
-    model.weatherDescription = @"Cloudy";
-    model.locationName = @"London";
     id description = [model getDetailedWeatherDescriptionString];
     XCTAssertTrue([[description class] isSubclassOfClass:[NSAttributedString class]], @"Description should be an attributed string");
+}
+
+- (void)testModelReturnsDetailedWeatherDescriptionStringText
+{
+    NSString *expectedAnswer = @"London 12º\nCloudy";
+    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
+}
+
+- (void)testModelReturnsDetailedWeatherDescriptionStringTextWithMinusTemperature
+{
+    model.temperature = [NSNumber numberWithFloat:268.15];
+    NSString *expectedAnswer = @"London -5º\nCloudy";
+    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
 }
 
 #pragma mark - Delegate
@@ -201,6 +214,7 @@
     model.delegate = nil;
 }
 
+#pragma mark - Delegate helper methods
 - (void)weatherModelUpdated
 {
     callbackInvoked = YES;
