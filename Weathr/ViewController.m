@@ -37,13 +37,16 @@
     _apiManager = [[OpenWeatherAPIManager alloc] init];
     _apiManager.delegate = self;
     
-    // Fetch current location
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
+    // TODO: Set desired accuracy
 }
 
+// TODO: Check that location services are available
+// + (CLAuthorizationStatus)authorizationStatus
 - (void)viewDidAppear:(BOOL)animated
 {
+    // startMonitoringSignificantLocationChanges
     [_locationManager startUpdatingLocation];
 }
 
@@ -132,16 +135,18 @@
 }
 
 #pragma mark - Core Location
-
+// TODO: Move to testable method
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+    // TODO: Check timestamp before stopping
     [_locationManager stopUpdatingLocation];
     [_apiManager updateURLWithLocation:newLocation];
     [_apiManager fetchWeatherData];
 }
 
+// TODO: Move to testable method
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {

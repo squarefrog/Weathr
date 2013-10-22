@@ -21,6 +21,23 @@
 
 @implementation ViewControllerTests
 
+- (void)setUp
+{
+    [super setUp];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:[self returnStoryboardName]
+                                                             bundle:nil];
+    _sut = (ViewController *)[mainStoryboard instantiateInitialViewController];
+    XCTAssertNotNil(_sut, @"ViewController should not be nil for storyboard %@", [self returnStoryboardName]);
+    [_sut view];
+    [_sut viewDidLoad];
+}
+
+- (void)tearDown
+{
+    _sut = nil;
+    [super tearDown];
+}
+
 - (NSString *)returnStoryboardName
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
@@ -31,70 +48,60 @@
         return nil;
 }
 
-- (void)setUp
-{
-    [super setUp];
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:[self returnStoryboardName]
-                                                             bundle:nil];
-    _sut = (ViewController *)[mainStoryboard instantiateInitialViewController];
-    XCTAssertNotNil(_sut, @"ViewController should not be nil for storyboard %@", [self returnStoryboardName]);
-    [_sut viewDidLoad];
-}
-
-- (void)tearDown
-{
-    _sut = nil;
-    [super tearDown];
-}
-
-#pragma mark - Test UI is complete
+#pragma mark - View setup
 - (void)testWeatherIconImageViewShouldBeConnected
 {
-    [_sut view];
-    XCTAssertNotNil(_sut.weatherIcon, @"Weather icon image view should not be nil");
+    XCTAssertNotNil(_sut.weatherIcon, @"Weather icon image view should be in view");
 }
 
 - (void)testWeatherDescriptionLabelShouldBeConnected
 {
-    [_sut view];
-    XCTAssertNotNil(_sut.weatherDescription, @"Weather description label should not be nil");
+    XCTAssertNotNil(_sut.weatherDescription, @"Weather description label should be in view");
 }
 
 - (void)testLastUpdatedLabelShouldBeConnected
 {
-    [_sut view];
-    XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should not be nil");
+    XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should be in view");
 }
 
-#pragma mark - Outlet updates
+- (void)testViewBackgroundShouldDefaultToWarmColour
+{
+    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_WARM, @"View background should default to warm colour");
+}
 
-- (void)testWeatherIconCanBeUpdated {
-    [_sut view];
-    
+#pragma mark - View updates
+- (void)testWeatherIconCanBeUpdated
+{
     [_sut loadImageNamed:@"01d"];
     
     XCTAssertEqual(_sut.weatherIcon.image, [UIImage imageNamed:@"01d"], @"Weather icon should be updated");
 }
 
-- (void)testWeatherDescriptionLabelCanBeUpdated {
-    [_sut view];
-    NSAttributedString *testCase = [[NSAttributedString alloc] initWithString:@"Mostly cloudy"];
-    [_sut updateWeatherDescription: testCase];
+- (void)testWeatherDescriptionLabelCanBeUpdated
+{
+    NSAttributedString *description = [[NSAttributedString alloc] initWithString:@"Mostly cloudy"];
+    [_sut updateWeatherDescription: description];
     
-    XCTAssertEqualObjects(_sut.weatherDescription.text, testCase.string, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+    XCTAssertEqualObjects(_sut.weatherDescription.text, description.string, @"Weather description text should have changed");
 }
 
-- (void)testLastUpdatedCanBeUpdated {
-    [_sut view];
+- (void)testLastUpdatedCanBeUpdated
+{
     NSString *testCase = @"24/10/2013 14:30:23";
     [_sut updateLastUpdatedLabel: testCase];
     
     NSString *testAssertion = [NSString stringWithFormat:@"Last updated: %@", testCase];
-    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, testAssertion, @"Weather description text should be %@, got %@", testCase, _sut.weatherDescription.text);
+    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, testAssertion, @"Last updated label should have changed");
 }
 
-#pragma mark - UI updates
+- (void)testViewBackgroundColourCanBeChanged
+{
+    _sut.view.backgroundColor = COLOUR_COLD;
+    [_sut updateViewBackgroundColour: COLOUR_HOT];
+    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
+}
 
+#pragma mark - Colour choosing
 - (void)testControllerShouldChooseColdColourBasedOnTemperature
 {
     UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:8.0]];
@@ -119,14 +126,7 @@
     XCTAssertEqualObjects(testCase, COLOUR_HOT, @"Colour should be hot colour");
 }
 
-- (void)testViewBackgroundColourCanBeChanged
-{
-    _sut.view.backgroundColor = COLOUR_COLD;
-    [_sut updateViewBackgroundColour: COLOUR_HOT];
-    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
-}
-
-#pragma mark - Weather instantiation
+#pragma mark - Weather model instantiation
 - (void)testControllerInstantiatesWeatherModel
 {
     XCTAssertNotNil(_sut.weatherModel, @"View controller should have a weather model");
@@ -163,7 +163,7 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(dataTaskFailWithHTTPURLResponse:)], @"View controller should implement dataTaskFailWithHTTPURLResponse:");
 }
 
-#pragma mark - Location manager instantiation
+#pragma mark - Core location
 - (void)testControllerInstantiatesLocationManager
 {
     XCTAssertNotNil(_sut.locationManager, @"View controller should have a location manager");
@@ -172,6 +172,16 @@
 - (void)testControllerSetsLocationManagerDelegateToSelf
 {
     XCTAssertNotNil(_sut.locationManager.delegate, @"View controller should be location manager delegate");
+}
+
+- (void)testControllerImplementsDidUpdateToLocation
+{
+    XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didUpdateToLocation:fromLocation:)], @"Controller should implement locationManager:didUpdateToLocation:fromLocation delegate method");
+}
+
+- (void)testControllerImplementsDidFailWithError
+{
+    XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didFailWithError:)], @"Controller should implement locationManager:didFailWithError: delegate method");
 }
 
 @end
