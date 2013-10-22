@@ -11,6 +11,7 @@
 
 @interface WeatherDescriptionBuilder (PrivateMethods)
 
-+ (NSMutableAttributedString *)locationNameAttributeStringFromModel:(WeatherModel *)model;
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withLocationNameFromModel:(WeatherModel *)model;
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withTemperatureFromModel:(WeatherModel *)model;
 
 @end
