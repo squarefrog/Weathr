@@ -142,6 +142,12 @@
     XCTAssertFalse(_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating");
 }
 
+- (void)testActivityIndicatorIsStartedAsViewAppears
+{
+    [_sut viewDidAppear:NO];
+    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be spinning when view loads");
+}
+
 #pragma mark - Colour choosing
 - (void)testControllerShouldChooseColdColourBasedOnTemperature
 {

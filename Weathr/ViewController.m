@@ -47,6 +47,7 @@
 // + (CLAuthorizationStatus)authorizationStatus
 - (void)viewDidAppear:(BOOL)animated
 {
+    [_activityIndicator startAnimating];
     // startMonitoringSignificantLocationChanges
     [_locationManager startUpdatingLocation];
 }
@@ -122,6 +123,7 @@
 #pragma mark - Weather model delegate
 - (void)weatherModelUpdated
 {
+    
     [self loadImageNamed:_weatherModel.icon];
     [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
     [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
