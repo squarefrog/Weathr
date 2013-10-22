@@ -29,4 +29,5 @@
 - (void)updateViewBackgroundColour: (UIColor *)color;
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
+- (void)reloadView;
 @end

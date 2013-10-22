@@ -96,6 +96,14 @@
     [_activityIndicator stopAnimating];
 }
 
+- (void)reloadView
+{
+    [self loadImageNamed:_weatherModel.icon];
+    [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
+    [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
+    [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
+}
+
 #pragma mark - Colour Methods
 - (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp
 {
@@ -123,11 +131,7 @@
 #pragma mark - Weather model delegate
 - (void)weatherModelUpdated
 {
-    
-    [self loadImageNamed:_weatherModel.icon];
-    [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
-    [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
-    [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
+    [self reloadView];
 }
 
 #pragma mark - API manager delegate
