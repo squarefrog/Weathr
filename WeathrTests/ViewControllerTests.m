@@ -38,6 +38,7 @@
     [super tearDown];
 }
 
+#pragma mark - Test helper
 - (NSString *)returnStoryboardName
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
@@ -51,32 +52,22 @@
 #pragma mark - View setup
 - (void)testWeatherIconImageViewShouldBeConnected
 {
-    XCTAssertNotNil(_sut.weatherIcon, @"Weather icon image view should be in view");
+    XCTAssertNotNil(_sut.weatherIcon, @"View should have a weather icon image view");
 }
 
 - (void)testWeatherDescriptionLabelShouldBeConnected
 {
-    XCTAssertNotNil(_sut.weatherDescription, @"Weather description label should be in view");
+    XCTAssertNotNil(_sut.weatherDescription, @"View should have a weather description label");
 }
 
 - (void)testLastUpdatedLabelShouldBeConnected
 {
-    XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should be in view");
+    XCTAssertNotNil(_sut.lastUpdatedLabel, @"View should have a last updated label");
 }
 
 - (void)testActivityIndicatorShouldBeConnected
 {
     XCTAssertNotNil(_sut.activityIndicator, @"View should have an activity indicator");
-}
-
-- (void)testActivityIndicatorShouldBeInitiallyHidden
-{
-    XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be initially hidden");
-}
-
-- (void)testActivityIndicatorShouldBeHiddenWhenStopped
-{
-    XCTAssertTrue(_sut.activityIndicator.hidesWhenStopped, @"Activity indicator should hide when stopped");
 }
 
 - (void)testViewBackgroundShouldDefaultToWarmColour
@@ -95,18 +86,20 @@
 - (void)testWeatherDescriptionLabelCanBeUpdated
 {
     NSAttributedString *description = [[NSAttributedString alloc] initWithString:@"Mostly cloudy"];
+    
     [_sut updateWeatherDescription: description];
     
-    XCTAssertEqualObjects(_sut.weatherDescription.text, description.string, @"Weather description text should have changed");
+    XCTAssertEqualObjects(_sut.weatherDescription.text, description.string, @"Weather description should be updated");
 }
 
-- (void)testLastUpdatedCanBeUpdated
+- (void)testLastUpdatedLabelCanBeUpdated
 {
     NSString *testCase = @"24/10/2013 14:30:23";
+    NSString *expectedResult = [NSString stringWithFormat:@"Last updated: %@", testCase];
+    
     [_sut updateLastUpdatedLabel: testCase];
     
-    NSString *testAssertion = [NSString stringWithFormat:@"Last updated: %@", testCase];
-    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, testAssertion, @"Last updated label should have changed");
+    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, expectedResult, @"Last updated label should be updated");
 }
 
 - (void)testViewBackgroundColourCanBeChanged
@@ -116,16 +109,47 @@
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
 }
 
+#pragma mark - Colour choosing
+- (void)testControllerShouldChooseColdColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:8.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_COLD, @"View background colour should be cold colour");
+}
+
+- (void)testControllerShouldChooseCoolColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:10.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_COOL, @"View background colour should be cool colour");
+}
+
+- (void)testControllerShouldChooseWarmColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:20.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_WARM, @"View background colour should be warm colour");
+}
+
+- (void)testControllerShouldChooseHotColourBasedOnTemperature
+{
+    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:30.0]];
+    XCTAssertEqualObjects(testCase, COLOUR_HOT, @"View background colour should be hot colour");
+}
+
+#pragma mark - Activity indicator
+- (void)testActivityIndicatorShouldBeInitiallyHidden
+{
+    XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be initially hidden");
+}
+
 - (void)testActivityIndicatorCanBeShown
 {
     [_sut startActivityIndicator];
-    XCTAssertFalse(_sut.activityIndicator.hidden, @"Activity indicator should be shown");
+    XCTAssertTrue(!_sut.activityIndicator.hidden, @"Activity indicator should be shown");
 }
 
 - (void)testActivityIndicatorShouldBeAnimatedWhenShown
 {
     [_sut startActivityIndicator];
-    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be animating");
+    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be animating when shown");
 }
 
 - (void)testActivityIndicatorCanBeHidden
@@ -139,13 +163,13 @@
 {
     [_sut.activityIndicator startAnimating];
     [_sut stopActivityIndicator];
-    XCTAssertTrue(!_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating");
+    XCTAssertTrue(!_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating when hidden");
 }
 
 - (void)testActivityIndicatorIsStartedAsViewAppears
 {
     [_sut viewDidAppear:NO];
-    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be spinning when view loads");
+    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be started when view loads");
 }
 
 - (void)testActivityIndicatorStopsWhenViewRefreshed
@@ -153,31 +177,6 @@
     _sut.weatherModel = nil;
     [_sut reloadView];
     XCTAssertTrue(!_sut.activityIndicator.isAnimating, @"Activity indicator should be stopped when view is reloaded");
-}
-
-#pragma mark - Colour choosing
-- (void)testControllerShouldChooseColdColourBasedOnTemperature
-{
-    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:8.0]];
-    XCTAssertEqualObjects(testCase, COLOUR_COLD, @"Colour should be cold colour");
-}
-
-- (void)testControllerShouldChooseCoolColourBasedOnTemperature
-{
-    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:10.0]];
-    XCTAssertEqualObjects(testCase, COLOUR_COOL, @"Colour should be cool colour");
-}
-
-- (void)testControllerShouldChooseWarmColourBasedOnTemperature
-{
-    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:20.0]];
-    XCTAssertEqualObjects(testCase, COLOUR_WARM, @"Colour should be warm colour");
-}
-
-- (void)testControllerShouldChooseHotColourBasedOnTemperature
-{
-    UIColor *testCase = [_sut pickColourUsingTemperature: [NSNumber numberWithFloat:30.0]];
-    XCTAssertEqualObjects(testCase, COLOUR_HOT, @"Colour should be hot colour");
 }
 
 #pragma mark - Weather model instantiation
@@ -193,7 +192,7 @@
 
 - (void)testControllerImplementsWeatherModelDelegateMethods
 {
-    XCTAssertTrue([_sut respondsToSelector:@selector(weatherModelUpdated)], @"View controller should implement weatherModelUpdated");
+    XCTAssertTrue([_sut respondsToSelector:@selector(weatherModelUpdated)], @"View controller should implement weatherModelUpdated delegate method");
 }
 
 #pragma mark - API manager instantiation
