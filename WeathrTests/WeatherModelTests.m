@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "WeatherModel.h"
+#import "WeatherModel+PrivateMethods.h"
 #import "WeatherModelExtensions.h"
 #import <CoreLocation/CoreLocation.h>
 

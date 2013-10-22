@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>base</key>
+    <string>global stations</string>
+    <key>clouds</key>
+    <dict>
+        <key>all</key>
+        <integer>88</integer>
+    </dict>
+    <key>cod</key>
+    <integer>200</integer>
+    <key>coord</key>
+    <dict>
+        <key>lat</key>
+        <real>51.51</real>
+        <key>lon</key>
+        <real>0.13</real>
+    </dict>
+    <key>dt</key>
+    <integer>1382224998</integer>
+    <key>id</key>
+    <integer>2650430</integer>
+    <key>main</key>
+    <dict>
+        <key>humidity</key>
+        <integer>91</integer>
+        <key>pressure</key>
+        <integer>1010</integer>
+        <key>temp</key>
+        <real>285.83</real>
+        <key>temp_max</key>
+        <real>287.15</real>
+        <key>temp_min</key>
+        <real>284.26</real>
+    </dict>
+    <key>name</key>
+    <string>East Ham</string>
+    <key>rain</key>
+    <dict>
+        <key>3h</key>
+        <integer>1</integer>
+    </dict>
+    <key>sys</key>
+    <dict>
+        <key>country</key>
+        <string>GB</string>
+        <key>sunrise</key>
+        <integer>1382164294</integer>
+        <key>sunset</key>
+        <integer>1382201824</integer>
+    </dict>
+    <key>weather</key>
+    <array>
+        <dict>
+            <key>description</key>
+            <string>light rain</string>
+            <key>icon</key>
+            <string>10n</string>
+            <key>id</key>
+            <integer>500</integer>
+            <key>main</key>
+            <string>Rain</string>
+        </dict>
+    </array>
+    <key>wind</key>
+    <dict>
+        <key>deg</key>
+        <real>201.003</real>
+        <key>speed</key>
+        <real>4.22</real>
+    </dict>
+</dict>
+</plist>

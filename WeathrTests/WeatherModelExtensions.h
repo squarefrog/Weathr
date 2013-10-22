@@ -11,5 +11,6 @@
 @interface WeatherModelExtensions : WeatherModel
 
 + (NSData *)loadJSONFromFile;
++ (NSDictionary *)loadPlistFromFile;
 
 @end

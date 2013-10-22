@@ -32,18 +32,3 @@
 - (NSNumber *)getTemperatureInCelsius;
 
 @end
-
-@interface WeatherModel (private)
-
-+ (id)parseJSONData:(NSData *)data;
-- (void)updateWeatherModelFromDictionary:(NSDictionary *)dict;
-- (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict;
-- (void)updateTemperatureFromDictionary:(NSDictionary *)dict;
-- (void)updateIconFromDictionary:(NSDictionary *)dict;
-- (void)updateLocationNameFromDictionary:(NSDictionary *)dict;
-- (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict;
-- (void)updateLocationFromDictionary:(NSDictionary *)dict;
-
-- (NSNumber *)getTemperatureInFahrenheit;
-
-@end

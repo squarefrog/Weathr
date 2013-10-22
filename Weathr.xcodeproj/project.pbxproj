@@ -10,6 +10,7 @@
 		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */; };
 		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
 		0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */; };
+		0EAB68B01815EF6F0042B7F6 /* example_response.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB68AF1815EF6F0042B7F6 /* example_response.plist */; };
 		0EC170D3180F534C007F501B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D2180F534C007F501B /* Foundation.framework */; };
 		0EC170D5180F534C007F501B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D4180F534C007F501B /* CoreGraphics.framework */; };
 		0EC170D7180F534C007F501B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D6180F534C007F501B /* UIKit.framework */; };
@@ -50,6 +51,8 @@
 		0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectableOpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectableOpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OpenWeatherAPIManager+PrivateMethods.h"; sourceTree = "<group>"; };
+		0EAB68AF1815EF6F0042B7F6 /* example_response.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = example_response.plist; sourceTree = "<group>"; };
+		0EAB68B11815F2130042B7F6 /* WeatherModel+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WeatherModel+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EC170CF180F534C007F501B /* Weathr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weathr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC170D2180F534C007F501B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0EC170D4180F534C007F501B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,6 +111,8 @@
 		0EAB68AE1815EC960042B7F6 /* Inspectable Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */,
+				0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */,
 				0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */,
 				0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */,
 			);
@@ -202,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				0ED9CC1B1813E959007F2ABD /* example_response.json */,
+				0EAB68AF1815EF6F0042B7F6 /* example_response.plist */,
 			);
 			name = Stubs;
 			sourceTree = "<group>";
@@ -210,9 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				0EEBAA2D181007D60034A739 /* ViewController+Protected.h */,
-				0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */,
-				0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */,
 				0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */,
+				0EAB68B11815F2130042B7F6 /* WeatherModel+PrivateMethods.h */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EAB68B01815EF6F0042B7F6 /* example_response.plist in Resources */,
 				0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */,
 				0ED9CC1C1813E959007F2ABD /* example_response.json in Resources */,
 			);

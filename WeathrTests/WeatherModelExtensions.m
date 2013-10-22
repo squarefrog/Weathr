@@ -10,12 +10,23 @@
 
 @implementation WeatherModelExtensions
 
++ (NSBundle *)bundle
+{
+    return [NSBundle bundleForClass:[self class]];
+}
+
 + (NSData *)loadJSONFromFile
 {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *filePath = [bundle pathForResource:@"example_response" ofType:@"json"];
+    NSString *filePath = [[self bundle] pathForResource:@"example_response" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
+}
+
++ (NSDictionary *)loadPlistFromFile
+{
+    NSString *filePath = [[self bundle] pathForResource:@"example_response" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    return dict;
 }
 
 @end
