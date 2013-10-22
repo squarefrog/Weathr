@@ -14,6 +14,7 @@
 @interface WeatherDescriptionBuilderTests : XCTestCase {
     WeatherModel *model;
     NSMutableAttributedString *locationName;
+    NSMutableAttributedString *inputString;
 }
 
 @end
@@ -29,11 +30,15 @@
     model.temperature = [NSNumber numberWithFloat:284.94];
     
     locationName = [[NSMutableAttributedString alloc] initWithString:model.locationName attributes:@{NSFontAttributeName: LOCATION_NAME_FONT}];
+    
+    inputString = [[NSMutableAttributedString alloc] init];
 }
 
 - (void)tearDown
 {
     model = nil;
+    locationName = nil;
+    inputString = nil;
     [super tearDown];
 }
 
@@ -44,37 +49,21 @@
     XCTAssertTrue([[description class] isSubclassOfClass:[NSAttributedString class]], @"Description should be an attributed string");
 }
 
-- (void)testModelReturnsDetailedWeatherDescriptionStringText
-{
-    NSString *expectedAnswer = @"London 12º\nCloudy";
-    XCTAssertEqualObjects([[WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model] string], expectedAnswer, @"Model should return a detailed weather description string");
-}
-
-- (void)testModelReturnsDetailedWeatherDescriptionStringTextWithMinusTemperature
-{
-    model.temperature = [NSNumber numberWithFloat:268.15];
-    NSString *expectedAnswer = @"London -5º\nCloudy";
-    XCTAssertEqualObjects([[WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model] string], expectedAnswer, @"Model should return a detailed weather description string");
-}
-
 #pragma mark - Location name
 - (void)testBuilderShouldCreateLocationNameString
 {
-    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
     NSMutableAttributedString *tString = [WeatherDescriptionBuilder updateString:inputString withLocationNameFromModel:model];
     XCTAssertEqualObjects(tString.string, locationName.string, @"Builder should return a string for model location");
 }
 
 - (void)testBuilderShouldSetAttributesForLocationNameString
 {
-    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
     NSMutableAttributedString *tString = [WeatherDescriptionBuilder updateString:inputString withLocationNameFromModel:model];
     XCTAssertEqualObjects(tString, locationName, @"Builder should set attributes for location name");
 }
 
 - (void)testBuilderShouldSetNilForNilLocationNameString
 {
-    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
     XCTAssertEqualObjects([WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:nil], inputString, @"Builder should return a nil object when given nil model");
 }
 
@@ -82,17 +71,24 @@
 - (void)testBuilderShouldAppendTemperatureString
 {
     NSString *expected = @"London 12º";
-    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] initWithString:@"London"];
-    NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
+    NSMutableAttributedString *iString = [[NSMutableAttributedString alloc] initWithString:@"London"];
+    NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:iString withTemperatureFromModel:model];
     XCTAssertEqualObjects(temperature.string, expected, @"Builder should return a string appended with temperature");
 }
 
 - (void)testBuilderShouldReturnTemperatureStringWithBlankInput
 {
-    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
     NSString *expected = @"12º";
     NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
     XCTAssertEqualObjects(temperature.string, expected, @"Builder should return a string with temperature");
+}
+
+- (void)testBuilderShouldAppendTemperatureStringWithMinusTemperature
+{
+    model.temperature = [NSNumber numberWithFloat:268.15];
+    NSString *expectedAnswer = @"-5º";
+    NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
+    XCTAssertEqualObjects(temperature.string, expectedAnswer, @"Model should return a detailed weather description string");
 }
 
 @end
