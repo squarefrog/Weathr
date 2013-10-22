@@ -88,7 +88,41 @@
     model.temperature = [NSNumber numberWithFloat:268.15];
     NSString *expectedAnswer = @"-5º";
     NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
-    XCTAssertEqualObjects(temperature.string, expectedAnswer, @"Model should return a detailed weather description string");
+    XCTAssertEqualObjects(temperature.string, expectedAnswer, @"Model should return a string with minus temperature");
+}
+
+#pragma mark - Description
+- (void)testBuilderShouldAppendDescriptionString
+{
+    NSString *expected = @"London 12º\nCloudy";
+    NSMutableAttributedString *iString = [[NSMutableAttributedString alloc] initWithString:@"London 12º"];
+    NSMutableAttributedString *description = [WeatherDescriptionBuilder updateString:iString withDescriptionFromModel:model];
+    XCTAssertEqualObjects(description.string, expected, @"Builder should return a string appended with description");
+}
+
+- (void)testBuilderShouldAppendDescriptionStringAttributes
+{
+    // Expectation
+    NSRange range = NSMakeRange(11, 6);
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"London 12º\nCloudy"];
+    [expected addAttribute:NSFontAttributeName value:DESCRIPTION_FONT range:range];
+    
+    NSMutableAttributedString *iString = [[NSMutableAttributedString alloc] initWithString:@"London 12º"];
+    
+    XCTAssertEqualObjects([WeatherDescriptionBuilder updateString:iString withDescriptionFromModel:model], expected, @"Builder should return an attributed string with description");
+}
+
+- (void)testBuilderDoesNotAddNewLineIfInputIsEmpty
+{
+    [WeatherDescriptionBuilder updateString:inputString withDescriptionFromModel:model];
+    XCTAssertEqualObjects(inputString.string, @"Cloudy", @"Builder should not add a new line if input is empty");
+}
+
+- (void)testBuilderDoesNotAppendDescriptionIfNil
+{
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"London 12º"];
+    model.weatherDescription = nil;
+    XCTAssertEqualObjects([WeatherDescriptionBuilder updateString:expected withDescriptionFromModel:model], expected, @"Builder should not append description if nil");
 }
 
 @end

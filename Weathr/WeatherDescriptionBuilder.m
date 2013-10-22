@@ -59,8 +59,25 @@
     
     NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@" %.0fº", celsius] : [NSString stringWithFormat:@"%.0fº", celsius];
     
-    NSAttributedString *aString = [[NSAttributedString alloc] initWithString:temp];
+    NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:temp];
     [attributedString appendAttributedString:aString];
+    return attributedString;
+}
+
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withDescriptionFromModel:(WeatherModel *)model
+{
+    if (model.weatherDescription) {
+        NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@"\n%@", model.weatherDescription] : [NSString stringWithFormat:@"%@", model.weatherDescription];
+        NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:temp];
+        
+        NSRange range = [temp rangeOfString:model.weatherDescription];
+        [aString addAttribute:NSFontAttributeName
+                        value:DESCRIPTION_FONT
+                        range:range];
+        
+        [attributedString appendAttributedString:aString];
+    }
+    
     return attributedString;
 }
 

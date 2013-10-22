@@ -13,5 +13,6 @@
 
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withLocationNameFromModel:(WeatherModel *)model;
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withTemperatureFromModel:(WeatherModel *)model;
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withDescriptionFromModel:(WeatherModel *)model;
 
 @end
