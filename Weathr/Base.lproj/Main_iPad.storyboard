@@ -45,21 +45,28 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="M1V-Fc-jcS">
+                                <rect key="frame" x="494" y="413" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.87843137250000003" green="0.45882352939999999" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="XWV-kS-153" firstAttribute="top" relation="lessThanOrEqual" secondItem="qOa-Kc-AAt" secondAttribute="bottom" constant="135" id="2lM-XU-G6d"/>
+                            <constraint firstAttribute="centerY" secondItem="M1V-Fc-jcS" secondAttribute="centerY" constant="-47.5" id="Adb-et-lFm"/>
                             <constraint firstAttribute="centerX" secondItem="AMo-uX-u05" secondAttribute="centerX" id="Ak3-oG-SUD"/>
                             <constraint firstItem="qOa-Kc-AAt" firstAttribute="top" secondItem="AMo-uX-u05" secondAttribute="bottom" constant="43" id="C5k-tP-vdp"/>
                             <constraint firstItem="d89-N9-HYX" firstAttribute="top" secondItem="XWV-kS-153" secondAttribute="bottom" constant="20" id="K3L-jj-XBP"/>
                             <constraint firstAttribute="centerX" secondItem="XWV-kS-153" secondAttribute="centerX" id="Y31-6t-dhv"/>
                             <constraint firstItem="AMo-uX-u05" firstAttribute="top" secondItem="BYx-ga-yDs" secondAttribute="bottom" constant="40" id="bLb-Oy-QG3"/>
                             <constraint firstAttribute="centerX" secondItem="qOa-Kc-AAt" secondAttribute="centerX" constant="-0.5" id="dee-mw-jgm"/>
+                            <constraint firstAttribute="centerX" secondItem="M1V-Fc-jcS" secondAttribute="centerX" constant="-0.5" id="rMG-u3-Ekr"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="M1V-Fc-jcS" id="AjP-KH-osB"/>
                         <outlet property="lastUpdatedLabel" destination="XWV-kS-153" id="a4L-my-st1"/>
                         <outlet property="weatherDescription" destination="qOa-Kc-AAt" id="MEc-qS-f0q"/>
                         <outlet property="weatherIcon" destination="AMo-uX-u05" id="3lv-fn-h1d"/>

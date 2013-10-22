@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *weatherIcon;
 @property (nonatomic, weak) IBOutlet UILabel *weatherDescription;
 @property (nonatomic, weak) IBOutlet UILabel *lastUpdatedLabel;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -84,6 +85,16 @@
     return transition;
 }
 
+- (void)startActivityIndicator
+{
+    [_activityIndicator startAnimating];
+}
+
+- (void)stopActivityIndicator
+{
+    [_activityIndicator stopAnimating];
+}
+
 #pragma mark - Colour Methods
 - (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp
 {
@@ -141,7 +152,12 @@
            fromLocation:(CLLocation *)oldLocation
 {
     // TODO: Check timestamp before stopping
-    [_locationManager stopUpdatingLocation];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        NSLog(@"newLocation: %@", placemarks);
+    }];
+//    [_locationManager stopUpdatingLocation];
     [_apiManager updateURLWithLocation:newLocation];
     [_apiManager fetchWeatherData];
 }

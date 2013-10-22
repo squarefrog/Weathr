@@ -17,6 +17,7 @@
 @property (nonatomic, weak) UIImageView *weatherIcon;
 @property (nonatomic, weak) UILabel *weatherDescription;
 @property (nonatomic, weak) UILabel *lastUpdatedLabel;
+@property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -26,5 +27,6 @@
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
 - (UIColor *)pickColourUsingTemperature: (NSNumber *)temp;
 - (void)updateViewBackgroundColour: (UIColor *)color;
-
+- (void)startActivityIndicator;
+- (void)stopActivityIndicator;
 @end

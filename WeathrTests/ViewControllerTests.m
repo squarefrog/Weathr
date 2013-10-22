@@ -64,6 +64,21 @@
     XCTAssertNotNil(_sut.lastUpdatedLabel, @"Last updated label should be in view");
 }
 
+- (void)testActivityIndicatorShouldBeConnected
+{
+    XCTAssertNotNil(_sut.activityIndicator, @"View should have an activity indicator");
+}
+
+- (void)testActivityIndicatorShouldBeInitiallyHidden
+{
+    XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be initially hidden");
+}
+
+- (void)testActivityIndicatorShouldBeHiddenWhenStopped
+{
+    XCTAssertTrue(_sut.activityIndicator.hidesWhenStopped, @"Activity indicator should hide when stopped");
+}
+
 - (void)testViewBackgroundShouldDefaultToWarmColour
 {
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_WARM, @"View background should default to warm colour");
@@ -99,6 +114,32 @@
     _sut.view.backgroundColor = COLOUR_COLD;
     [_sut updateViewBackgroundColour: COLOUR_HOT];
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
+}
+
+- (void)testActivityIndicatorCanBeShown
+{
+    [_sut startActivityIndicator];
+    XCTAssertFalse(_sut.activityIndicator.hidden, @"Activity indicator should be shown");
+}
+
+- (void)testActivityIndicatorShouldBeAnimatedWhenShown
+{
+    [_sut startActivityIndicator];
+    XCTAssertTrue(_sut.activityIndicator.isAnimating, @"Activity indicator should be animating");
+}
+
+- (void)testActivityIndicatorCanBeHidden
+{
+    [_sut startActivityIndicator];
+    [_sut stopActivityIndicator];
+    XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be hidden");
+}
+
+- (void)testActivityIndicatorShouldNotBeAnimatedWhenHidden
+{
+    [_sut startActivityIndicator];
+    [_sut stopActivityIndicator];
+    XCTAssertFalse(_sut.activityIndicator.isAnimating, @"Activity indicator should be not animating");
 }
 
 #pragma mark - Colour choosing

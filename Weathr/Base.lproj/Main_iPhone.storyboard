@@ -13,19 +13,19 @@
                         <viewControllerLayoutGuide type="bottom" id="WIr-Bk-hkq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-icon" translatesAutoresizingMaskIntoConstraints="NO" id="YpB-py-AFc">
-                                <rect key="frame" x="184" y="40" width="200" height="154"/>
+                                <rect key="frame" x="60" y="120" width="200" height="154"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="154" id="keS-ma-MXf"/>
                                     <constraint firstAttribute="width" constant="200" id="lLS-Ud-LyY"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="528" translatesAutoresizingMaskIntoConstraints="NO" id="hoO-8W-nYi">
-                                <rect key="frame" x="20" y="195" width="528" height="100"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="hoO-8W-nYi">
+                                <rect key="frame" x="20" y="275" width="280" height="268"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="100" id="3EZ-dq-tja"/>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jr7-zT-Wyh">
-                                <rect key="frame" x="144" y="297" width="280" height="16"/>
+                                <rect key="frame" x="20" y="545" width="280" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="NaA-QU-uit"/>
@@ -45,22 +45,28 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Nfu-Yd-yGi">
+                                <rect key="frame" x="142" y="282" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.8784313725490196" green="0.45882352941176469" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="jr7-zT-Wyh" firstAttribute="centerX" secondItem="hoO-8W-nYi" secondAttribute="centerX" id="968-mY-Mhm"/>
                             <constraint firstItem="hoO-8W-nYi" firstAttribute="top" secondItem="YpB-py-AFc" secondAttribute="bottom" constant="1" id="C3A-eN-62C"/>
+                            <constraint firstAttribute="centerX" secondItem="Nfu-Yd-yGi" secondAttribute="centerX" constant="-0.5" id="L1p-r3-1IL"/>
                             <constraint firstItem="hoO-8W-nYi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="Swj-Ql-cOJ"/>
                             <constraint firstItem="jr7-zT-Wyh" firstAttribute="top" secondItem="hoO-8W-nYi" secondAttribute="bottom" constant="2" id="UZ3-Yu-ih5"/>
                             <constraint firstItem="WIr-Bk-hkq" firstAttribute="top" secondItem="jr7-zT-Wyh" secondAttribute="bottom" constant="7" id="VHa-Bi-LrK"/>
                             <constraint firstAttribute="trailing" secondItem="hoO-8W-nYi" secondAttribute="trailing" constant="20" id="gwo-tj-KR0"/>
                             <constraint firstItem="YpB-py-AFc" firstAttribute="top" relation="lessThanOrEqual" secondItem="QKC-iZ-xQ4" secondAttribute="bottom" constant="100" id="jfi-z6-1zE"/>
+                            <constraint firstItem="Nfu-Yd-yGi" firstAttribute="top" secondItem="YpB-py-AFc" secondAttribute="bottom" constant="8" id="n6q-C0-y7q"/>
                             <constraint firstAttribute="centerX" secondItem="YpB-py-AFc" secondAttribute="centerX" id="orT-KH-DEJ"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Nfu-Yd-yGi" id="Efh-w1-0q3"/>
                         <outlet property="lastUpdatedLabel" destination="jr7-zT-Wyh" id="SIM-Zn-7jQ"/>
                         <outlet property="weatherDescription" destination="hoO-8W-nYi" id="lBl-To-a1h"/>
                         <outlet property="weatherIcon" destination="YpB-py-AFc" id="s4R-Xd-ewW"/>
