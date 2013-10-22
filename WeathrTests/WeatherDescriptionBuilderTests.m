@@ -57,21 +57,42 @@
     XCTAssertEqualObjects([[WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model] string], expectedAnswer, @"Model should return a detailed weather description string");
 }
 
+#pragma mark - Location name
 - (void)testBuilderShouldCreateLocationNameString
 {
-    NSMutableAttributedString *tString = [WeatherDescriptionBuilder locationNameAttributeStringFromModel:model];
+    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString *tString = [WeatherDescriptionBuilder updateString:inputString withLocationNameFromModel:model];
     XCTAssertEqualObjects(tString.string, locationName.string, @"Builder should return a string for model location");
 }
 
 - (void)testBuilderShouldSetAttributesForLocationNameString
-{    
-    NSMutableAttributedString *tString = [WeatherDescriptionBuilder locationNameAttributeStringFromModel:model];
+{
+    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString *tString = [WeatherDescriptionBuilder updateString:inputString withLocationNameFromModel:model];
     XCTAssertEqualObjects(tString, locationName, @"Builder should set attributes for location name");
 }
 
 - (void)testBuilderShouldSetNilForNilLocationNameString
 {
-    XCTAssertNil([WeatherDescriptionBuilder locationNameAttributeStringFromModel:nil], @"Builder should return a nil object when given nil model");
+    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
+    XCTAssertEqualObjects([WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:nil], inputString, @"Builder should return a nil object when given nil model");
+}
+
+#pragma mark - Temperature
+- (void)testBuilderShouldAppendTemperatureString
+{
+    NSString *expected = @"London 12º";
+    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] initWithString:@"London"];
+    NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
+    XCTAssertEqualObjects(temperature.string, expected, @"Builder should return a string appended with temperature");
+}
+
+- (void)testBuilderShouldReturnTemperatureStringWithBlankInput
+{
+    NSMutableAttributedString *inputString = [[NSMutableAttributedString alloc] init];
+    NSString *expected = @"12º";
+    NSMutableAttributedString *temperature = [WeatherDescriptionBuilder updateString:inputString withTemperatureFromModel:model];
+    XCTAssertEqualObjects(temperature.string, expected, @"Builder should return a string with temperature");
 }
 
 @end

@@ -36,7 +36,7 @@
     return string;
 }
 
-+ (NSMutableAttributedString *)locationNameAttributeStringFromModel:(WeatherModel *)model
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withLocationNameFromModel:(WeatherModel *)model
 {
     if (model.locationName) {
         NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:model.locationName];
@@ -44,11 +44,24 @@
         [aString addAttribute:NSFontAttributeName
                         value:LOCATION_NAME_FONT
                         range:NSMakeRange(0, model.locationName.length)];
+        
+        [attributedString appendAttributedString:aString];
 
-        return aString;
+        return attributedString;
     }
     
-    return nil;
+    return attributedString;
+}
+
++ (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withTemperatureFromModel:(WeatherModel *)model
+{
+    float celsius = [[model getTemperatureInCelsius] floatValue];
+    
+    NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@" %.0fº", celsius] : [NSString stringWithFormat:@"%.0fº", celsius];
+    
+    NSAttributedString *aString = [[NSAttributedString alloc] initWithString:temp];
+    [attributedString appendAttributedString:aString];
+    return attributedString;
 }
 
 @end
