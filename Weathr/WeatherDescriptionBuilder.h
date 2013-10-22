@@ -13,5 +13,7 @@
 #define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:20]
 
 @interface WeatherDescriptionBuilder : NSObject
+
 + (NSMutableAttributedString *)detailedWeatherDescriptionFromModel:(WeatherModel *)model;
+
 @end

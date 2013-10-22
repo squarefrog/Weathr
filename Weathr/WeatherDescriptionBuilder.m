@@ -36,9 +36,15 @@
     return string;
 }
 
+
+
+
+
+
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withLocationNameFromModel:(WeatherModel *)model
 {
-    if (model.locationName) {
+    if (model.locationName)
+    {
         NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:model.locationName];
 
         [aString addAttribute:NSFontAttributeName
@@ -46,8 +52,6 @@
                         range:NSMakeRange(0, model.locationName.length)];
         
         [attributedString appendAttributedString:aString];
-
-        return attributedString;
     }
     
     return attributedString;
@@ -55,18 +59,22 @@
 
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withTemperatureFromModel:(WeatherModel *)model
 {
-    float celsius = [[model getTemperatureInCelsius] floatValue];
-    
-    NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@" %.0fº", celsius] : [NSString stringWithFormat:@"%.0fº", celsius];
-    
-    NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:temp];
-    [attributedString appendAttributedString:aString];
+    if (model.temperature)
+    {
+        float celsius = [[model getTemperatureInCelsius] floatValue];
+        
+        NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@" %.0fº", celsius] : [NSString stringWithFormat:@"%.0fº", celsius];
+        
+        NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:temp];
+        [attributedString appendAttributedString:aString];
+    }
     return attributedString;
 }
 
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withDescriptionFromModel:(WeatherModel *)model
 {
-    if (model.weatherDescription) {
+    if (model.weatherDescription)
+    {
         NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@"\n%@", model.weatherDescription] : [NSString stringWithFormat:@"%@", model.weatherDescription];
         NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:temp];
         
