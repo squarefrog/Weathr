@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @class WeatherModel;
 
+#define LOCATION_NAME_FONT [UIFont boldSystemFontOfSize:24]
+
 @interface WeatherDescriptionBuilder : NSObject
 + (NSMutableAttributedString *)detailedWeatherDescriptionFromModel:(WeatherModel *)model;
 @end

@@ -8,10 +8,12 @@
 
 #import <XCTest/XCTest.h>
 #import "WeatherDescriptionBuilder.h"
+#import "WeatherDescriptionBuilder+PrivateMethods.h"
 #import "WeatherModel.h"
 
 @interface WeatherDescriptionBuilderTests : XCTestCase {
     WeatherModel *model;
+    NSMutableAttributedString *locationName;
 }
 
 @end
@@ -25,6 +27,8 @@
     model.weatherDescription = @"Cloudy";
     model.locationName = @"London";
     model.temperature = [NSNumber numberWithFloat:284.94];
+    
+    locationName = [[NSMutableAttributedString alloc] initWithString:model.locationName attributes:@{NSFontAttributeName: LOCATION_NAME_FONT}];
 }
 
 - (void)tearDown
@@ -51,6 +55,23 @@
     model.temperature = [NSNumber numberWithFloat:268.15];
     NSString *expectedAnswer = @"London -5º\nCloudy";
     XCTAssertEqualObjects([[WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model] string], expectedAnswer, @"Model should return a detailed weather description string");
+}
+
+- (void)testBuilderShouldCreateLocationNameString
+{
+    NSMutableAttributedString *tString = [WeatherDescriptionBuilder locationNameAttributeStringFromModel:model];
+    XCTAssertEqualObjects(tString.string, locationName.string, @"Builder should return a string for model location");
+}
+
+- (void)testBuilderShouldSetAttributesForLocationNameString
+{    
+    NSMutableAttributedString *tString = [WeatherDescriptionBuilder locationNameAttributeStringFromModel:model];
+    XCTAssertEqualObjects(tString, locationName, @"Builder should set attributes for location name");
+}
+
+- (void)testBuilderShouldSetNilForNilLocationNameString
+{
+    XCTAssertNil([WeatherDescriptionBuilder locationNameAttributeStringFromModel:nil], @"Builder should return a nil object when given nil model");
 }
 
 @end

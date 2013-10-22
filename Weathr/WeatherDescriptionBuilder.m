@@ -35,4 +35,20 @@
     
     return string;
 }
+
++ (NSMutableAttributedString *)locationNameAttributeStringFromModel:(WeatherModel *)model
+{
+    if (model.locationName) {
+        NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:model.locationName];
+
+        [aString addAttribute:NSFontAttributeName
+                        value:LOCATION_NAME_FONT
+                        range:NSMakeRange(0, model.locationName.length)];
+
+        return aString;
+    }
+    
+    return nil;
+}
+
 @end
