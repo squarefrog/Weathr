@@ -13,34 +13,19 @@
 
 + (NSMutableAttributedString *)detailedWeatherDescriptionFromModel:(WeatherModel *)model;
 {
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:model.temperature];
-    NSString *plain = [NSString stringWithFormat:@"%@ %.0fº\n%@", model.locationName, [celsius floatValue], model.weatherDescription];
-    
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:plain];
-    [string beginEditing];
-    
-    
-    NSRange descriptionRange = [plain rangeOfString:model.weatherDescription];
-    
-    NSRange locationNameRange = NSMakeRange(0, model.locationName.length);
-    [string addAttribute:NSFontAttributeName
-                   value:[UIFont boldSystemFontOfSize:24]
-                   range:locationNameRange];
-    
-    [string addAttribute:NSFontAttributeName
-                   value:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]
-                   range:descriptionRange];
-    
-    [string endEditing];
-    
-    return string;
+    if (model) {
+        NSMutableAttributedString *weatherDescription = [[NSMutableAttributedString alloc] init];
+        
+        weatherDescription = [WeatherDescriptionBuilder updateString:weatherDescription withLocationNameFromModel:model];
+        weatherDescription = [WeatherDescriptionBuilder updateString:weatherDescription withTemperatureFromModel:model];
+        weatherDescription = [WeatherDescriptionBuilder updateString:weatherDescription withDescriptionFromModel:model];
+        
+        return weatherDescription;
+    }
+    return nil;
 }
 
-
-
-
-
-
+#pragma mark - Private methods
 + (NSMutableAttributedString *)updateString:(NSMutableAttributedString *)attributedString withLocationNameFromModel:(WeatherModel *)model
 {
     if (model.locationName)

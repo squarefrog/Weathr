@@ -50,11 +50,21 @@
     [super tearDown];
 }
 
-#pragma mark - Getters
-- (void)testModelReturnsDetailedWeatherDescriptionAsAttributedString
+#pragma mark - Public method
+- (void)testBuidlerShouldReturnNilIfModelIsNil
 {
-    id description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model];
-    XCTAssertTrue([[description class] isSubclassOfClass:[NSAttributedString class]], @"Description should be an attributed string");
+    model = nil;
+    
+    testCase = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model];
+    
+    XCTAssertNil(testCase, @"Builder should return a nil object when model is nil");
+}
+
+- (void)testBuidlerShouldNotReturnNilIfModelIsNotNil
+{
+    testCase = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:model];
+    
+    XCTAssertNotNil(testCase, @"Builder should not return a nil object when model is not nil");
 }
 
 #pragma mark - Location name
