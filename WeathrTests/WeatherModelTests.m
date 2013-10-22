@@ -182,29 +182,6 @@
     XCTAssertEqual([fahrenheit floatValue], -40.0f, @"Temperature should be converted from celsius to -fahrenheit");
 }
 
-#pragma mark - Getters
-// This is an oversimplistic test. It doesn't check that any of the
-// attributes are being set
-// TODO: Make test more robust
-- (void)testModelReturnsDetailedWeatherDescriptionAsAttributedString
-{
-    id description = [model getDetailedWeatherDescriptionString];
-    XCTAssertTrue([[description class] isSubclassOfClass:[NSAttributedString class]], @"Description should be an attributed string");
-}
-
-- (void)testModelReturnsDetailedWeatherDescriptionStringText
-{
-    NSString *expectedAnswer = @"London 12º\nCloudy";
-    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
-}
-
-- (void)testModelReturnsDetailedWeatherDescriptionStringTextWithMinusTemperature
-{
-    model.temperature = [NSNumber numberWithFloat:268.15];
-    NSString *expectedAnswer = @"London -5º\nCloudy";
-    XCTAssertEqualObjects([[model getDetailedWeatherDescriptionString] string], expectedAnswer, @"Model should return a detailed weather description string");
-}
-
 #pragma mark - Delegate
 - (void)testDelegateCallback
 {

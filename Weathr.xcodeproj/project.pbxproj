@@ -26,6 +26,9 @@
 		0EC170F7180F534D007F501B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC170D6180F534C007F501B /* UIKit.framework */; };
 		0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EC170FD180F534D007F501B /* InfoPlist.strings */; };
 		0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17100180F534D007F501B /* ViewControllerTests.m */; };
+		0EC4E47418169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
+		0EC4E47518169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
+		0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */; };
 		0ED9CC1C1813E959007F2ABD /* example_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1B1813E959007F2ABD /* example_response.json */; };
 		0ED9CC201813E9DA007F2ABD /* WeatherModelExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */; };
 		0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
@@ -73,6 +76,9 @@
 		0EC170FC180F534D007F501B /* WeathrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WeathrTests-Info.plist"; sourceTree = "<group>"; };
 		0EC170FE180F534D007F501B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0EC17100180F534D007F501B /* ViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
+		0EC4E47218169644002A446B /* WeatherDescriptionBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDescriptionBuilder.h; sourceTree = "<group>"; };
+		0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDescriptionBuilder.m; sourceTree = "<group>"; };
+		0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDescriptionBuilderTests.m; sourceTree = "<group>"; };
 		0ED9CC1B1813E959007F2ABD /* example_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_response.json; sourceTree = "<group>"; };
 		0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModelExtensions.h; sourceTree = "<group>"; };
 		0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelExtensions.m; sourceTree = "<group>"; };
@@ -165,6 +171,8 @@
 				0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */,
 				0EC170ED180F534D007F501B /* Images.xcassets */,
 				0EC170D9180F534C007F501B /* Supporting Files */,
+				0EC4E47218169644002A446B /* WeatherDescriptionBuilder.h */,
+				0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */,
 			);
 			path = Weathr;
 			sourceTree = "<group>";
@@ -189,6 +197,7 @@
 				0EC17100180F534D007F501B /* ViewControllerTests.m */,
 				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */,
+				0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
 			);
 			path = WeathrTests;
@@ -325,6 +334,7 @@
 				0EC170EC180F534D007F501B /* ViewController.m in Sources */,
 				0EC170E3180F534C007F501B /* AppDelegate.m in Sources */,
 				0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */,
+				0EC4E47418169644002A446B /* WeatherDescriptionBuilder.m in Sources */,
 				0EC170DF180F534C007F501B /* main.m in Sources */,
 				0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */,
 			);
@@ -336,10 +346,12 @@
 			files = (
 				0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */,
 				0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */,
+				0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */,
 				0ED9CC201813E9DA007F2ABD /* WeatherModelExtensions.m in Sources */,
 				0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
 				0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */,
+				0EC4E47518169644002A446B /* WeatherDescriptionBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

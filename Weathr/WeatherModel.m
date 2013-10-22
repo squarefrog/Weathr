@@ -129,33 +129,4 @@
     return [WeatherModel convertCelsiusToFahrenheit:celsius];
 }
 
-// This method contains a lot of view customisation. Tests will need
-// writing for this method, but I'll need to find an appropriate solution
-// that doesn't result in fragile tests.
-// TODO: Move to seperate class
-- (NSMutableAttributedString *)getDetailedWeatherDescriptionString
-{
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
-    NSString *plain = [NSString stringWithFormat:@"%@ %.0fº\n%@", self.locationName, [celsius floatValue], self.weatherDescription];
-    
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:plain];
-    
-    NSRange locationNameRange = NSMakeRange(0, self.locationName.length);
-    NSRange descriptionRange = [plain rangeOfString:self.weatherDescription];
-    
-    [string beginEditing];
-    
-    [string addAttribute:NSFontAttributeName
-                   value:[UIFont boldSystemFontOfSize:24]
-                   range:locationNameRange];
-    
-    [string addAttribute:NSFontAttributeName
-                   value:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]
-                   range:descriptionRange];
-    
-    [string endEditing];
-    
-    return string;
-}
-
 @end

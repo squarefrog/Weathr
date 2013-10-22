@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "WeatherModel.h"
 #import "OpenWeatherAPIManager.h"
+#import "WeatherDescriptionBuilder.h"
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -99,7 +100,8 @@
 - (void)reloadView
 {
     [self loadImageNamed:_weatherModel.icon];
-    [self updateWeatherDescription:[_weatherModel getDetailedWeatherDescriptionString]];
+    NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
+    [self updateWeatherDescription:description];
     [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
     [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
 }
