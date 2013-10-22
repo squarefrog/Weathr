@@ -39,7 +39,7 @@
     
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
-    // TODO: Set desired accuracy
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
 }
 
 // TODO: Check that location services are available
