@@ -60,6 +60,11 @@
     XCTAssertNotNil(_sut.weatherDescription, @"View should have a weather description label");
 }
 
+- (void)testWeatherDescriptionLabelIsMultiline
+{
+    XCTAssertTrue(_sut.weatherDescription.numberOfLines == 0, @"Weather description label should be multi-line");
+}
+
 - (void)testLastUpdatedLabelShouldBeConnected
 {
     XCTAssertNotNil(_sut.lastUpdatedLabel, @"View should have a last updated label");
