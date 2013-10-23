@@ -265,4 +265,17 @@
     XCTAssertTrue([actions containsObject:@"refreshButtonTapped:"], @"Refresh button should call refresh button tapped on touch up");
 }
 
+- (void)testRefreshButtonCanBeShown
+{
+    [_sut showRefreshButton];
+    XCTAssertTrue(!_sut.refreshButton.hidden, @"Refresh button should be shown.");
+}
+
+- (void)testRefreshButtonCanBeHidden
+{
+    _sut.refreshButton.hidden = NO;
+    [_sut hideRefreshButton];
+    XCTAssertTrue(_sut.refreshButton.hidden, @"Refresh button should be hidden.");
+}
+
 @end

@@ -32,4 +32,6 @@
 - (void)stopActivityIndicator;
 - (void)reloadView;
 - (IBAction)refreshButtonTapped:(id)sender;
+- (void)showRefreshButton;
+- (void)hideRefreshButton;
 @end

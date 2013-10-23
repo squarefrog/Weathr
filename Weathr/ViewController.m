@@ -155,6 +155,7 @@
 {
     [_weatherModel updateWeatherModelFromNSData:data];
 }
+
 // UIAlertView should probably be mocked
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
@@ -165,6 +166,15 @@
                               delegate:nil
                      cancelButtonTitle:@"Ok"
                       otherButtonTitles:nil] show];
+    
+    [self downloadFailedHandler];
+}
+
+- (void)downloadFailedHandler
+{
+    _lastUpdatedLabel.text = @"Error fetching weather report";
+    _weatherDescription.attributedText = nil;
+    [self showRefreshButton];
 }
 
 #pragma mark - Core Location
@@ -214,6 +224,19 @@
     } else {
         [self fetchLocation];
     }
+    [self hideRefreshButton];
+}
+
+- (void)showRefreshButton
+{
+    [_refreshButton.layer addAnimation:[self animationStyle] forKey:nil];
+    _refreshButton.hidden = NO;
+}
+
+- (void)hideRefreshButton
+{
+    [_refreshButton.layer addAnimation:[self animationStyle] forKey:nil];
+    _refreshButton.hidden = YES;
 }
 
 @end
