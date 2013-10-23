@@ -52,12 +52,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
-        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
-    {
-        [_activityIndicator startAnimating];
-        [_locationManager startMonitoringSignificantLocationChanges];
-    }
+    [self fetchLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,6 +145,12 @@
 }
 
 #pragma mark - API manager delegate
+- (void)downloadWeatherDataWithLocation:(CLLocation *)newLocation
+{
+    [_apiManager updateURLWithLocation:newLocation];
+    [_apiManager fetchWeatherData];
+}
+
 - (void)dataTaskSuccessWithData:(NSData *)data
 {
     [_weatherModel updateWeatherModelFromNSData:data];
@@ -167,6 +168,16 @@
 }
 
 #pragma mark - Core Location
+- (void)fetchLocation
+{
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+    {
+        [_activityIndicator startAnimating];
+        [_locationManager startMonitoringSignificantLocationChanges];
+    }
+}
+
 // TODO: Move to testable method
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
@@ -178,9 +189,9 @@
     [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         NSLog(@"newLocation: %@", placemarks);
     }];
-//    [_locationManager stopUpdatingLocation];
-    [_apiManager updateURLWithLocation:newLocation];
-    [_apiManager fetchWeatherData];
+    
+    //    [_locationManager stopUpdatingLocation];
+    [self downloadWeatherDataWithLocation:newLocation];
 }
 
 // TODO: Move to testable method
@@ -198,7 +209,11 @@
 #pragma mark - Refresh button
 - (IBAction)refreshButtonTapped:(id)sender
 {
-    
+    if (_weatherModel.location) {
+        [self downloadWeatherDataWithLocation:_weatherModel.location];
+    } else {
+        [self fetchLocation];
+    }
 }
 
 @end
