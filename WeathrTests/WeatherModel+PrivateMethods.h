@@ -16,7 +16,7 @@
 - (void)updateTemperatureFromDictionary:(NSDictionary *)dict;
 - (void)updateIconFromDictionary:(NSDictionary *)dict;
 - (void)updateLocationNameFromDictionary:(NSDictionary *)dict;
-- (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict;
+- (void)updateLastUpdatedDate:(NSDate *)date;
 - (void)updateLocationFromDictionary:(NSDictionary *)dict;
 
 - (NSNumber *)getTemperatureInFahrenheit;

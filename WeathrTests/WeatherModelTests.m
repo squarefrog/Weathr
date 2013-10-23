@@ -113,10 +113,11 @@
     XCTAssertEqualObjects(model.locationName, @"East Ham", @"Location name property should be set");
 }
 
-- (void)testLastUpdatedDateCanBeUpdatedFromParsedData
+- (void)testLastUpdatedDateCanBeUpdatedFromGivenDate
 {
-    [model updateLastUpdatedDateFromDictionary:stubDictionary];
-    XCTAssertEqualObjects(model.lastUpdated, [NSDate dateWithTimeIntervalSince1970:1382224998], @"Last updated date property should be set");
+    NSDate *date = [NSDate date];
+    [model updateLastUpdatedDate:date];
+    XCTAssertEqualObjects(model.lastUpdated, date, @"Last updated date property should be set");
 }
 
 - (void)testLocationCanBeUpdatedFromParsedData

@@ -27,7 +27,7 @@
     [self updateTemperatureFromDictionary:dict];
     [self updateIconFromDictionary:dict];
     [self updateLocationNameFromDictionary:dict];
-    [self updateLastUpdatedDateFromDictionary:dict];
+    [self updateLastUpdatedDate:[NSDate date]];
     [self updateLocationFromDictionary:dict];
     
     if ([self.delegate respondsToSelector:@selector(weatherModelUpdated)])
@@ -64,10 +64,9 @@
     self.locationName = [dict objectForKey:@"name"];
 }
 
-- (void)updateLastUpdatedDateFromDictionary:(NSDictionary *)dict
+- (void)updateLastUpdatedDate:(NSDate *)date
 {
-    NSNumber *unixTimestamp = [dict objectForKey:@"dt"];
-    self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:[unixTimestamp doubleValue]];
+    self.lastUpdated = date;
 }
 
 - (void)updateLocationFromDictionary:(NSDictionary *)dict
