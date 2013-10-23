@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ViewController.h"
-#import "ViewController+Protected.h"
+#import "ViewController+PrivateMethods.h"
 #import "WeatherModel.h"
 #import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>

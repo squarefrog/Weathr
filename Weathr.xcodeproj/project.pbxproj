@@ -83,7 +83,7 @@
 		0ED9CC1B1813E959007F2ABD /* example_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_response.json; sourceTree = "<group>"; };
 		0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModelExtensions.h; sourceTree = "<group>"; };
 		0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelExtensions.m; sourceTree = "<group>"; };
-		0EEBAA2D181007D60034A739 /* ViewController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Protected.h"; sourceTree = "<group>"; };
+		0EEBAA2D181007D60034A739 /* ViewController+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EEBAA311810115F0034A739 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		0EEBAA321810115F0034A739 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		0EEBAA35181011750034A739 /* WeatherModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelTests.m; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 		0EEBAA30181008270034A739 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				0EEBAA2D181007D60034A739 /* ViewController+Protected.h */,
+				0EEBAA2D181007D60034A739 /* ViewController+PrivateMethods.h */,
 				0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */,
 				0EAB68B11815F2130042B7F6 /* WeatherModel+PrivateMethods.h */,
 				0EC4E4781816AE8D002A446B /* WeatherDescriptionBuilder+PrivateMethods.h */,

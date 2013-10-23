@@ -13,7 +13,7 @@
 @class CLLocationManager;
 @class CLLocation;
 
-@interface ViewController (Protected)
+@interface ViewController (PrivateMethods)
 
 @property (nonatomic, weak) UIImageView *weatherIcon;
 @property (nonatomic, weak) UILabel *weatherDescription;
