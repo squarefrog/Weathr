@@ -45,16 +45,17 @@
     
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 }
 
-// TODO: Check that location services are available
-// + (CLAuthorizationStatus)authorizationStatus
 - (void)viewDidAppear:(BOOL)animated
 {
-    [_activityIndicator startAnimating];
-    // startMonitoringSignificantLocationChanges
-    [_locationManager startUpdatingLocation];
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+    {
+        [_activityIndicator startAnimating];
+        [_locationManager startMonitoringSignificantLocationChanges];
+    }
 }
 
 - (void)didReceiveMemoryWarning
