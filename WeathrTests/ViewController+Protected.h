@@ -11,6 +11,7 @@
 @class WeatherModel;
 @class OpenWeatherAPIManager;
 @class CLLocationManager;
+@class CLLocation;
 
 @interface ViewController (Protected)
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) UIButton *refreshButton;
+@property (nonatomic, strong) NSDate *appStartDate;
 
 - (void)loadImageNamed: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSAttributedString *)description;
@@ -34,4 +36,5 @@
 - (IBAction)refreshButtonTapped:(id)sender;
 - (void)showRefreshButton;
 - (void)hideRefreshButton;
+- (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
 @end

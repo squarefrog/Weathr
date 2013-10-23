@@ -13,7 +13,9 @@
 #import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface ViewControllerTests : XCTestCase
+@interface ViewControllerTests : XCTestCase {
+    CLLocation *fakeLocation;
+}
 
 @property (nonatomic, weak) ViewController *sut;
 
@@ -27,9 +29,15 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:[self returnStoryboardName]
                                                              bundle:nil];
     _sut = (ViewController *)[mainStoryboard instantiateInitialViewController];
+    
     XCTAssertNotNil(_sut, @"ViewController should not be nil for storyboard %@", [self returnStoryboardName]);
+    
     [_sut view];
     [_sut viewDidLoad];
+    
+    CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(0.0f, 0.0f);
+    fakeLocation = [[CLLocation alloc] initWithCoordinate:coords altitude:0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:[NSDate date]];
+    
 }
 
 - (void)tearDown
@@ -240,6 +248,20 @@
 - (void)testControllerImplementsDidFailWithError
 {
     XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didFailWithError:)], @"Controller should implement locationManager:didFailWithError: delegate method");
+}
+
+- (void)testControllerWillStopLocationManagerWithRecentResults
+{
+    _sut.appStartDate = [NSDate distantPast];
+    
+    XCTAssertTrue([_sut shouldStopUpdatingLocation:fakeLocation], @"Controller should return yes to should stop updating location");
+}
+
+- (void)testControllerWillNotStopLocationWithStaleResults
+{
+    _sut.appStartDate = [NSDate distantFuture];
+    
+    XCTAssertTrue(![_sut shouldStopUpdatingLocation:fakeLocation], @"Controller should return no to should stop updating location");
 }
 
 #pragma mark - Refresh button

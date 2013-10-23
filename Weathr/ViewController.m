@@ -29,6 +29,7 @@
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) IBOutlet UIButton *refreshButton;
+@property (nonatomic, strong) NSDate *appStartDate;
 
 @end
 
@@ -188,19 +189,13 @@
     }
 }
 
-// TODO: Move to testable method
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    // TODO: Check timestamp before stopping
+    if ([self shouldStopUpdatingLocation:newLocation])
+        [_locationManager stopUpdatingLocation];
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        NSLog(@"newLocation: %@", placemarks);
-    }];
-    
-    //    [_locationManager stopUpdatingLocation];
     [self downloadWeatherDataWithLocation:newLocation];
 }
 
@@ -214,6 +209,11 @@
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                        otherButtonTitles:nil] show];
+}
+
+- (BOOL)shouldStopUpdatingLocation:(CLLocation *)location
+{
+    return [_appStartDate compare:location.timestamp] == NSOrderedAscending;
 }
 
 #pragma mark - Refresh button
