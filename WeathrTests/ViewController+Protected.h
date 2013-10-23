@@ -21,6 +21,7 @@
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, weak) UIButton *refreshButton;
 
 - (void)loadImageNamed: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSAttributedString *)description;
@@ -30,4 +31,5 @@
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
 - (void)reloadView;
+- (IBAction)refreshButtonTapped:(id)sender;
 @end

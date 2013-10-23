@@ -242,4 +242,27 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didFailWithError:)], @"Controller should implement locationManager:didFailWithError: delegate method");
 }
 
+#pragma mark - Refresh button
+
+- (void)testViewShouldHaveARefreshButton
+{
+    XCTAssertNotNil(_sut.refreshButton, @"View should have a refresh button");
+}
+
+- (void)testRefreshButtonShouldBeHiddenInitially
+{
+    XCTAssertTrue(_sut.refreshButton.hidden, @"Refresh button should be initially hidden");
+}
+
+- (void)testRefreshButtonShouldNotAdjustWhenHighlighted
+{
+    XCTAssertTrue(!_sut.refreshButton.adjustsImageWhenHighlighted, @"Refresh button should not adjust when highlighted");
+}
+
+- (void)testRefreshButtonTriggersDownloadData
+{
+    NSArray *actions = [_sut.refreshButton actionsForTarget:_sut forControlEvent:UIControlEventTouchUpInside];
+    XCTAssertTrue([actions containsObject:@"refreshButtonTapped:"], @"Refresh button should call refresh button tapped on touch up");
+}
+
 @end

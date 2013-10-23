@@ -28,6 +28,7 @@
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, weak) IBOutlet UIButton *refreshButton;
 
 @end
 
@@ -46,6 +47,7 @@
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -191,6 +193,12 @@
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                        otherButtonTitles:nil] show];
+}
+
+#pragma mark - Refresh button
+- (IBAction)refreshButtonTapped:(id)sender
+{
+    
 }
 
 @end

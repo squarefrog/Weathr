@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="WIr-Bk-hkq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-icon" translatesAutoresizingMaskIntoConstraints="NO" id="YpB-py-AFc">
@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="hoO-8W-nYi">
-                                <rect key="frame" x="20" y="275" width="280" height="268"/>
+                                <rect key="frame" x="20" y="275" width="280" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="100" id="3EZ-dq-tja"/>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jr7-zT-Wyh">
-                                <rect key="frame" x="20" y="545" width="280" height="16"/>
+                                <rect key="frame" x="20" y="457" width="280" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="NaA-QU-uit"/>
@@ -49,11 +49,29 @@
                                 <rect key="frame" x="142" y="282" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10T-xH-ESE">
+                                <rect key="frame" x="35" y="340" width="250" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="KO4-av-XC9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="Download weather" backgroundImage="button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="button_selected"/>
+                                <state key="highlighted" backgroundImage="button_selected"/>
+                                <connections>
+                                    <action selector="refreshButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8Mv-TO-CnY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.8784313725490196" green="0.45882352941176469" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="jr7-zT-Wyh" firstAttribute="centerX" secondItem="hoO-8W-nYi" secondAttribute="centerX" id="968-mY-Mhm"/>
                             <constraint firstItem="hoO-8W-nYi" firstAttribute="top" secondItem="YpB-py-AFc" secondAttribute="bottom" constant="1" id="C3A-eN-62C"/>
+                            <constraint firstAttribute="centerX" secondItem="10T-xH-ESE" secondAttribute="centerX" id="CGy-qe-VMb"/>
                             <constraint firstAttribute="centerX" secondItem="Nfu-Yd-yGi" secondAttribute="centerX" constant="-0.5" id="L1p-r3-1IL"/>
                             <constraint firstItem="hoO-8W-nYi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="Swj-Ql-cOJ"/>
                             <constraint firstItem="jr7-zT-Wyh" firstAttribute="top" secondItem="hoO-8W-nYi" secondAttribute="bottom" constant="2" id="UZ3-Yu-ih5"/>
@@ -62,12 +80,14 @@
                             <constraint firstItem="YpB-py-AFc" firstAttribute="top" relation="lessThanOrEqual" secondItem="QKC-iZ-xQ4" secondAttribute="bottom" constant="100" id="jfi-z6-1zE"/>
                             <constraint firstItem="Nfu-Yd-yGi" firstAttribute="top" secondItem="YpB-py-AFc" secondAttribute="bottom" constant="8" id="n6q-C0-y7q"/>
                             <constraint firstAttribute="centerX" secondItem="YpB-py-AFc" secondAttribute="centerX" id="orT-KH-DEJ"/>
+                            <constraint firstItem="10T-xH-ESE" firstAttribute="top" secondItem="Nfu-Yd-yGi" secondAttribute="bottom" constant="21" id="wCZ-fD-Sm1"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Nfu-Yd-yGi" id="Efh-w1-0q3"/>
                         <outlet property="lastUpdatedLabel" destination="jr7-zT-Wyh" id="SIM-Zn-7jQ"/>
+                        <outlet property="refreshButton" destination="10T-xH-ESE" id="RsO-V0-WVE"/>
                         <outlet property="weatherDescription" destination="hoO-8W-nYi" id="lBl-To-a1h"/>
                         <outlet property="weatherIcon" destination="YpB-py-AFc" id="s4R-Xd-ewW"/>
                     </connections>
@@ -78,11 +98,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button" width="10" height="50"/>
+        <image name="button_selected" width="10" height="50"/>
         <image name="no-icon" width="165" height="93"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>
