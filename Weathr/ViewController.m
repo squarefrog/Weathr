@@ -164,7 +164,12 @@
 
 - (void)dataTaskSuccessWithData:(NSData *)data
 {
-    [_weatherModel updateWeatherModelFromNSData:data];
+    if (data) {
+        [_weatherModel updateWeatherModelFromNSData:data];
+    } else {
+        [self downloadTaskFailed:nil];
+    }
+    
 }
 
 // UIAlertView should probably be mocked

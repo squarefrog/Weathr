@@ -269,6 +269,21 @@
     XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
 }
 
+- (void)testControllerShowsAlertWhenDataTaskReturnsNil
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    
+    [_sut dataTaskSuccessWithData:nil];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"Please check your network connection, and ensure your device is not in airplane mode", @"Download failed alert message should be set");
+    XCTAssertNil(alertVerifier.delegate, @"No delegate needed");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Download failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
+}
+
 #pragma mark - Core location
 - (void)testControllerInstantiatesLocationManager
 {
