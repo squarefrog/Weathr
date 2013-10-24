@@ -217,10 +217,25 @@
     [self locationUpdateFailed:error];
 }
 
+- (NSString *)humanLocationError:(NSError *)error
+{
+    switch (error.code) {
+        case kCLErrorNetwork:
+            return @"Please check your network connection, and ensure your device is not in airplane mode";
+            break;
+        case kCLErrorDenied:
+            return @"Please ensure location services is enabled for Weathr";
+            break;
+        default:
+            return @"Please try again later";
+            break;
+    }
+}
+
 - (void)locationUpdateFailed:(NSError *)error
 {
     [[[_alertViewClass alloc] initWithTitle:@"Error fetching location"
-                                    message:@"Please check your network connection, and ensure your device is not in airplane mode"
+                                    message:[self humanLocationError:error]
                                    delegate:nil
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];

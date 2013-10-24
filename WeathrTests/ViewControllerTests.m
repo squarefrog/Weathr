@@ -290,6 +290,42 @@
     XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Loction failed alert cancel button should be nil");
 }
 
+- (void)testControllerShowsAlertOnFailedLocationLookupWithLocationDenied
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    NSError *error = [[NSError alloc] initWithDomain:kCLErrorDomain
+                                                code:kCLErrorDenied
+                                            userInfo:nil];
+    
+    [_sut locationUpdateFailed:error];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error fetching location", @"Loction failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"Please ensure location services is enabled for Weathr");
+    XCTAssertNil(alertVerifier.delegate, @"Location failed alert doesn't need a delegate, as we are only using cancel");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Loction failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Loction failed alert cancel button should be nil");
+}
+
+- (void)testControllerShowsAlertOnFailedLocationLookupWithUnknownError
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    NSError *error = [[NSError alloc] initWithDomain:kCLErrorDomain
+                                                code:kCLErrorLocationUnknown
+                                            userInfo:nil];
+    
+    [_sut locationUpdateFailed:error];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error fetching location", @"Loction failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"Please try again later");
+    XCTAssertNil(alertVerifier.delegate, @"Location failed alert doesn't need a delegate, as we are only using cancel");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Loction failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Loction failed alert cancel button should be nil");
+}
+
 #pragma mark - Refresh button
 
 - (void)testViewShouldHaveARefreshButton
