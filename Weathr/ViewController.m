@@ -58,7 +58,6 @@
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -169,10 +168,8 @@
     } else {
         [self downloadTaskFailed:nil];
     }
-    
 }
 
-// UIAlertView should probably be mocked
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
     [self downloadTaskFailed:response];
@@ -198,6 +195,11 @@
 }
 
 - (void)downloadFailedHandler
+{
+    [self resetUIForFailure];
+}
+
+- (void)resetUIForFailure
 {
     _lastUpdatedLabel.text = @"Error fetching weather report";
     _weatherDescription.attributedText = nil;
@@ -230,7 +232,7 @@
 {
     [_locationManager stopUpdatingLocation];
     [self locationUpdateFailed:error];
-    [self showRefreshButton];
+    [self resetUIForFailure];
 }
 
 - (NSString *)humanLocationError:(NSError *)error
