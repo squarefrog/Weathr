@@ -209,12 +209,12 @@
     [self downloadWeatherDataWithLocation:newLocation];
 }
 
-// TODO: Move to testable method
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
     [_locationManager stopUpdatingLocation];
     [self locationUpdateFailed:error];
+    [self showRefreshButton];
 }
 
 - (NSString *)humanLocationError:(NSError *)error
