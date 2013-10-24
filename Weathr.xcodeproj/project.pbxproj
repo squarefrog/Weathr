@@ -148,6 +148,44 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
+		0EB3BDC118194C6500E59009 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0EEBAA311810115F0034A739 /* WeatherModel.h */,
+				0EEBAA321810115F0034A739 /* WeatherModel.m */,
+				0EC4E47218169644002A446B /* WeatherDescriptionBuilder.h */,
+				0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		0EB3BDC218194C8300E59009 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0EC170E4180F534C007F501B /* Main_iPhone.storyboard */,
+				0EC170E7180F534C007F501B /* Main_iPad.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0EB3BDC318194C9F00E59009 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0EC170EA180F534C007F501B /* ViewController.h */,
+				0EC170EB180F534D007F501B /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0EB3BDC418194CBC00E59009 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */,
+				0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		0EC170C6180F534C007F501B = {
 			isa = PBXGroup;
 			children = (
@@ -184,18 +222,12 @@
 			children = (
 				0EC170E1180F534C007F501B /* AppDelegate.h */,
 				0EC170E2180F534C007F501B /* AppDelegate.m */,
-				0EC170E4180F534C007F501B /* Main_iPhone.storyboard */,
-				0EC170E7180F534C007F501B /* Main_iPad.storyboard */,
-				0EC170EA180F534C007F501B /* ViewController.h */,
-				0EC170EB180F534D007F501B /* ViewController.m */,
-				0EEBAA311810115F0034A739 /* WeatherModel.h */,
-				0EEBAA321810115F0034A739 /* WeatherModel.m */,
-				0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */,
-				0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */,
+				0EB3BDC318194C9F00E59009 /* Controllers */,
+				0EB3BDC118194C6500E59009 /* Models */,
+				0EB3BDC218194C8300E59009 /* Views */,
+				0EB3BDC418194CBC00E59009 /* Networking */,
 				0EC170ED180F534D007F501B /* Images.xcassets */,
 				0EC170D9180F534C007F501B /* Supporting Files */,
-				0EC4E47218169644002A446B /* WeatherDescriptionBuilder.h */,
-				0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */,
 			);
 			path = Weathr;
 			sourceTree = "<group>";
