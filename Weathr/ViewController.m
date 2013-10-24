@@ -30,10 +30,20 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) IBOutlet UIButton *refreshButton;
 @property (nonatomic, strong) NSDate *appStartDate;
+@property (nonatomic, strong) Class alertViewClass;
 
 @end
 
 @implementation ViewController
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _alertViewClass = [UIAlertView class];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -204,11 +214,16 @@
        didFailWithError:(NSError *)error
 {
     [_locationManager stopUpdatingLocation];
-    [[[UIAlertView alloc] initWithTitle:@"Error fetching location"
-                                message:@"Please ensure you have enabled location services"
-                               delegate:nil
-                      cancelButtonTitle:@"Ok"
-                       otherButtonTitles:nil] show];
+    [self locationUpdateFailed:error];
+}
+
+- (void)locationUpdateFailed:(NSError *)error
+{
+    [[[_alertViewClass alloc] initWithTitle:@"Error fetching location"
+                                    message:@"Please check your network connection, and ensure your device is not in airplane mode"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
 }
 
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location

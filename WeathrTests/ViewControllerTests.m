@@ -13,6 +13,9 @@
 #import "OpenWeatherAPIManager.h"
 #import <CoreLocation/CoreLocation.h>
 
+#import "JMRMockAlertView/JMRMockAlertView.h"
+#import "JMRMockAlertView/JMRMockAlertViewVerifier.h"
+
 @interface ViewControllerTests : XCTestCase {
     CLLocation *fakeLocation;
 }
@@ -86,6 +89,11 @@
 - (void)testViewBackgroundShouldDefaultToWarmColour
 {
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_WARM, @"View background should default to warm colour");
+}
+
+- (void)testDefaultAlertViewClass
+{
+    XCTAssertEqual(_sut.alertViewClass, [UIAlertView class], @"Controller should set the default alert view class");
 }
 
 #pragma mark - View updates
@@ -262,6 +270,24 @@
     _sut.appStartDate = [NSDate distantFuture];
     
     XCTAssertTrue(![_sut shouldStopUpdatingLocation:fakeLocation], @"Controller should return no to should stop updating location");
+}
+
+- (void)testControllerShowsAlertOnFailedLocationLookupWithNetworkUnavailable
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    NSError *error = [[NSError alloc] initWithDomain:kCLErrorDomain
+                                                code:kCLErrorNetwork
+                                            userInfo:nil];
+    
+    [_sut locationUpdateFailed:error];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error fetching location", @"Loction failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"Please check your network connection, and ensure your device is not in airplane mode", @"Loction failed alert message should be set");
+    XCTAssertNil(alertVerifier.delegate, @"Location failed alert doesn't need a delegate, as we are only using cancel");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Loction failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Loction failed alert cancel button should be nil");
 }
 
 #pragma mark - Refresh button

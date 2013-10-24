@@ -24,6 +24,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, weak) UIButton *refreshButton;
 @property (nonatomic, strong) NSDate *appStartDate;
+@property (nonatomic, strong) Class alertViewClass;
 
 - (void)loadImageNamed: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSAttributedString *)description;
@@ -37,4 +38,5 @@
 - (void)showRefreshButton;
 - (void)hideRefreshButton;
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
+- (void)locationUpdateFailed:(NSError *)error;
 @end
