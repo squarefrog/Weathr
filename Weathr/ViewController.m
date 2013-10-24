@@ -170,11 +170,11 @@
 // UIAlertView should probably be mocked
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
-    [self downloadTastFailed:response];
+    [self downloadTaskFailed:response];
     [self downloadFailedHandler];
 }
 
-- (void)downloadTastFailed:(NSHTTPURLResponse *)response
+- (void)downloadTaskFailed:(NSHTTPURLResponse *)response
 {
     [[[_alertViewClass alloc] initWithTitle:@"Error downloading weather"
                                 message:[self failedDownloadMessage:response]

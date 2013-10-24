@@ -243,7 +243,7 @@
     JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
     
     
-    [_sut downloadTastFailed:nil];
+    [_sut downloadTaskFailed:nil];
     
     XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
     XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
@@ -259,7 +259,7 @@
     JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
     NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:nil headerFields:nil];
     
-    [_sut downloadTastFailed:response];
+    [_sut downloadTaskFailed:response];
     
     XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
     XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
