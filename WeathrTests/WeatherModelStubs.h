@@ -1,5 +1,5 @@
 //
-//  WeatherModelExtensions.h
+//  WeatherModelStubs.h
 //  Weathr
 //
 //  Created by Paul Williamson on 20/10/2013.
@@ -8,9 +8,9 @@
 
 #import "WeatherModel.h"
 
-@interface WeatherModelExtensions : WeatherModel
+@interface WeatherModelStubs : WeatherModel
 
-+ (NSData *)loadJSONFromFile;
-+ (NSDictionary *)loadPlistFromFile;
++ (NSData *)stubJSON;
++ (NSDictionary *)stubDict;
 
 @end

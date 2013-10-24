@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "WeatherModel.h"
 #import "WeatherModel+PrivateMethods.h"
-#import "WeatherModelExtensions.h"
+#import "WeatherModelStubs.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface WeatherModelTests : XCTestCase <WeatherModelDelegate>
@@ -29,8 +29,8 @@
     [super setUp];
     
     model = [[WeatherModel alloc] init];
-    stubJSON = [WeatherModelExtensions loadJSONFromFile];
-    stubDictionary = [WeatherModelExtensions loadPlistFromFile];
+    stubJSON = [WeatherModelStubs stubJSON];
+    stubDictionary = [WeatherModelStubs stubDict];
     
     model.weatherDescription = @"Cloudy";
     model.locationName = @"London";
@@ -147,7 +147,6 @@
 
 - (void)testNSDataCanBeParsedToDictionary
 {
-    stubJSON = [WeatherModelExtensions loadJSONFromFile];
     id testData = [WeatherModel parseJSONData:stubJSON];
     XCTAssertEqualObjects(testData, stubDictionary, @"JSON data should be parsed to NSDictionary");
 }

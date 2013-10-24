@@ -10,7 +10,6 @@
 		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */; };
 		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
 		0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */; };
-		0EAB68B01815EF6F0042B7F6 /* example_response.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB68AF1815EF6F0042B7F6 /* example_response.plist */; };
 		0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDB9181902F400E59009 /* JMRMockAlertView.m */; };
 		0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDBB181902F400E59009 /* JMRMockAlertViewVerifier.m */; };
 		0EB3BDBF181902F400E59009 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EB3BDBC181902F400E59009 /* LICENSE.txt */; };
@@ -32,8 +31,7 @@
 		0EC4E47418169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
 		0EC4E47518169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
 		0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */; };
-		0ED9CC1C1813E959007F2ABD /* example_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1B1813E959007F2ABD /* example_response.json */; };
-		0ED9CC201813E9DA007F2ABD /* WeatherModelExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */; };
+		0ED9CC201813E9DA007F2ABD /* WeatherModelStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1F1813E9DA007F2ABD /* WeatherModelStubs.m */; };
 		0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA35181011750034A739 /* WeatherModelTests.m */; };
@@ -57,7 +55,6 @@
 		0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectableOpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectableOpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OpenWeatherAPIManager+PrivateMethods.h"; sourceTree = "<group>"; };
-		0EAB68AF1815EF6F0042B7F6 /* example_response.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = example_response.plist; sourceTree = "<group>"; };
 		0EAB68B11815F2130042B7F6 /* WeatherModel+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WeatherModel+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EB3BDB8181902F400E59009 /* JMRMockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMRMockAlertView.h; sourceTree = "<group>"; };
 		0EB3BDB9181902F400E59009 /* JMRMockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMRMockAlertView.m; sourceTree = "<group>"; };
@@ -88,9 +85,8 @@
 		0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDescriptionBuilder.m; sourceTree = "<group>"; };
 		0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDescriptionBuilderTests.m; sourceTree = "<group>"; };
 		0EC4E4781816AE8D002A446B /* WeatherDescriptionBuilder+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WeatherDescriptionBuilder+PrivateMethods.h"; sourceTree = "<group>"; };
-		0ED9CC1B1813E959007F2ABD /* example_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_response.json; sourceTree = "<group>"; };
-		0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModelExtensions.h; sourceTree = "<group>"; };
-		0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelExtensions.m; sourceTree = "<group>"; };
+		0ED9CC1E1813E9DA007F2ABD /* WeatherModelStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModelStubs.h; sourceTree = "<group>"; };
+		0ED9CC1F1813E9DA007F2ABD /* WeatherModelStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModelStubs.m; sourceTree = "<group>"; };
 		0EEBAA2D181007D60034A739 /* ViewController+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EEBAA311810115F0034A739 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		0EEBAA321810115F0034A739 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
@@ -126,8 +122,6 @@
 		0EAB68AE1815EC960042B7F6 /* Inspectable Subclasses */ = {
 			isa = PBXGroup;
 			children = (
-				0ED9CC1E1813E9DA007F2ABD /* WeatherModelExtensions.h */,
-				0ED9CC1F1813E9DA007F2ABD /* WeatherModelExtensions.m */,
 				0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */,
 				0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */,
 			);
@@ -245,8 +239,8 @@
 		0ED9CC1D1813E961007F2ABD /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
-				0ED9CC1B1813E959007F2ABD /* example_response.json */,
-				0EAB68AF1815EF6F0042B7F6 /* example_response.plist */,
+				0ED9CC1E1813E9DA007F2ABD /* WeatherModelStubs.h */,
+				0ED9CC1F1813E9DA007F2ABD /* WeatherModelStubs.m */,
 			);
 			name = Stubs;
 			sourceTree = "<group>";
@@ -350,9 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB3BDBF181902F400E59009 /* LICENSE.txt in Resources */,
-				0EAB68B01815EF6F0042B7F6 /* example_response.plist in Resources */,
 				0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */,
-				0ED9CC1C1813E959007F2ABD /* example_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,7 +372,7 @@
 				0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */,
 				0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */,
 				0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */,
-				0ED9CC201813E9DA007F2ABD /* WeatherModelExtensions.m in Sources */,
+				0ED9CC201813E9DA007F2ABD /* WeatherModelStubs.m in Sources */,
 				0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
 				0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */,
