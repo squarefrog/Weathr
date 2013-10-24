@@ -170,15 +170,26 @@
 // UIAlertView should probably be mocked
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
-    NSString *title = [NSString stringWithFormat:@"Error %d", [response statusCode]];
-    NSString *message = [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode];
-    [[[UIAlertView alloc] initWithTitle:title
-                               message:message
-                              delegate:nil
-                     cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil] show];
-    
+    [self downloadTastFailed:response];
     [self downloadFailedHandler];
+}
+
+- (void)downloadTastFailed:(NSHTTPURLResponse *)response
+{
+    [[[_alertViewClass alloc] initWithTitle:@"Error downloading weather"
+                                message:[self failedDownloadMessage:response]
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
+- (NSString *)failedDownloadMessage:(NSHTTPURLResponse *)response
+{
+    if (response) {
+        return @"The server returned an error, please try again later";
+    }
+    else
+        return @"Please check your network connection, and ensure your device is not in airplane mode";
 }
 
 - (void)downloadFailedHandler

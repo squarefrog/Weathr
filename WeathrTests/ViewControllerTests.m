@@ -237,6 +237,38 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(dataTaskFailWithHTTPURLResponse:)], @"View controller should implement dataTaskFailWithHTTPURLResponse:");
 }
 
+- (void)testControllerShowsAlertOnFailedDataTaskWithUnknownError
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    
+    
+    [_sut downloadTastFailed:nil];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"Please check your network connection, and ensure your device is not in airplane mode", @"Download failed alert message should be set");
+    XCTAssertNil(alertVerifier.delegate, @"No delegate needed");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Download failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
+}
+
+- (void)testControllerShowsAlertOnFailedDataTaskWithErrorCode
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:nil headerFields:nil];
+    
+    [_sut downloadTastFailed:response];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
+    XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
+    XCTAssertEqualObjects(alertVerifier.message, @"The server returned an error, please try again later", @"Download failed alert message should be set");
+    XCTAssertNil(alertVerifier.delegate, @"No delegate needed");
+    XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Download failed alert other titles should be nil");
+    XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
+}
+
 #pragma mark - Core location
 - (void)testControllerInstantiatesLocationManager
 {
