@@ -16,6 +16,8 @@
 #import "JMRMockAlertView/JMRMockAlertView.h"
 #import "JMRMockAlertView/JMRMockAlertViewVerifier.h"
 
+#import <OCMock/OCMock.h>
+
 @interface ViewControllerTests : XCTestCase {
     CLLocation *fakeLocation;
 }
@@ -281,6 +283,17 @@
     XCTAssertNil(alertVerifier.delegate, @"No delegate needed");
     XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Download failed alert other titles should be nil");
     XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
+}
+
+- (void)testControllerCallsModelUpdateWhenDataTaskReturnsData
+{
+    id model = [OCMockObject mockForClass:[WeatherModel class]];
+    _sut.weatherModel = model;
+    [[model expect] updateWeatherModelFromNSData:[OCMArg any]];
+    
+    [_sut dataTaskSuccessWithData:[NSData data]];
+    
+    [model verify];
 }
 
 #pragma mark - Core location
