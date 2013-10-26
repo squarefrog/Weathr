@@ -605,6 +605,14 @@
 					"$(inherited)",
 					/Users/pi/Desktop/Weathr/usr/lib,
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-force_load",
+					"\"$(SRCROOT)/usr/lib/libOCMock.a\"",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -632,6 +640,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/pi/Desktop/Weathr/usr/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-force_load",
+					"\"$(SRCROOT)/usr/lib/libOCMock.a\"",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
