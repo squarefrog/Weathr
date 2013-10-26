@@ -10,6 +10,7 @@
 		0E0EBC10181BC86A000FA42A /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0EBC0F181BC86A000FA42A /* GcovTestObserver.m */; };
 		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */; };
 		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
+		0E456A6F181BF0FB009BA645 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E456A6E181BF0FB009BA645 /* libOCMock.a */; };
 		0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */; };
 		0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDB9181902F400E59009 /* JMRMockAlertView.m */; };
 		0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDBB181902F400E59009 /* JMRMockAlertViewVerifier.m */; };
@@ -55,6 +56,7 @@
 		0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManagerTests.m; sourceTree = "<group>"; };
 		0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
+		0E456A6E181BF0FB009BA645 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectableOpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectableOpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OpenWeatherAPIManager+PrivateMethods.h"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EC170F5180F534D007F501B /* XCTest.framework in Frameworks */,
+				0E456A6F181BF0FB009BA645 /* libOCMock.a in Frameworks */,
 				0EC170F7180F534D007F501B /* UIKit.framework in Frameworks */,
 				0EC170F6180F534D007F501B /* Foundation.framework in Frameworks */,
 			);
@@ -122,6 +125,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E456A6D181BF0FB009BA645 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				0E456A6E181BF0FB009BA645 /* libOCMock.a */,
+			);
+			name = Libraries;
+			path = usr/lib;
+			sourceTree = "<group>";
+		};
 		0EAB68AE1815EC960042B7F6 /* Inspectable Subclasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +206,7 @@
 			children = (
 				0EC170D8180F534C007F501B /* Weathr */,
 				0EC170FA180F534D007F501B /* WeathrTests */,
+				0E456A6D181BF0FB009BA645 /* Libraries */,
 				0EC170D1180F534C007F501B /* Frameworks */,
 				0EC170D0180F534C007F501B /* Products */,
 				0E0EBC11181BCA29000FA42A /* Debug.xcconfig */,
@@ -582,7 +595,16 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/usr/include\"",
+				);
 				INFOPLIST_FILE = "WeathrTests/WeathrTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/pi/Desktop/Weathr/usr/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -601,7 +623,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Weathr/Weathr-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/usr/include\"",
+				);
 				INFOPLIST_FILE = "WeathrTests/WeathrTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/pi/Desktop/Weathr/usr/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
