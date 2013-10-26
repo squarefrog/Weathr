@@ -148,6 +148,16 @@
     self.view.backgroundColor = color;
 }
 
+#pragma mark - Alerts
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
+{
+    [[[_alertViewClass alloc] initWithTitle:title
+                                    message:message
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+}
+
 #pragma mark - Weather model delegate
 - (void)weatherModelUpdated
 {
@@ -178,11 +188,8 @@
 
 - (void)downloadTaskFailed:(NSHTTPURLResponse *)response
 {
-    [[[_alertViewClass alloc] initWithTitle:@"Error downloading weather"
-                                message:[self failedDownloadMessage:response]
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
+    [self showAlertWithTitle:@"Error downloading weather"
+                     message:[self failedDownloadMessage:response]];
 }
 
 - (NSString *)failedDownloadMessage:(NSHTTPURLResponse *)response
@@ -252,11 +259,8 @@
 
 - (void)locationUpdateFailed:(NSError *)error
 {
-    [[[_alertViewClass alloc] initWithTitle:@"Error fetching location"
-                                    message:[self humanLocationError:error]
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+    [self showAlertWithTitle:@"Error fetching location"
+                     message:[self humanLocationError:error]];
 }
 
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location
