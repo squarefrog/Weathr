@@ -31,11 +31,9 @@
 		0EC170FF180F534D007F501B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EC170FD180F534D007F501B /* InfoPlist.strings */; };
 		0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17100180F534D007F501B /* ViewControllerTests.m */; };
 		0EC4E47418169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
-		0EC4E47518169644002A446B /* WeatherDescriptionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */; };
 		0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */; };
 		0ED9CC201813E9DA007F2ABD /* WeatherModelStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9CC1F1813E9DA007F2ABD /* WeatherModelStubs.m */; };
 		0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
-		0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA321810115F0034A739 /* WeatherModel.m */; };
 		0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEBAA35181011750034A739 /* WeatherModelTests.m */; };
 		0EEBAA38181031BC0034A739 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEBAA37181031BC0034A739 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -418,7 +416,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEBAA341810115F0034A739 /* WeatherModel.m in Sources */,
 				0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */,
 				0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */,
 				0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */,
@@ -428,7 +425,6 @@
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
 				0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */,
 				0EC17101180F534D007F501B /* ViewControllerTests.m in Sources */,
-				0EC4E47518169644002A446B /* WeatherDescriptionBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
