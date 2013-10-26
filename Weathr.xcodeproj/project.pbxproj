@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0EBC10181BC86A000FA42A /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0EBC0F181BC86A000FA42A /* GcovTestObserver.m */; };
 		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */; };
 		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
 		0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E0EBC0F181BC86A000FA42A /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
+		0E0EBC11181BCA29000FA42A /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManagerTests.m; sourceTree = "<group>"; };
 		0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 				0EC170FA180F534D007F501B /* WeathrTests */,
 				0EC170D1180F534C007F501B /* Frameworks */,
 				0EC170D0180F534C007F501B /* Products */,
+				0E0EBC11181BCA29000FA42A /* Debug.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -251,6 +255,7 @@
 				0EAB68AE1815EC960042B7F6 /* Inspectable Subclasses */,
 				0EB3BDC01819030400E59009 /* Mocks */,
 				0EC17100180F534D007F501B /* ViewControllerTests.m */,
+				0E0EBC0F181BC86A000FA42A /* GcovTestObserver.m */,
 				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */,
 				0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */,
@@ -404,6 +409,7 @@
 				0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */,
 				0EC4E4771816A936002A446B /* WeatherDescriptionBuilderTests.m in Sources */,
 				0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */,
+				0E0EBC10181BC86A000FA42A /* GcovTestObserver.m in Sources */,
 				0ED9CC201813E9DA007F2ABD /* WeatherModelStubs.m in Sources */,
 				0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
@@ -461,6 +467,7 @@
 /* Begin XCBuildConfiguration section */
 		0EC17102180F534D007F501B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E0EBC11181BCA29000FA42A /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
