@@ -25,10 +25,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *weatherDescription;
 @property (nonatomic, weak) IBOutlet UILabel *lastUpdatedLabel;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIButton *refreshButton;
+
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, weak) IBOutlet UIButton *refreshButton;
 @property (nonatomic, strong) NSDate *appStartDate;
 @property (nonatomic, strong) Class alertViewClass;
 
@@ -65,14 +66,9 @@
     [self fetchLocation];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - UI Updates
-- (void)loadImageNamed: (NSString *)imageName
+- (void)updateWeatherIcon: (NSString *)imageName
 {
     [_weatherIcon.layer addAnimation:[self animationStyle] forKey:nil];
     _weatherIcon.image = [UIImage imageNamed:imageName];
@@ -99,6 +95,20 @@
     return transition;
 }
 
+- (void)reloadView
+{
+    if (_weatherModel)
+    {
+        [self updateWeatherIcon:_weatherModel.icon];
+        NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
+        [self updateWeatherDescription:description];
+        [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
+        [self changeBackgroundColourWithTemperature:[_weatherModel getTemperatureInCelsius]];
+    }
+    [self stopActivityIndicator];
+}
+
+#pragma mark - Activity indicator
 - (void)startActivityIndicator
 {
     [_activityIndicator startAnimating];
@@ -109,31 +119,23 @@
     [_activityIndicator stopAnimating];
 }
 
-- (void)reloadView
+#pragma mark - View background colour
+- (void)changeBackgroundColourWithTemperature: (NSNumber *)temp
 {
-    if (_weatherModel) {
-        [self loadImageNamed:_weatherModel.icon];
-        NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
-        [self updateWeatherDescription:description];
-        [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
-        [self pickAndUpdateViewBackgroundColorWithTemperature:[_weatherModel getTemperatureInCelsius]];
-    }
-    [self stopActivityIndicator];
+    UIColor *colour = [self colourForTemperature:temp];
+    
+    [self.view.layer addAnimation:[self animationStyle] forKey:nil];
+    self.view.backgroundColor = colour;
 }
 
-#pragma mark - Colour Methods
-- (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp
+- (UIColor *)colourForTemperature: (NSNumber *)temp
 {
-    UIColor *colour = [self pickColourUsingTemperature:temp];
-    [self updateViewBackgroundColour:colour];
-}
-
-- (UIColor *)pickColourUsingTemperature: (NSNumber *)temp
-{
-    if ([temp floatValue] >= COOL_THRESHOLD && [temp floatValue] < WARM_THRESHOLD)
+    if ([temp floatValue] >= COOL_THRESHOLD &&
+        [temp floatValue] < WARM_THRESHOLD)
         return COLOUR_COOL;
     
-    else if ([temp floatValue] >= WARM_THRESHOLD && [temp floatValue] < HOT_THRESHOLD)
+    else if ([temp floatValue] >= WARM_THRESHOLD &&
+             [temp floatValue] < HOT_THRESHOLD)
         return COLOUR_WARM;
     
     else if ([temp floatValue] >= HOT_THRESHOLD)
@@ -142,11 +144,6 @@
     return COLOUR_COLD;
 }
 
-- (void)updateViewBackgroundColour: (UIColor *)color
-{
-    [self.view.layer addAnimation:[self animationStyle] forKey:nil];
-    self.view.backgroundColor = color;
-}
 
 #pragma mark - Alerts
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
@@ -158,11 +155,13 @@
                           otherButtonTitles:nil] show];
 }
 
+
 #pragma mark - Weather model delegate
 - (void)weatherModelUpdated
 {
     [self reloadView];
 }
+
 
 #pragma mark - API manager delegate
 - (void)downloadWeatherDataWithLocation:(CLLocation *)newLocation
@@ -182,8 +181,15 @@
 
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response
 {
+    [self resetUIForFailure];
     [self downloadTaskFailed:response];
-    [self downloadFailedHandler];
+}
+
+- (void)resetUIForFailure
+{
+    _lastUpdatedLabel.text = @"Error fetching weather report";
+    _weatherDescription.attributedText = nil;
+    [self showRefreshButton];
 }
 
 - (void)downloadTaskFailed:(NSHTTPURLResponse *)response
@@ -194,24 +200,13 @@
 
 - (NSString *)failedDownloadMessage:(NSHTTPURLResponse *)response
 {
-    if (response) {
+    if (response)
         return @"The server returned an error, please try again later";
-    }
+    
     else
         return @"Please check your network connection, and ensure your device is not in airplane mode";
 }
 
-- (void)downloadFailedHandler
-{
-    [self resetUIForFailure];
-}
-
-- (void)resetUIForFailure
-{
-    _lastUpdatedLabel.text = @"Error fetching weather report";
-    _weatherDescription.attributedText = nil;
-    [self showRefreshButton];
-}
 
 #pragma mark - Core Location
 - (void)fetchLocation
@@ -242,7 +237,13 @@
     [self resetUIForFailure];
 }
 
-- (NSString *)humanLocationError:(NSError *)error
+- (void)locationUpdateFailed:(NSError *)error
+{
+    [self showAlertWithTitle:@"Error fetching location"
+                     message:[self locationErrorMessage:error]];
+}
+
+- (NSString *)locationErrorMessage:(NSError *)error
 {
     switch (error.code) {
         case kCLErrorNetwork:
@@ -257,12 +258,6 @@
     }
 }
 
-- (void)locationUpdateFailed:(NSError *)error
-{
-    [self showAlertWithTitle:@"Error fetching location"
-                     message:[self humanLocationError:error]];
-}
-
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location
 {
     return [_appStartDate compare:location.timestamp] == NSOrderedAscending;
@@ -271,11 +266,11 @@
 #pragma mark - Refresh button
 - (IBAction)refreshButtonTapped:(id)sender
 {
-    if (_weatherModel.location) {
+    if (_weatherModel.location)
         [self downloadWeatherDataWithLocation:_weatherModel.location];
-    } else {
+    else
         [self fetchLocation];
-    }
+    
     [self hideRefreshButton];
 }
 

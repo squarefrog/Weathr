@@ -19,19 +19,19 @@
 @property (nonatomic, weak) UILabel *weatherDescription;
 @property (nonatomic, weak) UILabel *lastUpdatedLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) UIButton *refreshButton;
+
 @property (nonatomic, strong) WeatherModel *weatherModel;
 @property (nonatomic, strong) OpenWeatherAPIManager *apiManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, weak) UIButton *refreshButton;
 @property (nonatomic, strong) NSDate *appStartDate;
 @property (nonatomic, strong) Class alertViewClass;
 
-- (void)loadImageNamed: (NSString *)imageName;
+- (void)updateWeatherIcon: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSAttributedString *)description;
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
-- (UIColor *)pickColourUsingTemperature: (NSNumber *)temp;
-- (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp;
-- (void)updateViewBackgroundColour: (UIColor *)color;
+- (UIColor *)colourForTemperature: (NSNumber *)temp;
+- (void)changeBackgroundColourWithTemperature: (NSNumber *)temp;
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
 - (void)reloadView;
@@ -41,7 +41,6 @@
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
 - (void)locationUpdateFailed:(NSError *)error;
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response;
-- (void)downloadFailedHandler;
 - (void)dataTaskSuccessWithData:(NSData *)data;
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error;
