@@ -244,7 +244,7 @@
     JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
     
     
-    [_sut downloadTaskFailed:nil];
+    [_sut dataTaskFailWithHTTPURLResponse:nil];
     
     XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
     XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
@@ -260,7 +260,7 @@
     JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
     NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:nil headerFields:nil];
     
-    [_sut downloadTaskFailed:response];
+    [_sut dataTaskFailWithHTTPURLResponse:response];
     
     XCTAssertEqual(alertVerifier.showCount, 1U, @"Download failed alert should be shown");
     XCTAssertEqualObjects(alertVerifier.title, @"Error downloading weather", @"Download failed alert title should be set");
@@ -283,6 +283,20 @@
     XCTAssertNil(alertVerifier.delegate, @"No delegate needed");
     XCTAssertTrue(alertVerifier.otherButtonTitles.count == 0U,  @"Download failed alert other titles should be nil");
     XCTAssertEqualObjects(alertVerifier.cancelButtonTitle, @"OK", @"Download failed alert cancel button should be nil");
+}
+
+- (void)testControllerResetsUIOnDataTaskFailure
+{
+    _sut.lastUpdatedLabel.text = @"Test string";
+    NSAttributedString *aString = [[NSAttributedString alloc] initWithString:@"Weather description"];
+    _sut.weatherDescription.attributedText = aString;
+    _sut.refreshButton.hidden = YES;
+    
+    [_sut dataTaskFailWithHTTPURLResponse:nil];
+    
+    XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, @"Error fetching weather report", @"Last updated label should be updated");
+    XCTAssertNil(_sut.weatherDescription.attributedText, @"Weather description label text should be cleared");
+    XCTAssertTrue(!_sut.refreshButton.hidden, @"Refresh button should be shown");
 }
 
 - (void)testControllerCallsModelUpdateWhenDataTaskReturnsData

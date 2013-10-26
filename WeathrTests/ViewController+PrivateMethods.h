@@ -40,6 +40,7 @@
 - (void)hideRefreshButton;
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
 - (void)locationUpdateFailed:(NSError *)error;
-- (void)downloadTaskFailed:(NSHTTPURLResponse *)response;
+- (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response;
+- (void)downloadFailedHandler;
 - (void)dataTaskSuccessWithData:(NSData *)data;
 @end
