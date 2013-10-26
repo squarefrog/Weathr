@@ -331,6 +331,21 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didFailWithError:)], @"Controller should implement locationManager:didFailWithError: delegate method");
 }
 
+- (void)testLocationErrorShowsAlertAndStopsLocationManager
+{
+    _sut.alertViewClass = [JMRMockAlertView class];
+    JMRMockAlertViewVerifier *alertVerifier = [[JMRMockAlertViewVerifier alloc] init];
+    
+    id locationManager = [OCMockObject mockForClass:[CLLocationManager class]];
+    _sut.locationManager = locationManager;
+    [[locationManager expect] stopUpdatingLocation];
+    
+    [_sut locationManager:nil didFailWithError:nil];
+    
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
+    [locationManager verify];
+}
+
 - (void)testControllerWillStopLocationManagerWithRecentResults
 {
     _sut.appStartDate = [NSDate distantPast];

@@ -43,4 +43,6 @@
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response;
 - (void)downloadFailedHandler;
 - (void)dataTaskSuccessWithData:(NSData *)data;
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error;
 @end
