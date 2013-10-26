@@ -435,4 +435,44 @@
     XCTAssertTrue(_sut.refreshButton.hidden, @"Refresh button should be hidden.");
 }
 
+#pragma mark - Refresh button actions
+
+- (void)testRefreshButtonFetchesLocationIfModelLocationEmpty
+{
+    id locationManager = [OCMockObject mockForClass:[CLLocationManager class]];
+    _sut.locationManager = locationManager;
+    _sut.weatherModel.location = nil;
+    [[locationManager expect] startMonitoringSignificantLocationChanges];
+    
+    [_sut refreshButtonTapped:nil];
+
+    [locationManager verify];
+}
+
+- (void)testRefreshButtonFetchesWeatherIfModelLocationExists
+{
+    id apiManager = [OCMockObject mockForClass:[OpenWeatherAPIManager class]];
+    _sut.apiManager = apiManager;
+    WeatherModel *model = [[WeatherModel alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    model.location = location;
+    _sut.weatherModel = model;
+    
+    [[apiManager expect] updateURLWithLocation:location];
+    [[apiManager expect] fetchWeatherData];
+    
+    [_sut refreshButtonTapped:nil];
+    
+    [apiManager verify];
+}
+
+- (void)testRefreshButtonTappedHidesRefreshButton
+{
+    _sut.refreshButton.hidden = NO;
+    
+    [_sut refreshButtonTapped:nil];
+    
+    XCTAssertTrue(_sut.refreshButton.hidden, @"Refresh button should be hidden after tapping");
+}
+
 @end
