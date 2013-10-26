@@ -30,6 +30,7 @@
 - (void)updateWeatherDescription: (NSAttributedString *)description;
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
 - (UIColor *)pickColourUsingTemperature: (NSNumber *)temp;
+- (void)pickAndUpdateViewBackgroundColorWithTemperature: (NSNumber *)temp;
 - (void)updateViewBackgroundColour: (UIColor *)color;
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;

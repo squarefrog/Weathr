@@ -123,11 +123,10 @@
     XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, expectedResult, @"Last updated label should be updated");
 }
 
-- (void)testViewBackgroundColourCanBeChanged
+- (void)testViewBackgroundColourCanBeChangedFromTemperature
 {
-    _sut.view.backgroundColor = COLOUR_COLD;
-    [_sut updateViewBackgroundColour: COLOUR_HOT];
-    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_HOT, @"Backgound colour not updated");
+    [_sut pickAndUpdateViewBackgroundColorWithTemperature:@5];
+    XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_COLD, @"Background colour should be updated");
 }
 
 #pragma mark - Colour choosing
