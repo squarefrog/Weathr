@@ -19,16 +19,14 @@
         [self updateWeatherModelFromDictionary:(NSDictionary *)json];
 }
 
-// This method is untested, but each call is tested individually
-// so we're covered.
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict
 {
     [self updateWeatherDescriptionFromDictionary:dict];
     [self updateTemperatureFromDictionary:dict];
     [self updateIconFromDictionary:dict];
     [self updateLocationNameFromDictionary:dict];
-    [self updateLastUpdatedDate:[NSDate date]];
     [self updateLocationFromDictionary:dict];
+    [self updateLastUpdatedDate];
     
     if ([self.delegate respondsToSelector:@selector(weatherModelUpdated)])
         [self.delegate weatherModelUpdated];
@@ -64,9 +62,9 @@
     self.locationName = [dict objectForKey:@"name"];
 }
 
-- (void)updateLastUpdatedDate:(NSDate *)date
+- (void)updateLastUpdatedDate
 {
-    self.lastUpdated = date;
+    self.lastUpdated = [NSDate date];
 }
 
 - (void)updateLocationFromDictionary:(NSDictionary *)dict

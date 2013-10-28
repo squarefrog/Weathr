@@ -12,11 +12,5 @@
 
 + (id)parseJSONData:(NSData *)data;
 - (void)updateWeatherModelFromDictionary:(NSDictionary *)dict;
-- (void)updateWeatherDescriptionFromDictionary:(NSDictionary *)dict;
-- (void)updateTemperatureFromDictionary:(NSDictionary *)dict;
-- (void)updateIconFromDictionary:(NSDictionary *)dict;
-- (void)updateLocationNameFromDictionary:(NSDictionary *)dict;
-- (void)updateLastUpdatedDate:(NSDate *)date;
-- (void)updateLocationFromDictionary:(NSDictionary *)dict;
 
 @end

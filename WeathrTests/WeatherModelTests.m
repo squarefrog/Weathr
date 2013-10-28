@@ -15,6 +15,7 @@
 @interface WeatherModelTests : XCTestCase <WeatherModelDelegate>
 {
     NSData *stubJSON;
+    NSDate *date;
     WeatherModel *model;
     NSDictionary *stubDictionary;
     BOOL callbackInvoked;
@@ -31,6 +32,7 @@
     model = [[WeatherModel alloc] init];
     stubJSON = [WeatherModelStubs stubJSON];
     stubDictionary = [WeatherModelStubs stubDict];
+    date = [NSDate date];
     
     model.weatherDescription = @"Cloudy";
     model.locationName = @"London";
@@ -89,35 +91,53 @@
 }
 
 #pragma mark - Update properties
+- (void)testWeatherDescriptionIsNotUpdatedWithMalformedData
+{
+    model.weatherDescription = nil;
+    model.locationName = nil;
+    model.temperature = nil;
+    
+    NSString *brokenJSONString = @"Not JSON";
+    NSData *brokenJSON = [brokenJSONString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [model updateWeatherModelFromNSData:brokenJSON];
+    
+    XCTAssertNil(model.weatherDescription, @"Model should not update description with broken data");
+    XCTAssertNil(model.temperature, @"Model should not update temperature with broken data");
+    XCTAssertNil(model.icon, @"Model should not update icon with broken data");
+    XCTAssertNil(model.locationName, @"Model should not update location name with broken data");
+    XCTAssertNil(model.lastUpdated, @"Model should not update last updated with broken data");
+    XCTAssertNil(model.location, @"Model should not update location with broken data");
+}
+
 - (void)testWeatherDescriptionCanBeUpdatedFromParsedData
 {
-    [model updateWeatherDescriptionFromDictionary:stubDictionary];
+    [model updateWeatherModelFromNSData:stubJSON];
     XCTAssertEqualObjects(model.weatherDescription, @"light rain", @"Weather description property should be set");
 }
 
 - (void)testTemperatureCanBeUpdatedFromParsedData
 {
-    [model updateTemperatureFromDictionary:stubDictionary];
+    [model updateWeatherModelFromNSData:stubJSON];
     XCTAssertEqualObjects(model.temperature, @285.82999999999998, @"Temperature property should be set");
 }
 
 - (void)testIconStringCanBeUpdatedFromParsedData
 {
-    [model updateIconFromDictionary:stubDictionary];
+    [model updateWeatherModelFromNSData:stubJSON];
     XCTAssertEqualObjects(model.icon, @"10n", @"Icon property should be set");
 }
 
 - (void)testLocationNameCanBeUpdatedFromParsedData
 {
-    [model updateLocationNameFromDictionary:stubDictionary];
+    [model updateWeatherModelFromNSData:stubJSON];
     XCTAssertEqualObjects(model.locationName, @"East Ham", @"Location name property should be set");
 }
 
-- (void)testLastUpdatedDateCanBeUpdatedFromGivenDate
+- (void)testLastUpdatedDateIsSet
 {
-    NSDate *date = [NSDate date];
-    [model updateLastUpdatedDate:date];
-    XCTAssertEqualObjects(model.lastUpdated, date, @"Last updated date property should be set");
+    [model updateWeatherModelFromNSData:stubJSON];
+    XCTAssertNotNil(model.lastUpdated, @"Last updated date property should be set");
 }
 
 - (void)testLocationCanBeUpdatedFromParsedData
@@ -127,7 +147,7 @@
     double lon = 0.13;
     CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(lat, lon);
     
-    [model updateLocationFromDictionary:stubDictionary];
+    [model updateWeatherModelFromDictionary:stubDictionary];
     XCTAssertEqual(model.location.coordinate, coords, @"Location property should be set");
 }
 
@@ -161,10 +181,10 @@
 
 
 #pragma mark - Delegate
-- (void)testDelegateCallback
+- (void)testDelegateCallbackWhenModelUpdateFinishes
 {
     model.delegate = self;
-    [model.delegate weatherModelUpdated];
+    [model updateWeatherModelFromDictionary:stubDictionary];
     XCTAssertTrue(callbackInvoked, @"Delegate callback should be called");
     model.delegate = nil;
 }
