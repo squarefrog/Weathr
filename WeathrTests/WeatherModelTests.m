@@ -151,6 +151,14 @@
     XCTAssertEqualObjects(testData, stubDictionary, @"JSON data should be parsed to NSDictionary");
 }
 
+- (void)testNilDataParsingReturnsNil
+{
+    NSString *testString = @"Not JSON";
+    NSData *testData = [testString dataUsingEncoding:NSUTF8StringEncoding];
+    id testCase = [WeatherModel parseJSONData:testData];
+    XCTAssertNil(testCase, @"Failed JSON parse should return nil");
+}
+
 
 #pragma mark - Delegate
 - (void)testDelegateCallback
