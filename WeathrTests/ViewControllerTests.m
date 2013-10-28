@@ -291,12 +291,14 @@
     NSAttributedString *aString = [[NSAttributedString alloc] initWithString:@"Weather description"];
     _sut.weatherDescription.attributedText = aString;
     _sut.refreshButton.hidden = YES;
+    [_sut.activityIndicator startAnimating];
     
     [_sut dataTaskFailWithHTTPURLResponse:nil];
     
     XCTAssertEqualObjects(_sut.lastUpdatedLabel.text, @"Error fetching weather report", @"Last updated label should be updated");
     XCTAssertNil(_sut.weatherDescription.attributedText, @"Weather description label text should be cleared");
     XCTAssertTrue(!_sut.refreshButton.hidden, @"Refresh button should be shown");
+    XCTAssertTrue(_sut.activityIndicator.hidden, @"Activity indicator should be hidden");
 }
 
 - (void)testControllerCallsModelUpdateWhenDataTaskReturnsData
@@ -340,10 +342,14 @@
     _sut.locationManager = locationManager;
     [[locationManager expect] stopUpdatingLocation];
     
+    [_sut.activityIndicator startAnimating];
+    
     [_sut locationManager:nil didFailWithError:nil];
     
-    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
     [locationManager verify];
+    XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
+    XCTAssertTrue(_sut.activityIndicator.hidden, @"Location failed should hide activity indicator");
+    
 }
 
 - (void)testControllerWillStopLocationManagerWithRecentResults

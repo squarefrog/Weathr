@@ -194,6 +194,7 @@
     _lastUpdatedLabel.text = @"Error fetching weather report";
     _weatherDescription.attributedText = nil;
     [self showRefreshButton];
+    [self stopActivityIndicator];
 }
 
 - (void)downloadTaskFailed:(NSHTTPURLResponse *)response
