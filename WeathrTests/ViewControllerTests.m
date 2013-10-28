@@ -328,6 +328,40 @@
     XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didUpdateToLocation:fromLocation:)], @"Controller should implement locationManager:didUpdateToLocation:fromLocation delegate method");
 }
 
+- (void)testLocationDidUpdateCallsAPIManager
+{
+    id manager = [OCMockObject mockForClass:[OpenWeatherAPIManager class]];
+    _sut.apiManager = manager;
+    [[manager expect] updateURLWithLocation:fakeLocation];
+    [[manager expect] fetchWeatherData];
+    
+    [_sut locationManager:nil
+      didUpdateToLocation:fakeLocation
+             fromLocation:nil];
+    
+    [manager verify];
+}
+
+- (void)testLocationDidUpdateDoesNotStopIfStale
+{
+    id manager = [OCMockObject mockForClass:[OpenWeatherAPIManager class]];
+    _sut.apiManager = manager;
+    [[manager reject] updateURLWithLocation:[OCMArg any]];
+    
+    id locationManager = [OCMockObject mockForClass:[CLLocationManager class]];
+    _sut.locationManager = locationManager;
+    [[locationManager reject] stopUpdatingLocation];
+    
+    _sut.appStartDate = [NSDate distantFuture];
+    
+    [_sut locationManager:nil
+      didUpdateToLocation:fakeLocation
+             fromLocation:nil];
+    
+    [manager verify];
+    [locationManager verify];
+}
+
 - (void)testControllerImplementsDidFailWithError
 {
     XCTAssertTrue([_sut respondsToSelector:@selector(locationManager:didFailWithError:)], @"Controller should implement locationManager:didFailWithError: delegate method");

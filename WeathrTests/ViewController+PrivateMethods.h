@@ -39,6 +39,9 @@
 - (void)showRefreshButton;
 - (void)hideRefreshButton;
 - (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation;
 - (void)locationUpdateFailed:(NSError *)error;
 - (void)dataTaskFailWithHTTPURLResponse:(NSHTTPURLResponse *)response;
 - (void)dataTaskSuccessWithData:(NSData *)data;

@@ -62,6 +62,8 @@
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    
+    _appStartDate = [NSDate date];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -229,9 +231,10 @@
            fromLocation:(CLLocation *)oldLocation
 {
     if ([self shouldStopUpdatingLocation:newLocation])
+    {
         [_locationManager stopUpdatingLocation];
-    
-    [self downloadWeatherDataWithLocation:newLocation];
+        [self downloadWeatherDataWithLocation:newLocation];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager
