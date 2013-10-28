@@ -151,36 +151,6 @@
     XCTAssertEqualObjects(testData, stubDictionary, @"JSON data should be parsed to NSDictionary");
 }
 
-#pragma mark - Temperature conversion
-- (void)testTemperatureConversionFromKelvin
-{
-    NSNumber *kelvin = [NSNumber numberWithFloat:284.94];
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
-    
-    XCTAssertEqualWithAccuracy([celsius floatValue], 11.79f, 0.00001, @"Temperature should be converted from kelvin to celsius");
-}
-
-- (void)testTemperatureConversionFromKelvinWithMinusResultExpected
-{
-    NSNumber *kelvin = [NSNumber numberWithFloat:268.15];
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius: kelvin];
-    
-    XCTAssertEqualWithAccuracy([celsius floatValue], -5.0f, 0.00001, @"Temperature should be converted from kelvin to -celsius");
-}
-
-- (void)testTemperatureConversionFromFahrenheit
-{
-    NSNumber *celsius = [NSNumber numberWithFloat:19.0];
-    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
-    XCTAssertEqual([fahrenheit floatValue], 66.2f, @"Temperature should be converted from celsius to fahrenheit");
-}
-
-- (void)testTemperatureConversionFromFahrenheitWithMinusResultExpected
-{
-    NSNumber *celsius = [NSNumber numberWithFloat:-40];
-    NSNumber *fahrenheit = [WeatherModel convertCelsiusToFahrenheit: celsius];
-    XCTAssertEqual([fahrenheit floatValue], -40.0f, @"Temperature should be converted from celsius to -fahrenheit");
-}
 
 #pragma mark - Delegate
 - (void)testDelegateCallback

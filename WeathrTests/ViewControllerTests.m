@@ -127,32 +127,32 @@
 
 - (void)testViewBackgroundColourCanBeChangedFromTemperature
 {
-    [_sut changeBackgroundColourWithTemperature:@5];
+    [_sut changeBackgroundColourWithTemperature:5.0f];
     XCTAssertEqualObjects(_sut.view.backgroundColor, COLOUR_COLD, @"Background colour should be updated");
 }
 
 #pragma mark - Colour choosing
 - (void)testControllerShouldChooseColdColourBasedOnTemperature
 {
-    UIColor *testCase = [_sut colourForTemperature: [NSNumber numberWithFloat:8.0]];
+    UIColor *testCase = [_sut colourForTemperature: 8.0f];
     XCTAssertEqualObjects(testCase, COLOUR_COLD, @"View background colour should be cold colour");
 }
 
 - (void)testControllerShouldChooseCoolColourBasedOnTemperature
 {
-    UIColor *testCase = [_sut colourForTemperature: [NSNumber numberWithFloat:10.0]];
+    UIColor *testCase = [_sut colourForTemperature: 10.0f];
     XCTAssertEqualObjects(testCase, COLOUR_COOL, @"View background colour should be cool colour");
 }
 
 - (void)testControllerShouldChooseWarmColourBasedOnTemperature
 {
-    UIColor *testCase = [_sut colourForTemperature: [NSNumber numberWithFloat:20.0]];
+    UIColor *testCase = [_sut colourForTemperature: 20.0f];
     XCTAssertEqualObjects(testCase, COLOUR_WARM, @"View background colour should be warm colour");
 }
 
 - (void)testControllerShouldChooseHotColourBasedOnTemperature
 {
-    UIColor *testCase = [_sut colourForTemperature: [NSNumber numberWithFloat:30.0]];
+    UIColor *testCase = [_sut colourForTemperature: 30.0f];
     XCTAssertEqualObjects(testCase, COLOUR_HOT, @"View background colour should be hot colour");
 }
 

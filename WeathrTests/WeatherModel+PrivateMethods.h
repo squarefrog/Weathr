@@ -19,6 +19,4 @@
 - (void)updateLastUpdatedDate:(NSDate *)date;
 - (void)updateLocationFromDictionary:(NSDictionary *)dict;
 
-- (NSNumber *)getTemperatureInFahrenheit;
-
 @end

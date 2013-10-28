@@ -11,6 +11,8 @@
 		0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */; };
 		0E18C14C181141FD00E0DC5E /* OpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */; };
 		0E456A6F181BF0FB009BA645 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E456A6E181BF0FB009BA645 /* libOCMock.a */; };
+		0E485D2A181E694A00AF6B2F /* PWTemperatureConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E485D29181E694A00AF6B2F /* PWTemperatureConversion.m */; };
+		0E485D2C181E6AE600AF6B2F /* PWTemperatureConversionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E485D2B181E6AE600AF6B2F /* PWTemperatureConversionTests.m */; };
 		0E7D77101812AF4C0081474A /* InspectableOpenWeatherAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */; };
 		0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDB9181902F400E59009 /* JMRMockAlertView.m */; };
 		0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3BDBB181902F400E59009 /* JMRMockAlertViewVerifier.m */; };
@@ -55,6 +57,9 @@
 		0E18C14A181141FD00E0DC5E /* OpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E18C14B181141FD00E0DC5E /* OpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0E456A6E181BF0FB009BA645 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		0E485D28181E694A00AF6B2F /* PWTemperatureConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWTemperatureConversion.h; sourceTree = "<group>"; };
+		0E485D29181E694A00AF6B2F /* PWTemperatureConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWTemperatureConversion.m; sourceTree = "<group>"; };
+		0E485D2B181E6AE600AF6B2F /* PWTemperatureConversionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWTemperatureConversionTests.m; sourceTree = "<group>"; };
 		0E7D770E1812AF4C0081474A /* InspectableOpenWeatherAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectableOpenWeatherAPIManager.h; sourceTree = "<group>"; };
 		0E7D770F1812AF4C0081474A /* InspectableOpenWeatherAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectableOpenWeatherAPIManager.m; sourceTree = "<group>"; };
 		0EAB68AB1815EC130042B7F6 /* OpenWeatherAPIManager+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OpenWeatherAPIManager+PrivateMethods.h"; sourceTree = "<group>"; };
@@ -164,10 +169,12 @@
 		0EB3BDC118194C6500E59009 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0EEBAA311810115F0034A739 /* WeatherModel.h */,
-				0EEBAA321810115F0034A739 /* WeatherModel.m */,
+				0E485D28181E694A00AF6B2F /* PWTemperatureConversion.h */,
+				0E485D29181E694A00AF6B2F /* PWTemperatureConversion.m */,
 				0EC4E47218169644002A446B /* WeatherDescriptionBuilder.h */,
 				0EC4E47318169644002A446B /* WeatherDescriptionBuilder.m */,
+				0EEBAA311810115F0034A739 /* WeatherModel.h */,
+				0EEBAA321810115F0034A739 /* WeatherModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -265,11 +272,12 @@
 				0EEBAA30181008270034A739 /* Categories */,
 				0EAB68AE1815EC960042B7F6 /* Inspectable Subclasses */,
 				0EB3BDC01819030400E59009 /* Mocks */,
-				0EC17100180F534D007F501B /* ViewControllerTests.m */,
 				0E0EBC0F181BC86A000FA42A /* GcovTestObserver.m */,
-				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0E18C1481811410A00E0DC5E /* OpenWeatherAPIManagerTests.m */,
+				0E485D2B181E6AE600AF6B2F /* PWTemperatureConversionTests.m */,
+				0EC17100180F534D007F501B /* ViewControllerTests.m */,
 				0EC4E4761816A936002A446B /* WeatherDescriptionBuilderTests.m */,
+				0EEBAA35181011750034A739 /* WeatherModelTests.m */,
 				0EC170FB180F534D007F501B /* Supporting Files */,
 			);
 			path = WeathrTests;
@@ -404,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EC170EC180F534D007F501B /* ViewController.m in Sources */,
+				0E485D2A181E694A00AF6B2F /* PWTemperatureConversion.m in Sources */,
 				0EC170E3180F534C007F501B /* AppDelegate.m in Sources */,
 				0EEBAA331810115F0034A739 /* WeatherModel.m in Sources */,
 				0EC4E47418169644002A446B /* WeatherDescriptionBuilder.m in Sources */,
@@ -421,6 +430,7 @@
 				0EB3BDBD181902F400E59009 /* JMRMockAlertView.m in Sources */,
 				0E0EBC10181BC86A000FA42A /* GcovTestObserver.m in Sources */,
 				0ED9CC201813E9DA007F2ABD /* WeatherModelStubs.m in Sources */,
+				0E485D2C181E6AE600AF6B2F /* PWTemperatureConversionTests.m in Sources */,
 				0E18C1491811410A00E0DC5E /* OpenWeatherAPIManagerTests.m in Sources */,
 				0EEBAA36181011750034A739 /* WeatherModelTests.m in Sources */,
 				0EB3BDBE181902F400E59009 /* JMRMockAlertViewVerifier.m in Sources */,

@@ -101,31 +101,4 @@
     return nil;
 }
 
-#pragma mark - Temperature conversion
-+ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin
-{
-    float k = [kelvin floatValue];
-    float c = k - 273.15;
-    return [NSNumber numberWithFloat:c];
-}
-
-+ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius
-{
-    float c = [celsius floatValue];
-    float f = c * 9 / 5 + 32;
-    return [NSNumber numberWithFloat:f];
-}
-
-#pragma mark - Getters
-- (NSNumber *)getTemperatureInCelsius
-{
-    return [WeatherModel convertKelvinToCelsius:self.temperature];
-}
-
-- (NSNumber *)getTemperatureInFahrenheit
-{
-    NSNumber *celsius = [WeatherModel convertKelvinToCelsius:self.temperature];
-    return [WeatherModel convertCelsiusToFahrenheit:celsius];
-}
-
 @end

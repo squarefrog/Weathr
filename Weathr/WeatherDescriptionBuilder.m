@@ -7,6 +7,8 @@
 //
 
 #import "WeatherDescriptionBuilder.h"
+
+#import "PWTemperatureConversion.h"
 #import "WeatherModel.h"
 
 @implementation WeatherDescriptionBuilder
@@ -46,7 +48,7 @@
 {
     if (model.temperature)
     {
-        float celsius = [[model getTemperatureInCelsius] floatValue];
+        float celsius = [PWTemperatureConversion kelvinToCelsius:[model.temperature floatValue]];
         
         NSString *temp = attributedString.length > 0 ? [NSString stringWithFormat:@" %.0fº", celsius] : [NSString stringWithFormat:@"%.0fº", celsius];
         

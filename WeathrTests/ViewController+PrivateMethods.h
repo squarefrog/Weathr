@@ -30,8 +30,8 @@
 - (void)updateWeatherIcon: (NSString *)imageName;
 - (void)updateWeatherDescription: (NSAttributedString *)description;
 - (void)updateLastUpdatedLabel: (NSString *)lastUpdated;
-- (UIColor *)colourForTemperature: (NSNumber *)temp;
-- (void)changeBackgroundColourWithTemperature: (NSNumber *)temp;
+- (UIColor *)colourForTemperature: (float)temp;
+- (void)changeBackgroundColourWithTemperature: (float)temp;
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
 - (void)reloadView;

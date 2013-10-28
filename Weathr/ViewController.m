@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "WeatherModel.h"
+
 #import "OpenWeatherAPIManager.h"
+#import "PWTemperatureConversion.h"
 #import "WeatherDescriptionBuilder.h"
+#import "WeatherModel.h"
+
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -103,7 +106,8 @@
         NSMutableAttributedString *description = [WeatherDescriptionBuilder detailedWeatherDescriptionFromModel:_weatherModel];
         [self updateWeatherDescription:description];
         [self updateLastUpdatedLabel:[WeatherModel parseDate:_weatherModel.lastUpdated]];
-        [self changeBackgroundColourWithTemperature:[_weatherModel getTemperatureInCelsius]];
+        float t = [PWTemperatureConversion kelvinToCelsius:[_weatherModel.temperature floatValue]];
+        [self changeBackgroundColourWithTemperature:t];
     }
     [self stopActivityIndicator];
 }
@@ -120,7 +124,7 @@
 }
 
 #pragma mark - View background colour
-- (void)changeBackgroundColourWithTemperature: (NSNumber *)temp
+- (void)changeBackgroundColourWithTemperature: (float)temp
 {
     UIColor *colour = [self colourForTemperature:temp];
     
@@ -128,17 +132,17 @@
     self.view.backgroundColor = colour;
 }
 
-- (UIColor *)colourForTemperature: (NSNumber *)temp
+- (UIColor *)colourForTemperature: (float)temp
 {
-    if ([temp floatValue] >= COOL_THRESHOLD &&
-        [temp floatValue] < WARM_THRESHOLD)
+    if (temp >= COOL_THRESHOLD &&
+        temp < WARM_THRESHOLD)
         return COLOUR_COOL;
     
-    else if ([temp floatValue] >= WARM_THRESHOLD &&
-             [temp floatValue] < HOT_THRESHOLD)
+    else if (temp >= WARM_THRESHOLD &&
+             temp < HOT_THRESHOLD)
         return COLOUR_WARM;
     
-    else if ([temp floatValue] >= HOT_THRESHOLD)
+    else if (temp >= HOT_THRESHOLD)
         return COLOUR_HOT;
     
     return COLOUR_COLD;

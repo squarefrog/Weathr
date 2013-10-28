@@ -23,11 +23,7 @@
 @property (nonatomic, strong)   NSDate   *lastUpdated;
 @property (nonatomic, strong)   CLLocation *location;
 
-+ (NSNumber *)convertKelvinToCelsius: (NSNumber *)kelvin;
-+ (NSNumber *)convertCelsiusToFahrenheit: (NSNumber *)celsius;
 + (NSString *)parseDate: (NSDate *)date;
-
 - (void)updateWeatherModelFromNSData:(NSData *)data;
-- (NSNumber *)getTemperatureInCelsius;
 
 @end
