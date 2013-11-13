@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSDate *appStartDate;
 @property (nonatomic, strong) Class alertViewClass;
 
+@property (nonatomic, strong) CLLocation *bestEffortLocation;
+
 @end
 
 @implementation ViewController
@@ -222,7 +224,8 @@
         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
     {
         [_activityIndicator startAnimating];
-        [_locationManager startMonitoringSignificantLocationChanges];
+        [_locationManager startUpdatingLocation];
+        [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Location fetch timed out" afterDelay:30.0f];
     }
 }
 
@@ -230,11 +233,27 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    if ([self shouldStopUpdatingLocation:newLocation])
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    if (locationAge > 5) return;
+    
+    if (_bestEffortLocation == nil ||
+        _bestEffortLocation.horizontalAccuracy > newLocation.horizontalAccuracy)
     {
-        [_locationManager stopUpdatingLocation];
-        [self downloadWeatherDataWithLocation:newLocation];
+        self.bestEffortLocation = newLocation;
+        
+        if (newLocation.horizontalAccuracy <= manager.desiredAccuracy)
+        {
+            [manager stopUpdatingLocation];
+            [NSObject cancelPreviousPerformRequestsWithTarget:self];
+            [self downloadWeatherDataWithLocation:newLocation];
+        }
     }
+}
+
+- (void)stopUpdatingLocation:(NSString *)message
+{
+    _activityIndicator.hidden = YES;
+    [self showAlertWithTitle:@"Error fetching location" message:message];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -264,11 +283,6 @@
             return @"Please try again later";
             break;
     }
-}
-
-- (BOOL)shouldStopUpdatingLocation:(CLLocation *)location
-{
-    return [_appStartDate compare:location.timestamp] == NSOrderedAscending;
 }
 
 #pragma mark - Refresh button

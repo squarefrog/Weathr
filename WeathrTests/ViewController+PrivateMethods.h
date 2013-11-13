@@ -38,7 +38,6 @@
 - (IBAction)refreshButtonTapped:(id)sender;
 - (void)showRefreshButton;
 - (void)hideRefreshButton;
-- (BOOL)shouldStopUpdatingLocation:(CLLocation *)location;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation;

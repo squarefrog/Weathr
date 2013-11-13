@@ -20,6 +20,7 @@
 
 @interface ViewControllerTests : XCTestCase {
     CLLocation *fakeLocation;
+    CLLocationCoordinate2D coords;
 }
 
 @property (nonatomic, weak) ViewController *sut;
@@ -40,9 +41,7 @@
     [_sut view];
     [_sut viewDidLoad];
     
-    CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(0.0f, 0.0f);
-    fakeLocation = [[CLLocation alloc] initWithCoordinate:coords altitude:0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:[NSDate date]];
-    
+    coords = CLLocationCoordinate2DMake(0.0f, 0.0f);
 }
 
 - (void)tearDown
@@ -352,12 +351,45 @@
     _sut.locationManager = locationManager;
     [[locationManager reject] stopUpdatingLocation];
     
-    _sut.appStartDate = [NSDate distantFuture];
+    fakeLocation = [[CLLocation alloc] initWithCoordinate:coords altitude:0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:[NSDate distantPast]];
     
     [_sut locationManager:nil
       didUpdateToLocation:fakeLocation
              fromLocation:nil];
     
+    [manager verify];
+    [locationManager verify];
+}
+
+- (void)testLocationDidUpdateStopsIfRecent
+{
+    // Setup the API manager
+    id manager = [OCMockObject mockForClass:[OpenWeatherAPIManager class]];
+    _sut.apiManager = manager;
+    
+    // Setup a mocked location manager
+    id locationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
+    
+    // Stub desiredAccuracy
+    CLLocationAccuracy accuracy = kCLLocationAccuracyNearestTenMeters;
+    [[[locationManager stub] andReturnValue:OCMOCK_VALUE(accuracy)] desiredAccuracy];
+    _sut.locationManager = locationManager;
+    
+    // Setup a fake location to use in the test
+    fakeLocation = [[CLLocation alloc] initWithCoordinate:coords altitude:0 horizontalAccuracy:9.0f verticalAccuracy:0 timestamp:[NSDate date]];
+    
+    
+    // Set expectations
+    [[manager expect] updateURLWithLocation:[OCMArg any]];
+    [[manager expect] fetchWeatherData];
+    [[locationManager expect] stopUpdatingLocation];
+    
+    // Call it
+    [_sut locationManager:locationManager
+      didUpdateToLocation:fakeLocation
+             fromLocation:nil];
+    
+    // Verify! *phew*
     [manager verify];
     [locationManager verify];
 }
@@ -384,20 +416,6 @@
     XCTAssertEqual(alertVerifier.showCount, 1U, @"Location failed alert should be shown");
     XCTAssertTrue(_sut.activityIndicator.hidden, @"Location failed should hide activity indicator");
     
-}
-
-- (void)testControllerWillStopLocationManagerWithRecentResults
-{
-    _sut.appStartDate = [NSDate distantPast];
-    
-    XCTAssertTrue([_sut shouldStopUpdatingLocation:fakeLocation], @"Controller should return yes to should stop updating location");
-}
-
-- (void)testControllerWillNotStopLocationWithStaleResults
-{
-    _sut.appStartDate = [NSDate distantFuture];
-    
-    XCTAssertTrue(![_sut shouldStopUpdatingLocation:fakeLocation], @"Controller should return no to should stop updating location");
 }
 
 - (void)testControllerShowsAlertOnFailedLocationLookupWithNetworkUnavailable
@@ -497,7 +515,7 @@
     id locationManager = [OCMockObject mockForClass:[CLLocationManager class]];
     _sut.locationManager = locationManager;
     _sut.weatherModel.location = nil;
-    [[locationManager expect] startMonitoringSignificantLocationChanges];
+    [[locationManager expect] startUpdatingLocation];
     
     [_sut refreshButtonTapped:nil];
 
